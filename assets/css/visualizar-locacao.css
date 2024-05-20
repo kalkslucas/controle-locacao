@@ -1,0 +1,37 @@
+body {
+  background: url("../img/background-2.jpg");
+  background-size: 100% 100%;
+  background-repeat: repeat-y;
+  height: 100vh;
+}
+
+.navbar-brand img {
+  width: 40px;
+}
+
+.card {
+  margin-top: 10px;
+  width: 254px;
+}
+
+.card-img-top {
+  height: 200px;
+}
+
+.card-body {
+  max-height: 190px;
+}
+
+.dropdown-menu::after {
+  transition: 2s;
+}
+
+.btn.btn-laranja {
+  width: 100%;
+  background-color: #e28800;
+  color: white;
+  &:hover {
+    background-color: #c57600;
+    color: white;
+  }
+}

@@ -1,0 +1,57 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: url("../img/background-2.jpg");
+  background-size: 100% 100%;
+  background-repeat: repeat-y;
+  height: 100vh;
+}
+
+.navbar-brand img {
+  width: 40px;
+}
+
+.linha {
+  display: flex;
+  justify-content: space-between;
+}
+
+label#ftc{
+  width: 20%;
+}
+
+label#gestor{
+  width: 55%;
+}
+
+label#status{
+  width: 20%;
+}
+
+label#endereco{
+  width: 82%;
+}
+
+label#numero{
+  width: 16%;
+}
+
+label#complemento{
+  width: 100%;
+}
+
+label#bairro{
+  width: 45%;
+}
+
+label#cidade{
+  width: 45%;
+}
+
+label#estado{
+  width: 7%;
+}
