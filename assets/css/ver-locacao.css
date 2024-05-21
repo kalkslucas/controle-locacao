@@ -4,54 +4,58 @@
   box-sizing: border-box;
 }
 
-body {
-  background: url("../img/background-2.jpg");
-  background-size: 100% 100%;
-  background-repeat: repeat-y;
-  height: 100vh;
+.page {
+  background-color: rgb(189, 189, 189);
 }
 
 .navbar-brand img {
   width: 40px;
 }
 
-.linha {
+@media (max-width: 576px) {
+  .card {
+    flex-direction: row;
+  }
+}
+
+.img-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  padding: 10px;
 }
 
-label#ftc{
-  width: 20%;
+.btn-modal {
+  margin-top: 10px;
 }
 
-label#gestor{
-  width: 55%;
-}
-
-label#status{
-  width: 20%;
-}
-
-label#endereco{
-  width: 82%;
-}
-
-label#numero{
-  width: 16%;
-}
-
-label#complemento{
+.btn.btn-laranja {
   width: 100%;
+  background-color: #e28800;
+  color: white;
+  &:hover {
+    background-color: #c57600;
+    color: white;
+  }
 }
 
-label#bairro{
-  width: 45%;
-}
 
-label#cidade{
-  width: 45%;
-}
+label#ftc{width: 22%;}
+label#gestor{width: 54.5%;}
+label#status{width: 22%;}
+label#endereco{width: 84%;}
+label#numero{width: 15%;}
+label#complemento{width: 99.5%;}
+label#bairro{width: 46%;}
+label#cidade{width: 46%;}
+label#estado{width: 6.5%;}
+label#inicioLocacao{width: 33%;}
+label#fimLocacao{width: 33%;}
+label#valorAluguel{width: 32.5%;}
 
-label#estado{
-  width: 7%;
+@media (max-width: 576px) {
+  label#ftc, label#gestor, label#status, label#endereco, label#numero, label#complemento, label#bairro, label#cidade, label#estado, label#inicioLocacao, label#fimLocacao, label#valorAluguel{
+    width: 100%;
+  }
+
+
 }
