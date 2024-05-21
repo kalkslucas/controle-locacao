@@ -1,20 +1,14 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* {margin: 0;padding: 0;box-sizing: border-box;}
 
 .page {
   background-color: rgb(189, 189, 189);
 }
 
-.navbar-brand img {
-  width: 40px;
-}
+.navbar-brand img {width: 40px;}
 
 .card {
   margin-top: 10px;
-  width: 254px;
+  width: 300px;
 }
 
 .card-img-top {
@@ -22,11 +16,9 @@
 }
 
 .card-body {
-  max-height: 190px;
-}
-
-.dropdown-menu::after {
-  transition: 2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .btn.btn-laranja {
