@@ -47,10 +47,11 @@ label#tipoEmail{width: 16%;}
 label#telefone1, label#telefone2,
 label#cargo, label#setor{width: 33%;}
 label#telefone3, label#unidade{width: 33%;}
+label#bancoLocador, label#agenciaLocador, label#contaLocador, label#pixLocador {width: 24.6%;}
 label#enviarLocacao{width: 100%;}
 
 @media (max-width: 576px) {
-  label#tipoPessoa, label#nomePessoa, label#cpfCnpj, label#email, label#tipoEmail, label#telefone1, label#telefone2, label#telefone3, label#cargo, label#setor, label#unidade, label#enviarLocacao{
+  label#tipoPessoa, label#nomePessoa, label#cpfCnpj, label#email, label#tipoEmail, label#telefone1, label#telefone2, label#telefone3, label#cargo, label#setor, label#unidade, label#bancoLocador, label#agenciaLocador, label#contaLocador, label#pixLocador, label#enviarLocacao{
     width: 100%;
   }
 }
