@@ -5,7 +5,17 @@
 }
 
 .page {
-  background-color: rgb(189, 189, 189);
+  background: url(/assets/img/background-2.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-clip: border-box;
+}
+
+@media (max-width: 576px) {
+  .page{
+    background: url(/assets/img/background-mobile.svg);
+    background-size: 100%;
+  }
 }
 
 .navbar-brand img {

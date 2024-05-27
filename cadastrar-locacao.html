@@ -25,7 +25,8 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="./controle-locacao.html">Início</a></li>
               <li><a class="dropdown-item" href="./visualizar-locacoes.html">Visualizar Locações</a></li>
-              <li><a class="dropdown-item" href="./cadastrar-locacao.html">Cadastrar Locação</a></li>
+              <li><a class="dropdown-item" href="./cadastrar-locacao.html">Cadastro de Locações</a></li>
+              <li><a class="dropdown-item" href="./cadastrar-pessoa.html">Cadastro de Pessoas</a></li>
             </ul>
           </li>
           <li class="nav-item">
@@ -69,64 +70,12 @@
                     
                   </label>
                   
-                  <label id="endereco" for="endereco">
-                    Endereço
-                    <input id="endereco" class="form-control" type="text" placeholder="Nome da Rua, Avenida, Travessa...">
-                  </label>
-
-                  <label id="numero" for="numero">
-                    Numero
-                    <input id="numero" class="form-control" type="text" placeholder="Ex: 00 ou S/N">
-                  </label>
-
-                  <label id="complemento" for="complemento">
-                    Complemento
-                    <input id="complemento" class="form-control" type="text" placeholder="Casa, Bloco, Apto, Quadra, Lote...">
-                  </label>
-
-                  <label id="bairro" for="bairro">
-                    Bairro
-                    <input id="bairro" class="form-control" type="text">
-                  </label>
-
-                  <label id="cidade" for="cidade">
-                    Cidade
-                    <input id="cidade" class="form-control" type="text">
-                  </label>
-
-                  <label id="estado" for="estado">
-                    Estado
-                    <select class="form-control" id="UF" name="UF">
-                      <option value="">--</option>
-                      <option value="AC">AC</option>
-                      <option value="AL">AL</option>
-                      <option value="AP">AP</option>
-                      <option value="AP">AM</option>
-                      <option value="AP">BA</option>
-                      <option value="AP">CE</option>
-                      <option value="AP">DF</option>
-                      <option value="AP">ES</option>
-                      <option value="AP">GO</option>
-                      <option value="AP">MA</option>
-                      <option value="AP">MG</option>
-                      <option value="AP">MS</option>
-                      <option value="AP">MT</option>
-                      <option value="AP">PA</option>
-                      <option value="AP">PB</option>
-                      <option value="AP">PE</option>
-                      <option value="AP">PI</option>
-                      <option value="AP">PR</option>
-                      <option value="AP">RJ</option>
-                      <option value="AP">RN</option>
-                      <option value="AP">RO</option>
-                      <option value="AP">RR</option>
-                      <option value="AP">RS</option>
-                      <option value="AP">SC</option>                      
-                      <option value="SP">SP</option>
-                      <option value="SE">SE</option>
-                      <option value="TO">TO</option>
-                  </select>
-                  
+                  <label id="selecionarEndereco" for="selecionarEndereco">
+                    Endereço da Locação
+                    <select class="form-select" name="selecionarEndereco" id="selecionarEndereco">
+                      <option value="">Selecione o Endereço</option>
+                      <option value="1">Avenida Barão Homem de Melo, 3647, 4° andar, Estoril, Belo Horizonte - MG</option>
+                    </select>
                   </label>
 
                   <label id="inicioLocacao" for="inicioLocacao">
@@ -170,8 +119,8 @@
     </div>
 
     <div class="row justify-content-end">
-      <div class="col-md-1 col-sm-12 mb-4">
-        <a href="./visualizar-locacoes.html" class="btn btn-danger btn-modal w-100">Voltar</a>
+      <div class="col-lg-1 col-md-2 col-sm-12 mb-4">
+        <a href="./visualizar-locacoes.html" class="text-center btn btn-danger btn-modal w-100">Voltar</a>
       </div>
     </div>
     

@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.page {
+  background-color: rgb(189, 189, 189);
+}
+
+.navbar-brand img {
+  width: 40px;
+}
+
+@media (max-width: 576px) {
+  .card {
+    flex-direction: row;
+  }
+}
+
+.img-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.btn-modal {
+  margin-top: 10px;
+}
+
+.btn.btn-laranja {
+  width: 100%;
+  background-color: #e28800;
+  color: white;
+  &:hover {
+    background-color: #c57600;
+    color: white;
+  }
+}
+
+
+label#tipoPessoa{width: 22%;}
+label#nomePessoa{width: 54.5%;}
+label#cpfCnpj{width: 22%;}
+label#email{width: 83%;}
+label#tipoEmail{width: 16%;}
+label#telefone1, label#telefone2,
+label#cargo, label#setor{width: 33%;}
+label#telefone3, label#unidade{width: 33%;}
+label#enviarLocacao{width: 100%;}
+
+@media (max-width: 576px) {
+  label#tipoPessoa, label#nomePessoa, label#cpfCnpj, label#email, label#tipoEmail, label#telefone1, label#telefone2, label#telefone3, label#cargo, label#setor, label#unidade, label#enviarLocacao{
+    width: 100%;
+  }
+}

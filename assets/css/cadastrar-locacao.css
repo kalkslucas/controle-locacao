@@ -38,11 +38,10 @@
   }
 }
 
-
 label#ftc{width: 22%;}
 label#gestor{width: 54.5%;}
 label#status{width: 22%;}
-label#endereco{width: 84%;}
+label#selecionarEndereco{width: 99.5%;}
 label#numero{width: 15%;}
 label#complemento{width: 99.5%;}
 label#bairro{width: 46%;}
