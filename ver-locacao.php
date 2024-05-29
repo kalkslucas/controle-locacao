@@ -9,6 +9,24 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 </head>
+<?php
+  include_once "conexao.php";
+  $idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
+  $sql = "SELECT ftc, status, inicio_locacao, termino_locacao, rua, numero, complemento, bairro, cidade, estado, cep, nome, tipo_conta_fixa, valor_mes
+  from locacao l
+  inner join endereco e
+  on l.id_endereco = e.idendereco
+  inner join conta_fixa cf
+  on cf.id_locacao = l.idlocacao
+  inner join gestor g 
+  on l.id_gestor = g.idgestor 
+  inner join cadastro c 
+  on g.id_cadastro = c.idcadastro
+  where idlocacao = '$idLocacao' and tipo_conta_fixa = 'ALUGUEL'";
+  $consulta = $conectar->query($sql);
+  $linha = $consulta->fetch(PDO::FETCH_ASSOC);
+?>
+
 <body class="page">
   <nav class="navbar navbar-expand-md bg-body-tertiary sticky-top">
     <div class="container-fluid">
@@ -74,72 +92,72 @@
             <div class="col-md-8">
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
-                <form action="get">
+                <form method="get">
                   <label id="ftc" for="ftc">
                     FTC
-                    <input id="ftc" class="form-control" type="text" value="85-22" aria-label="85-22" disabled readonly>
+                    <input id="ftc" class="form-control" type="text" value="<?= $linha['ftc'] ?>" aria-label="<?= $linha['ftc'] ?>" disabled readonly>
                   </label>
 
                   <label id="gestor" for="gestor">
                     Gestor
-                    <input id="gestor" class="form-control" type="text" value="Adélia Fernanda Joseph Victorio" aria-label="Adélia Fernanda Joseph Victorio" disabled readonly>
+                    <input id="gestor" class="form-control" type="text" value="<?= $linha['nome'] ?>" aria-label="<?= $linha['nome'] ?>" disabled readonly>
                   </label>
 
                   <label id="status" for="status">
                     Status
-                    <input id="status" class="form-control" type="text" value="Ativo" aria-label="Ativo" disabled readonly>
+                    <input id="status" class="form-control" type="text" value="<?= $linha['status'] ?>" aria-label="<?= $linha['status'] ?>" disabled readonly>
                   </label>
                   
                   <label id="endereco" for="endereco">
                     Endereço
-                    <input id="endereco" class="form-control" type="text" value="RUA PINTOR VICENTE DE ABREU" aria-label="RUA PINTOR VICENTE DE ABREU" disabled readonly>
+                    <input id="endereco" class="form-control" type="text" value="<?= $linha['rua'] ?>" aria-label="<?= $linha['rua'] ?>" disabled readonly>
                   </label>
 
                   <label id="numero" for="numero">
                     Numero
-                    <input id="numero" class="form-control" type="text" value="360" aria-label="360" disabled readonly>
+                    <input id="numero" class="form-control" type="text" value="<?= $linha['numero'] ?>" aria-label="<?= $linha['numero'] ?>" disabled readonly>
                   </label>
 
                   <label id="complemento" for="complemento">
                     Complemento
-                    <input id="complemento" class="form-control" type="text" value="Apartamento 202" aria-label="Apartamento 202" disabled readonly>
+                    <input id="complemento" class="form-control" type="text" value="<?= $linha['complemento'] ?>" aria-label="<?= $linha['complemento'] ?>" disabled readonly>
                   </label>
 
                   <label id="cep" for="cep">
                     CEP
-                    <input id="cep" class="form-control" type="text" value="30494-250" aria-label="30494-250" disabled readonly>
+                    <input id="cep" class="form-control" type="text" value="<?= $linha['cep'] ?>" aria-label="<?= $linha['cep'] ?>" disabled readonly>
                   </label>
 
                   <label id="bairro" for="bairro">
                     Bairro
-                    <input id="bairro" class="form-control" type="text" value="ESTORIL" aria-label="ESTORIL" disabled readonly>
+                    <input id="bairro" class="form-control" type="text" value="<?= $linha['bairro'] ?>" aria-label="<?= $linha['bairro'] ?>" disabled readonly>
                   </label>
 
                   <label id="cidade" for="cidade">
                     Cidade
-                    <input id="cidade" class="form-control" type="text" value="BELO HORIZONTE" aria-label="BELO HORIZONTE" disabled readonly>
+                    <input id="cidade" class="form-control" type="text" value="<?= $linha['cidade'] ?>" aria-label="<?= $linha['cidade'] ?>" disabled readonly>
                   </label>
 
                   <label id="estado" for="estado">
                     Estado
-                    <input id="estado" class="form-control" type="text" value="MG" aria-label="MG" disabled readonly>
+                    <input id="estado" class="form-control" type="text" value="<?= $linha['estado'] ?>" aria-label="<?= $linha['estado'] ?>" disabled readonly>
                   </label>
 
                   <label id="inicioLocacao" for="inicioLocacao">
                     Início da Locação
-                    <input id="inicioLocacao" class="form-control" type="text" value="08/08/2022" aria-label="08/08/2022" disabled readonly>
+                    <input id="inicioLocacao" class="form-control" type="text" value="<?= $linha['inicio_locacao'] ?>" aria-label="<?= $linha['inicio_locacao'] ?>" disabled readonly>
                   </label>
 
                   <label id="fimLocacao" for="fimLocacao">
                     Término da Locação
-                    <input id="fimLocacao" class="form-control" type="text" value="07/08/2025" aria-label="07/08/2025" disabled readonly>
+                    <input id="fimLocacao" class="form-control" type="text" value="<?= $linha['termino_locacao'] ?>" aria-label="<?= $linha['termino_locacao'] ?>" disabled readonly>
                   </label>
 
                   <label id="valorAluguel" for="valorAluguel">
                     Valor do Aluguel
                     <div class="input-group">
                       <span class="input-group-text">R$</span>
-                      <input id="valorAluguel" class="form-control" type="text" value="R$1.865,00" aria-label="R$1.865,00" disabled readonly>
+                      <input id="valorAluguel" class="form-control" type="text" value="<?= $linha['valor_mes'] ?>" aria-label="<?= $linha['valor_mes'] ?>" disabled readonly>
                     </div>
                   </label>
                 </form>
