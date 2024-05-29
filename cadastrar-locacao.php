@@ -137,6 +137,32 @@
                         <option value="TO">TO</option>
                       </select>
                     </label>
+
+                    <label id="bancoLocador" for="bancoLocador">
+                      Banco
+                      <input id="bancoLocador" name="bancoLocador" class="form-control" type="text">
+                    </label>
+                    <label id="numAgenciaLocador" for="numAgenciaLocador">
+                      Agência
+                      <input id="numAgenciaLocador" name="numAgenciaLocador" class="form-control" type="text">
+                    </label>
+                    <label id="numContaBancoLocador" for="numContaBancoLocador">
+                      Conta
+                      <input id="numContaBancoLocador" name="numContaBancoLocador" class="form-control" type="text">
+                    </label>
+                    <label id="tipoContaBancoLocador" for="tipoContaBancoLocador">
+                      Tipo da Conta
+                      <select class="form-select" name="tipoContaBancoLocador" id="tipoContaBancoLocador">
+                        <option value="">--</option>
+                        <option value="ATIVO">Conta Corrente</option>
+                        <option value="ATIVO">Conta Poupança</option>
+                        <option value="ATIVO">Conta de Pagamento</option>
+                      </select>  
+                    </label>
+                    <label id="pixContaBancoLocador" for="pixContaBancoLocador">
+                      PIX
+                      <input id="pixContaBancoLocador" name="pixContaBancoLocador" class="form-control" type="text">
+                    </label>
                   </div>
 
                   <h2 class="my-3">Dados do Imóvel</h2>
@@ -153,7 +179,8 @@
   
                     <label id="status" for="status">
                       Status
-                      <select class="form-control" name="status" id="status">
+                      <select class="form-select" name="status" id="status">
+                        <option value="">--</option>
                         <option value="ATIVO">Ativo</option>
                         <option value="ATIVO">Aditivo</option>
                         <option value="ATIVO">Pendente</option>
@@ -259,6 +286,27 @@
                     <input class="btn btn-laranja" type="submit" value="Cadastrar Locação">
                   </label>
                 </form>
+
+                <?php
+                  include_once "conexao.php";
+                  try {
+                    $nome = filter_var($_POST['nome']);
+                    $conta = filter_var($_POST['conta']);
+                    $insert = $conectar->prepare("INSERT INTO login (nome, conta) VALUES(:nome, :conta)");
+                    $insert->bindParam(':nome', $nome);
+                    $insert->bindParam(':conta', $conta);
+                    $insert->execute();
+                    
+                  } catch(PDOException $e){
+                    echo 'Erro :' .$e->getMessage();
+                  } finally {
+                    echo '
+                      <script language="javascript">
+                        alert("Cadastro realizado")
+                      </script>
+                    ';
+                  }
+                ?>
 
               </div>
             </div>
