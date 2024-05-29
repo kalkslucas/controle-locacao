@@ -38,21 +38,32 @@
   }
 }
 
+label#nomeLocador {width: 40%;}
+label#cpfCnpj {width: 21%;}
+label#emailLocador {width: 38%;}
+label#telefone1 {width: 30%; margin-left: 12%; margin-right: 12%;}
+label#telefone2 {width: 30%;}
+label#cepLocador, label#cepLocacao{width: 20%;}
+label#enderecoLocador, label#enderecoLocacao{width: 64%;}
+label#numEndLocador, label#numEndLocacao{width: 15%;}
+label#compEndLocador, label#compEndLocacao{width: 20%;}
+label#bairroLocador, label#bairroLocacao{width: 35%;}
+label#cidadeLocador, label#cidadeLocacao{width: 35%;}
+label#estadoLocador, label#estadoLocacao{width: 8.7%;}
+
+
+
+
+
 label#ftc{width: 22%;}
-label#gestor{width: 54.5%;}
+label#gestor{width: 55%;}
 label#status{width: 22%;}
-label#selecionarEndereco{width: 99.5%;}
-label#numero{width: 15%;}
-label#complemento{width: 99.5%;}
-label#bairro{width: 46%;}
-label#cidade{width: 46%;}
-label#estado{width: 6.5%;}
 label#inicioLocacao{width: 33%;}
 label#fimLocacao{width: 33%;}
-label#valorAluguel{width: 32.5%;}
+label#valorAluguel{width: 33%;}
 label#imagensLocacao{width: 49.5%;}
-label#contratosLocacao{width: 49.5%;}
-label#enviarLocacao{width: 99.5%;}
+label#contratosLocacao{width: 50%;}
+label#enviarLocacao{width: 100%;}
 
 @media (max-width: 576px) {
   label#ftc, label#gestor, label#status, label#endereco, label#numero, label#complemento, label#bairro, label#cidade, label#estado, label#inicioLocacao, label#fimLocacao, label#valorAluguel, label#imagensLocacao, label#contratosLocacao, label#enviarLocacao{

@@ -45,67 +45,215 @@
           <div class="row">
             <div class="col-md-12">
               <div class="card-body">
-                <h3 class="card-title text-center">Cadastro de Locação</h3>
+                <h3 class="card-title text-center display-4">Cadastro de Locação</h3>
                 <form action="">
-                  <label id="ftc" for="ftc">
-                    FTC
-                    <input id="ftc" class="form-control" type="text" placeholder="Ex: 00-00">
-                  </label>
-
-                  <label id="gestor" for="gestor">
-                    Gestor
-                    <input id="gestor" class="form-control" type="text" placeholder="Digite o nome completo">
-                  </label>
-
-                  <label id="status" for="status">
-                    Status
-                    <select class="form-control" name="status" id="status">
-                      <option value="ATIVO">Ativo</option>
-                      <option value="ATIVO">Aditivo</option>
-                      <option value="ATIVO">Pendente</option>
-                      <option value="ATIVO">Em tramitação</option>
-                    </select>
-                    <!-- 
-                      <input id="status" class="form-control" type="text" value="Ativo" aria-label="Ativo" disabled readonly>
-                    -->
+                  <h2 class="mb-3">Dados do Locador</h2>
+                  <div class="border-bottom pb-1">
+                    <label id="nomeLocador" for="nomeLocador">
+                      Nome do Locador
+                      <input id="nomeLocador" class="form-control" type="text" placeholder="Digite o nome completo">
+                    </label>
+  
+                    <label id="cpfCnpj" for="cpfCnpj">
+                      CPF/CNPJ
+                      <input id="cpfCnpj" class="form-control" type="text" placeholder="Digite somente os números">
+                    </label>
                     
-                  </label>
+                    <label id="emailLocador" for="emailLocador">
+                      E-mail
+                      <input id="emailLocador" class="form-control" type="email" placeholder="Ex: abc@ultra.eng.br OU abc@gmail.com">
+                    </label>
+
+                    <label id="telefone1" for="telefone1">
+                      Telefone Fixo
+                      <input id="telefone1" class="form-control" type="text" placeholder="Ex: 3198765432">
+                    </label>
+  
+                    <label id="telefone2" for="telefone2">
+                      Telefone Celular
+                      <input id="telefone2" class="form-control" type="text" placeholder="Ex: 31987654321">
+                    </label>
+
+                    <label id="cepLocador" for="cepLocador">
+                      CEP
+                      <input id="cepLocador" name="cepLocador" class="form-control" type="text" placeholder="Digite o CEP do Endereço">
+                    </label>
+                    
+                    <label id="enderecoLocador" for="enderecoLocador">
+                      Endereço
+                      <input id="enderecoLocador" name="enderecoLocador" class="form-control" type="text" placeholder="Nome da Rua, Avenida, Travessa...">
+                    </label>
+  
+                    <label id="numEndLocador" for="numEndLocador">
+                      Numero
+                      <input id="numEndLocador" name="numEndLocador" class="form-control" type="text" placeholder="Ex: 00 ou S/N">
+                    </label>
+  
+                    <label id="compEndLocador" for="compEndLocador">
+                      Complemento
+                      <input id="compEndLocador" name="compEndLocador" class="form-control" type="text" placeholder="Casa, Bloco, Apto, Quadra, Lote...">
+                    </label>
+  
+                    <label id="bairroLocador" for="bairroLocador">
+                      Bairro
+                      <input id="bairroLocador" name="bairro" class="form-control" type="text">
+                    </label>
+  
+                    <label id="cidadeLocador" for="cidadeLocador">
+                      Cidade
+                      <input id="cidadeLocador" name="cidadeLocador"  class="form-control" type="text">
+                    </label>
+  
+                    <label id="estadoLocador" for="estadoLocador">
+                      Estado
+                      <select class="form-select" id="UF" name="UF">
+                        <option value="">--</option>
+                        <option value="AC">AC</option>
+                        <option value="AL">AL</option>
+                        <option value="AP">AP</option>
+                        <option value="AM">AM</option>
+                        <option value="BA">BA</option>
+                        <option value="CE">CE</option>
+                        <option value="DF">DF</option>
+                        <option value="ES">ES</option>
+                        <option value="GO">GO</option>
+                        <option value="MA">MA</option>
+                        <option value="MG">MG</option>
+                        <option value="MS">MS</option>
+                        <option value="MT">MT</option>
+                        <option value="PA">PA</option>
+                        <option value="PB">PB</option>
+                        <option value="PE">PE</option>
+                        <option value="PI">PI</option>
+                        <option value="PR">PR</option>
+                        <option value="RJ">RJ</option>
+                        <option value="RN">RN</option>
+                        <option value="RO">RO</option>
+                        <option value="RR">RR</option>
+                        <option value="RS">RS</option>
+                        <option value="SC">SC</option>                      
+                        <option value="SP">SP</option>
+                        <option value="SE">SE</option>
+                        <option value="TO">TO</option>
+                      </select>
+                    </label>
+                  </div>
+
+                  <h2 class="my-3">Dados do Imóvel</h2>
+                  <div class="mt-1">
+                    <label id="ftc" for="ftc">
+                      FTC
+                      <input id="ftc" class="form-control" type="text" placeholder="Ex: 00-00">
+                    </label>
+  
+                    <label id="gestor" for="gestor">
+                      Gestor
+                      <input id="gestor" class="form-control" type="text" placeholder="Digite o nome completo">
+                    </label>
+  
+                    <label id="status" for="status">
+                      Status
+                      <select class="form-control" name="status" id="status">
+                        <option value="ATIVO">Ativo</option>
+                        <option value="ATIVO">Aditivo</option>
+                        <option value="ATIVO">Pendente</option>
+                        <option value="ATIVO">Em tramitação</option>
+                      </select>                    
+                    </label>
+                    
+                    <label id="cepLocacao" for="cepLocacao">
+                      CEP
+                      <input id="cepLocacao" name="cepLocacao" class="form-control" type="text" placeholder="Digite o CEP do Endereço">
+                    </label>
+                    
+                    <label id="enderecoLocacao" for="enderecoLocacao">
+                      Endereço
+                      <input id="enderecoLocacao" name="enderecoLocacao" class="form-control" type="text" placeholder="Nome da Rua, Avenida, Travessa...">
+                    </label>
+
+                    <label id="numEndLocacao" for="numEndLocacao">
+                      Numero
+                      <input id="numEndLocacao" name="numEndLocacao" class="form-control" type="text" placeholder="Ex: 00 ou S/N">
+                    </label>
+
+                    <label id="compEndLocacao" for="compEndLocacao">
+                      Complemento
+                      <input id="compEndLocacao" name="compEndLocacao" class="form-control" type="text" placeholder="Casa, Bloco, Apto, Quadra, Lote...">
+                    </label>
+
+                    <label id="bairroLocacao" for="bairroLocacao">
+                      Bairro
+                      <input id="bairroLocacao" name="bairroLocacao" class="form-control" type="text">
+                    </label>
+
+                    <label id="cidadeLocacao" for="cidadeLocacao">
+                      Cidade
+                      <input id="cidadeLocacao" name="cidadeLocacao" class="form-control" type="text">
+                    </label>
+
+                    <label id="estadoLocacao" for="estadoLocacao">
+                      Estado
+                      <select class="form-select" id="UF" name="UF">
+                        <option value="">--</option>
+                        <option value="AC">AC</option>
+                        <option value="AL">AL</option>
+                        <option value="AP">AP</option>
+                        <option value="AM">AM</option>
+                        <option value="BA">BA</option>
+                        <option value="CE">CE</option>
+                        <option value="DF">DF</option>
+                        <option value="ES">ES</option>
+                        <option value="GO">GO</option>
+                        <option value="MA">MA</option>
+                        <option value="MG">MG</option>
+                        <option value="MS">MS</option>
+                        <option value="MT">MT</option>
+                        <option value="PA">PA</option>
+                        <option value="PB">PB</option>
+                        <option value="PE">PE</option>
+                        <option value="PI">PI</option>
+                        <option value="PR">PR</option>
+                        <option value="RJ">RJ</option>
+                        <option value="RN">RN</option>
+                        <option value="RO">RO</option>
+                        <option value="RR">RR</option>
+                        <option value="RS">RS</option>
+                        <option value="SC">SC</option>                      
+                        <option value="SP">SP</option>
+                        <option value="SE">SE</option>
+                        <option value="TO">TO</option>
+                      </select>
+                    </label>
+  
+                    <label id="inicioLocacao" for="inicioLocacao">
+                      Início da Locação
+                      <input id="inicioLocacao" class="form-control" type="date" placeholder="dd/mm/aaaa">
+                    </label>
+  
+                    <label id="fimLocacao" for="fimLocacao">
+                      Término da Locação
+                      <input id="fimLocacao" class="form-control" type="date" placeholder="dd/mm/aaaa">
+                    </label>
+  
+                    <label id="valorAluguel" for="valorAluguel">
+                      Valor do Aluguel
+                      <div class="input-group">
+                        <span class="input-group-text">R$</span>
+                        <input id="valorAluguel" class="form-control" type="text"  aria-label="Valor do Aluguel">
+                      </div>
+                    </label>
+  
+                    <label id="imagensLocacao" for="imagensLocacao">
+                      Adicionar Fotos de Vistoria
+                      <input class="form-control" type="file" name="imagensLocacao" id="imagensLocacao" multiple>
+                    </label>
+  
+                    <label id="contratosLocacao" for="contratosLocacao">
+                      Adicionar Contratos
+                      <input class="form-control" type="file" name="contratosLocacao" id="contratosLocacao" multiple>
+                    </label>
+                  </div>
                   
-                  <label id="selecionarEndereco" for="selecionarEndereco">
-                    Endereço da Locação
-                    <select class="form-select" name="selecionarEndereco" id="selecionarEndereco">
-                      <option value="">Selecione o Endereço</option>
-                      <option value="1">Avenida Barão Homem de Melo, 3647, 4° andar, Estoril, Belo Horizonte - MG</option>
-                    </select>
-                  </label>
-
-                  <label id="inicioLocacao" for="inicioLocacao">
-                    Início da Locação
-                    <input id="inicioLocacao" class="form-control" type="date" placeholder="dd/mm/aaaa">
-                  </label>
-
-                  <label id="fimLocacao" for="fimLocacao">
-                    Término da Locação
-                    <input id="fimLocacao" class="form-control" type="date" placeholder="dd/mm/aaaa">
-                  </label>
-
-                  <label id="valorAluguel" for="valorAluguel">
-                    Valor do Aluguel
-                    <div class="input-group">
-                      <span class="input-group-text">R$</span>
-                      <input id="valorAluguel" class="form-control" type="text"  aria-label="Valor do Aluguel" onkeyup="formatarMoeda()">
-                    </div>
-                  </label>
-
-                  <label id="imagensLocacao" for="imagensLocacao">
-                    Adicionar Fotos de Vistoria
-                    <input class="form-control" type="file" name="imagensLocacao" id="imagensLocacao" multiple>
-                  </label>
-
-                  <label id="contratosLocacao" for="contratosLocacao">
-                    Adicionar Contratos
-                    <input class="form-control" type="file" name="contratosLocacao" id="contratosLocacao" multiple>
-                  </label>
 
                   <label class="d-flex mt-3" id="enviarLocacao" for="enviarLocacao">
                     <input class="btn btn-laranja" type="submit" value="Cadastrar Locação">
