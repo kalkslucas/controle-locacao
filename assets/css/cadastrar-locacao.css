@@ -50,11 +50,6 @@ label#compEndLocador, label#compEndLocacao{width: 20%;}
 label#bairroLocador, label#bairroLocacao{width: 35%;}
 label#cidadeLocador, label#cidadeLocacao{width: 35%;}
 label#estadoLocador, label#estadoLocacao{width: 8.7%;}
-
-
-
-
-
 label#ftc{width: 22%;}
 label#gestor{width: 55%;}
 label#status{width: 22%;}
@@ -66,7 +61,28 @@ label#contratosLocacao{width: 50%;}
 label#enviarLocacao{width: 100%;}
 
 @media (max-width: 576px) {
-  label#ftc, label#gestor, label#status, label#endereco, label#numero, label#complemento, label#bairro, label#cidade, label#estado, label#inicioLocacao, label#fimLocacao, label#valorAluguel, label#imagensLocacao, label#contratosLocacao, label#enviarLocacao{
+  label#nomeLocador,  label#cpfCnpj,  label#emailLocador ,  label#telefone1 ,  label#telefone2,  label#cepLocador, label#cepLocacao,  label#enderecoLocador, label#enderecoLocacao,  label#numEndLocador, label#numEndLocacao, label#compEndLocador, label#compEndLocacao,  label#bairroLocador, label#bairroLocacao,  label#cidadeLocador, label#cidadeLocacao,  label#estadoLocador, label#estadoLocacao,
+  label#ftc, label#gestor, label#status, label#inicioLocacao,  label#fimLocacao,  label#valorAluguel,  label#imagensLocacao,  label#contratosLocacao,  label#enviarLocacao{
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 992px) {
+  label#nomeLocador,  label#cpfCnpj,  label#emailLocador ,  label#telefone1 ,  label#telefone2,  label#cepLocador, label#cepLocacao,  label#enderecoLocador, label#enderecoLocacao,  label#numEndLocador, label#numEndLocacao, label#compEndLocador, label#compEndLocacao,  label#bairroLocador, label#bairroLocacao,  label#cidadeLocador, label#cidadeLocacao,  label#estadoLocador, label#estadoLocacao,
+  label#ftc, label#gestor, label#status, label#inicioLocacao,  label#fimLocacao,  label#valorAluguel,  label#imagensLocacao,  label#contratosLocacao{
+    width: 49.5%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  label#enviarLocacao {
     width: 100%;
   }
+}
+
+
+@media (min-width: 993px) and (max-width: 1199px) {
+  label#cidadeLocador, label#cidadeLocacao{width: 34.8%;}
 }
