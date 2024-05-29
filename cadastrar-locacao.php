@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Controle de Locação - Inicio</title>
 
-  <link rel="stylesheet" href="assets/css/cadastrar-locacao.css">
+  <link rel="stylesheet" href="./assets/css/cadastrar-locacao.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 </head>
@@ -46,7 +46,7 @@
             <div class="col-md-12">
               <div class="card-body">
                 <h3 class="card-title text-center display-4">Cadastro de Locação</h3>
-                <form action="">
+                <form action="post">
                   <h2 class="mb-3">Dados do Locador</h2>
                   <div class="border-bottom pb-1">
                     <label id="nomeLocador" for="nomeLocador">
