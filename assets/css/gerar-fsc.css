@@ -1,0 +1,62 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.page {
+  background-color: rgb(189, 189, 189);
+}
+
+.navbar-brand img {
+  width: 40px;
+}
+
+@media (max-width: 576px) {
+  .card {
+    flex-direction: row;
+  }
+}
+
+.img-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.btn-modal {
+  margin-top: 10px;
+}
+
+.btn.btn-laranja {
+  width: 100%;
+  background-color: #e28800;
+  color: white;
+  &:hover {
+    background-color: #c57600;
+    color: white;
+  }
+}
+
+label#numeroFsc, label#validadeFsc, label#anexoFsc {width: 33%;}
+label#vincularLocacao, label#enviarLocacao{width: 100%;}
+
+@media (max-width: 576px) {
+  label#numeroFsc, label#validadeFsc, label#anexoFsc, label#vincularLocacao, label#enviarLocacao{
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 992px) {
+  label#numeroFsc, label#validadeFsc, label#anexoFsc, label#vincularLocacao{
+    width: 49.5%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  label#enviarLocacao {
+    width: 100%;
+  }
+}
