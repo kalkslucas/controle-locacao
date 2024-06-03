@@ -38,18 +38,13 @@
   }
 }
 
-label#nomeLocador {width: 40%;}
-label#cpfCnpj {width: 21%;}
-label#emailLocador {width: 38%;}
-label#telefone1 {width: 30%; margin-left: 12%; margin-right: 12%;}
-label#telefone2 {width: 30%;}
-label#cepLocador, label#cepLocacao{width: 20%;}
-label#enderecoLocador, label#enderecoLocacao{width: 64%;}
-label#numEndLocador, label#numEndLocacao{width: 15%;}
-label#compEndLocador, label#compEndLocacao{width: 20%;}
-label#bairroLocador, label#bairroLocacao{width: 35%;}
-label#cidadeLocador, label#cidadeLocacao{width: 35%;}
-label#estadoLocador, label#estadoLocacao{width: 8.7%;}
+label#cepLocacao{width: 20%;}
+label#enderecoLocacao{width: 64%;}
+label#numEndLocacao{width: 15%;}
+label#compEndLocacao{width: 20%;}
+label#bairroLocacao{width: 35%;}
+label#cidadeLocacao{width: 35%;}
+label#estadoLocacao{width: 8.7%;}
 label#ftc{width: 22%;}
 label#gestor{width: 55%;}
 label#status{width: 22%;}
@@ -61,7 +56,7 @@ label#contratosLocacao{width: 50%;}
 label#enviarLocacao{width: 100%;}
 
 @media (max-width: 576px) {
-  label#nomeLocador,  label#cpfCnpj,  label#emailLocador ,  label#telefone1 ,  label#telefone2,  label#cepLocador, label#cepLocacao,  label#enderecoLocador, label#enderecoLocacao,  label#numEndLocador, label#numEndLocacao, label#compEndLocador, label#compEndLocacao,  label#bairroLocador, label#bairroLocacao,  label#cidadeLocador, label#cidadeLocacao,  label#estadoLocador, label#estadoLocacao,
+  label#cepLocacao, label#enderecoLocacao, label#numEndLocacao, label#compEndLocacao, label#bairroLocacao, label#cidadeLocacao, label#estadoLocacao,
   label#ftc, label#gestor, label#status, label#inicioLocacao,  label#fimLocacao,  label#valorAluguel,  label#imagensLocacao,  label#contratosLocacao,  label#enviarLocacao{
     width: 100%;
     margin-left: 0;
@@ -70,8 +65,8 @@ label#enviarLocacao{width: 100%;}
 }
 
 @media (min-width: 577px) and (max-width: 992px) {
-  label#nomeLocador,  label#cpfCnpj,  label#emailLocador ,  label#telefone1 ,  label#telefone2,  label#cepLocador, label#cepLocacao,  label#enderecoLocador, label#enderecoLocacao,  label#numEndLocador, label#numEndLocacao, label#compEndLocador, label#compEndLocacao,  label#bairroLocador, label#bairroLocacao,  label#cidadeLocador, label#cidadeLocacao,  label#estadoLocador, label#estadoLocacao,
-  label#ftc, label#gestor, label#status, label#inicioLocacao,  label#fimLocacao,  label#valorAluguel,  label#imagensLocacao,  label#contratosLocacao{
+  label#cepLocacao, label#enderecoLocacao, label#numEndLocacao, label#compEndLocacao, label#bairroLocacao, label#cidadeLocacao, label#estadoLocacao,
+  label#ftc, label#gestor, label#status, label#inicioLocacao,  label#fimLocacao,  label#valorAluguel,  label#imagensLocacao,  label#contratosLocacao,  label#enviarLocacao{
     width: 49.5%;
     margin-left: 0;
     margin-right: 0;
@@ -82,7 +77,6 @@ label#enviarLocacao{width: 100%;}
   }
 }
 
-
 @media (min-width: 993px) and (max-width: 1199px) {
-  label#cidadeLocador, label#cidadeLocacao{width: 34.8%;}
+  label#cidadeLocacao{width: 34.8%;}
 }

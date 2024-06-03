@@ -12,7 +12,7 @@
 <body class="page">
   <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="./index.html"><img src="./assets/img/navbar-logo.png" alt=""></a>
+      <a class="navbar-brand" href="./index.php"><img src="./assets/img/navbar-logo.png" alt=""></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -23,11 +23,11 @@
               Gestão de Locação
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="./controle-locacao.html">Início</a></li>
-              <li><a class="dropdown-item" href="./visualizar-locacoes.html">Visualizar Locações</a></li>
-              <li><a class="dropdown-item" href="./cadastrar-pessoa.html">Cadastro de Pessoas</a></li>
-              <li><a class="dropdown-item" href="./cadastrar-endereco.html">Cadastro de Endereço</a></li>
-              <li><a class="dropdown-item" href="./cadastrar-locacao.html">Cadastro de Locações</a></li>   
+              <li><a class="dropdown-item" href="./controle-locacao.php">Início</a></li>
+              <li><a class="dropdown-item" href="./visualizar-locacoes.php">Visualizar Locações</a></li>
+              <li><a class="dropdown-item" href="./cadastrar-pessoa.php">Cadastro de Pessoas</a></li>
+              <li><a class="dropdown-item" href="./cadastrar-locador.php">Cadastro de Locadores</a></li>
+              <li><a class="dropdown-item" href="./cadastrar-locacao.php">Cadastro de Locações</a></li> 
             </ul>
           </li>
           <li class="nav-item">
@@ -45,7 +45,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="card-body">
-                <h3 class="card-title text-center">Cadastro de Pessoas</h3>
+                <h3 class="card-title text-center display-4">Cadastro de Pessoas</h3>
                 <form action="">
                   <label id="tipoPessoa" for="tipoPessoa">
                     Classificação da Pessoa
@@ -53,18 +53,12 @@
                       <option selected>--</option>
                       <option value="alojado">Alojado</option>
                       <option value="gestor">Gestor</option>
-                      <option value="locador">Locador</option>
                     </select>
                   </label>
 
                   <label id="nomePessoa" for="nomePessoa">
                     Nome
                     <input id="nomePessoa" class="form-control" type="text" placeholder="Digite o nome completo">
-                  </label>
-
-                  <label id="cpfCnpj" for="cpfCnpj">
-                    CPF/CNPJ
-                    <input id="cpfCnpj" class="form-control" type="text" placeholder="Digite somente os números">
                   </label>
                   
                   <label id="email" for="email">
@@ -78,12 +72,7 @@
                   </label>
 
                   <label id="telefone2" for="telefone1">
-                    Telefone Celular (1)
-                    <input id="telefone1" class="form-control" type="text" placeholder="Ex: 31987654321">
-                  </label>
-
-                  <label id="telefone3" for="telefone1">
-                    Telefone Celular (2)
+                    Telefone Celular
                     <input id="telefone1" class="form-control" type="text" placeholder="Ex: 31987654321">
                   </label>
 
@@ -100,26 +89,6 @@
                   <label id="unidade" for="unidade">
                     Unidade
                     <input id="unidade" class="form-control" type="text" placeholder="Ex: Sede">
-                  </label>
-
-                  <label id="bancoLocador" for="bancoLocador">
-                    Banco
-                    <input id="bancoLocador" class="form-control" type="text" placeholder="Ex: Banco do Brasil">
-                  </label>
-
-                  <label id="agenciaLocador" for="agenciaLocador">
-                    Agência
-                    <input id="agenciaLocador" class="form-control" type="text" placeholder="Ex: 0001">
-                  </label>
-
-                  <label id="contaLocador" for="contaLocador">
-                    Conta
-                    <input id="contaLocador" class="form-control" type="text" placeholder="Ex: 001122-3">
-                  </label>
-
-                  <label id="pixLocador" for="pixLocador">
-                    PIX
-                    <input id="pixLocador" class="form-control" type="text" placeholder="Ex: E-mail, CPF/CNPJ ou Telefone">
                   </label>
 
                   <label class="d-flex mt-3" id="enviarLocacao" for="enviarLocacao">

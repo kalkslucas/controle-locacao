@@ -1,0 +1,86 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.page {
+  background-color: rgb(189, 189, 189);
+}
+
+.navbar-brand img {
+  width: 40px;
+}
+
+@media (max-width: 576px) {
+  .card {
+    flex-direction: row;
+  }
+}
+
+.img-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.btn-modal {
+  margin-top: 10px;
+}
+
+.btn.btn-laranja {
+  width: 100%;
+  background-color: #e28800;
+  color: white;
+  &:hover {
+    background-color: #c57600;
+    color: white;
+  }
+}
+
+/*LABEL SIZES AND BREAKPOINTS*/
+
+
+label#nomeLocador {width: 40%;}
+label#cpfCnpj {width: 21%;}
+label#emailLocador {width: 38%;}
+label#telefone1 {width: 30%; margin-left: 12%; margin-right: 12%;}
+label#telefone2 {width: 30%;}
+label#cepLocador{width: 20%;}
+label#enderecoLocador{width: 64%;}
+label#numEndLocador{width: 15%;}
+label#compEndLocador{width: 20%;}
+label#bairroLocador{width: 35%;}
+label#cidadeLocador{width: 35%;}
+label#estadoLocador{width: 8.7%;}
+label#bancoLocador, label#numAgenciaLocador, label#numContaBancoLocador, label#tipoContaBancoLocador, label#pixContaBancoLocador {width: 19.7%;}
+label#enviarLocacao{width: 100%;}
+
+@media (max-width: 576px) {
+  label#nomeLocador,  label#cpfCnpj,  label#emailLocador ,  label#telefone1 ,  label#telefone2,  label#cepLocador, label#enderecoLocador, label#numEndLocador, label#compEndLocador, label#bairroLocador, label#cidadeLocador, label#estadoLocador, label#bancoLocador, label#numAgenciaLocador, label#numContaBancoLocador, label#tipoContaBancoLocador, label#pixContaBancoLocador,label#enviarLocacao{
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 992px) {
+  label#nomeLocador,  label#cpfCnpj,  label#emailLocador ,  label#telefone1 ,  label#telefone2,  label#cepLocador, label#enderecoLocador, label#numEndLocador, label#compEndLocador, label#bairroLocador, label#cidadeLocador, label#estadoLocador, label#bancoLocador, label#numAgenciaLocador, label#numContaBancoLocador, label#tipoContaBancoLocador, label#pixContaBancoLocador{
+    width: 49.5%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  label#enviarLocacao {
+    width: 100%;
+  }
+}
+
+@media (min-width: 993px) and (max-width: 1199px) {
+  label#cidadeLocador{width: 34.8%;}
+  label#bancoLocador, label#numAgenciaLocador, label#numContaBancoLocador, label#tipoContaBancoLocador, label#pixContaBancoLocador {width: 19.6%;}
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+  label#bancoLocador, label#numAgenciaLocador, label#numContaBancoLocador, label#tipoContaBancoLocador, label#pixContaBancoLocador {width: 19.65%;}
+}

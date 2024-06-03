@@ -1,0 +1,73 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.page {
+  background-color: rgb(189, 189, 189);
+}
+
+.navbar-brand img {
+  width: 40px;
+}
+
+@media (max-width: 576px) {
+  .card {
+    flex-direction: row;
+  }
+}
+
+.img-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.btn-modal {
+  margin-top: 10px;
+}
+
+.btn.btn-laranja {
+  width: 100%;
+  background-color: #e28800;
+  color: white;
+  &:hover {
+    background-color: #c57600;
+    color: white;
+  }
+}
+
+label#tipoConta{width: 13%;}
+label#empresa{width: 43%;}
+label#titular{width: 43%;}
+label#numInstalacao{width: 24.7%;}
+label#consumoVelocidade{width: 24.7%;}
+label#valorConta{width: 24.7%;}
+label#dataVencimento{width: 24.65%;}
+label#vincularLocacao{width: 100%;}
+label#enviarLocacao{width: 100%;}
+
+@media (max-width: 576px) {
+  label#tipoConta, label#empresa, label#titular, label#numInstalacao, label#consumoVelocidade, label#valorConta, label#dataVencimento, label#vincularLocacao, label#enviarLocacao{
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 992px) {
+  label#tipoConta, label#empresa, label#titular, label#numInstalacao, label#consumoVelocidade, label#valorConta, label#dataVencimento, label#vincularLocacao{
+    width: 49.5%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  label#enviarLocacao {
+    width: 100%;
+  }
+}
+
+@media (min-width: 993px) and (max-width: 1199px) {
+  label#cidadeLocacao{width: 34.8%;}
+}

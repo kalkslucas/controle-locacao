@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Controle de Locação - Inicio</title>
 
-  <link rel="stylesheet" href="./assets/css/cadastrar-locacao.css">
+  <link rel="stylesheet" href="./assets/css/cadastrar-locador.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 </head>
@@ -27,8 +27,7 @@
               <li><a class="dropdown-item" href="./visualizar-locacoes.php">Visualizar Locações</a></li>
               <li><a class="dropdown-item" href="./cadastrar-pessoa.php">Cadastro de Pessoas</a></li>
               <li><a class="dropdown-item" href="./cadastrar-locador.php">Cadastro de Locadores</a></li>
-              <li><a class="dropdown-item" href="./cadastrar-locacao.php">Cadastro de Locações</a></li>
-              <li><a class="dropdown-item" href="./gerar-conta.php">Gerar conta</a></li>
+              <li><a class="dropdown-item" href="./cadastrar-locacao.php">Cadastro de Locações</a></li>   
             </ul>
           </li>
           <li class="nav-item">
@@ -46,65 +45,65 @@
           <div class="row">
             <div class="col-md-12">
               <div class="card-body">
-                <h3 class="card-title text-center display-4">Cadastro de Locação</h3>
+                <h3 class="card-title text-center display-4">Cadastro de Locador</h3>
                 <form action="post">
-                  <div class="mt-1">
-                    <label id="ftc" for="ftc">
-                      FTC
-                      <input id="ftc" class="form-control" type="text" placeholder="Ex: 00-00">
+                  <div class="pb-1">
+                    <label id="nomeLocador" for="nomeLocador">
+                      Nome do Locador
+                      <input id="nomeLocador" class="form-control" type="text" placeholder="Digite o nome completo">
                     </label>
   
-                    <label id="gestor" for="gestor">
-                      Gestor
-                      <select class="form-select" name="gestor" id="gestor">
-                        <option value="">Selecione o gestor</option>
-                        <option value="ATIVO">Fernanda Joseph</option>
-                        <option value="ATIVO">Mauricio Vidal</option>
-                      </select>
-                    </label>
-  
-                    <label id="status" for="status">
-                      Status
-                      <select class="form-select" name="status" id="status">
-                        <option value="">Selecione o status</option>
-                        <option value="ATIVO">Ativo</option>
-                        <option value="ATIVO">Aditivo</option>
-                        <option value="ATIVO">Pendente</option>
-                        <option value="ATIVO">Em tramitação</option>
-                      </select>                    
+                    <label id="cpfCnpj" for="cpfCnpj">
+                      CPF/CNPJ
+                      <input id="cpfCnpj" class="form-control" type="text" placeholder="Digite somente os números">
                     </label>
                     
-                    <label id="cepLocacao" for="cepLocacao">
+                    <label id="emailLocador" for="emailLocador">
+                      E-mail
+                      <input id="emailLocador" class="form-control" type="email" placeholder="Ex: abc@ultra.eng.br OU abc@gmail.com">
+                    </label>
+
+                    <label id="telefone1" for="telefone1">
+                      Telefone Fixo
+                      <input id="telefone1" class="form-control" type="text" placeholder="Ex: 3198765432">
+                    </label>
+  
+                    <label id="telefone2" for="telefone2">
+                      Telefone Celular
+                      <input id="telefone2" class="form-control" type="text" placeholder="Ex: 31987654321">
+                    </label>
+
+                    <label id="cepLocador" for="cepLocador">
                       CEP
-                      <input id="cepLocacao" name="cepLocacao" class="form-control" type="text" placeholder="Digite o CEP do Endereço">
+                      <input id="cepLocador" name="cepLocador" class="form-control" type="text" placeholder="Digite o CEP do Endereço">
                     </label>
                     
-                    <label id="enderecoLocacao" for="enderecoLocacao">
+                    <label id="enderecoLocador" for="enderecoLocador">
                       Endereço
-                      <input id="enderecoLocacao" name="enderecoLocacao" class="form-control" type="text" placeholder="Nome da Rua, Avenida, Travessa...">
+                      <input id="enderecoLocador" name="enderecoLocador" class="form-control" type="text" placeholder="Nome da Rua, Avenida, Travessa...">
                     </label>
-
-                    <label id="numEndLocacao" for="numEndLocacao">
+  
+                    <label id="numEndLocador" for="numEndLocador">
                       Numero
-                      <input id="numEndLocacao" name="numEndLocacao" class="form-control" type="text" placeholder="Ex: 00 ou S/N">
+                      <input id="numEndLocador" name="numEndLocador" class="form-control" type="text" placeholder="Ex: 00 ou S/N">
                     </label>
-
-                    <label id="compEndLocacao" for="compEndLocacao">
+  
+                    <label id="compEndLocador" for="compEndLocador">
                       Complemento
-                      <input id="compEndLocacao" name="compEndLocacao" class="form-control" type="text" placeholder="Casa, Bloco, Apto, Quadra, Lote...">
+                      <input id="compEndLocador" name="compEndLocador" class="form-control" type="text" placeholder="Casa, Bloco, Apto, Quadra, Lote...">
                     </label>
-
-                    <label id="bairroLocacao" for="bairroLocacao">
+  
+                    <label id="bairroLocador" for="bairroLocador">
                       Bairro
-                      <input id="bairroLocacao" name="bairroLocacao" class="form-control" type="text">
+                      <input id="bairroLocador" name="bairro" class="form-control" type="text">
                     </label>
-
-                    <label id="cidadeLocacao" for="cidadeLocacao">
+  
+                    <label id="cidadeLocador" for="cidadeLocador">
                       Cidade
-                      <input id="cidadeLocacao" name="cidadeLocacao" class="form-control" type="text">
+                      <input id="cidadeLocador" name="cidadeLocador"  class="form-control" type="text">
                     </label>
-
-                    <label id="estadoLocacao" for="estadoLocacao">
+  
+                    <label id="estadoLocador" for="estadoLocador">
                       Estado
                       <select class="form-select" id="UF" name="UF">
                         <option value="">--</option>
@@ -137,39 +136,36 @@
                         <option value="TO">TO</option>
                       </select>
                     </label>
-  
-                    <label id="inicioLocacao" for="inicioLocacao">
-                      Início da Locação
-                      <input id="inicioLocacao" class="form-control" type="date" placeholder="dd/mm/aaaa">
+
+                    <label id="bancoLocador" for="bancoLocador">
+                      Banco
+                      <input id="bancoLocador" name="bancoLocador" class="form-control" type="text">
                     </label>
-  
-                    <label id="fimLocacao" for="fimLocacao">
-                      Término da Locação
-                      <input id="fimLocacao" class="form-control" type="date" placeholder="dd/mm/aaaa">
+                    <label id="numAgenciaLocador" for="numAgenciaLocador">
+                      Agência
+                      <input id="numAgenciaLocador" name="numAgenciaLocador" class="form-control" type="text">
                     </label>
-  
-                    <label id="valorAluguel" for="valorAluguel">
-                      Valor do Aluguel
-                      <div class="input-group">
-                        <span class="input-group-text">R$</span>
-                        <input id="valorAluguel" class="form-control" type="text"  aria-label="Valor do Aluguel">
-                      </div>
+                    <label id="numContaBancoLocador" for="numContaBancoLocador">
+                      Conta
+                      <input id="numContaBancoLocador" name="numContaBancoLocador" class="form-control" type="text">
                     </label>
-  
-                    <label id="imagensLocacao" for="imagensLocacao">
-                      Adicionar Fotos de Vistoria
-                      <input class="form-control" type="file" name="imagensLocacao" id="imagensLocacao" multiple>
+                    <label id="tipoContaBancoLocador" for="tipoContaBancoLocador">
+                      Tipo da Conta
+                      <select class="form-select" name="tipoContaBancoLocador" id="tipoContaBancoLocador">
+                        <option value="">--</option>
+                        <option value="ATIVO">Conta Corrente</option>
+                        <option value="ATIVO">Conta Poupança</option>
+                        <option value="ATIVO">Conta de Pagamento</option>
+                      </select>  
                     </label>
-  
-                    <label id="contratosLocacao" for="contratosLocacao">
-                      Adicionar Contratos
-                      <input class="form-control" type="file" name="contratosLocacao" id="contratosLocacao" multiple>
+                    <label id="pixContaBancoLocador" for="pixContaBancoLocador">
+                      PIX
+                      <input id="pixContaBancoLocador" name="pixContaBancoLocador" class="form-control" type="text">
                     </label>
-                  </div>
-                  
+                  </div> 
 
                   <label class="d-flex mt-3" id="enviarLocacao" for="enviarLocacao">
-                    <input class="btn btn-laranja" type="submit" value="Cadastrar Locação">
+                    <input class="btn btn-laranja" type="submit" value="Cadastrar Locador">
                   </label>
                 </form>
               </div>
