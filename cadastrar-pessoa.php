@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Controle de Locação - Inicio</title>
 
+  <link rel="stylesheet" href="assets/css/padrao-paginas.css">
+  <link rel="stylesheet" href="assets/css/btn-custom.css">
   <link rel="stylesheet" href="assets/css/cadastrar-pessoa.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
@@ -50,7 +52,7 @@
                   <label id="tipoPessoa" for="tipoPessoa">
                     Classificação da Pessoa
                     <select class="form-select" name="tipoPessoa" id="tipoPessoa">
-                      <option selected>--</option>
+                      <option selected>---</option>
                       <option value="alojado">Alojado</option>
                       <option value="gestor">Gestor</option>
                     </select>
@@ -91,7 +93,7 @@
                     <input id="unidade" class="form-control" type="text" placeholder="Ex: Sede">
                   </label>
 
-                  <label class="d-flex mt-3" id="enviarLocacao" for="enviarLocacao">
+                  <label class="d-flex mt-3" id="enviar" for="enviar">
                     <input class="btn btn-laranja" type="submit" value="Cadastrar Pessoa">
                   </label>
                 </form>
@@ -108,12 +110,9 @@
         <a href="./visualizar-locacoes.html" class="btn btn-danger btn-modal w-auto">Voltar</a>
       </div>
     </div>
-    
   </main>
   
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  
-  <script src="assets/js/validarMoeda.js" defer></script>
 </body>
 </html>

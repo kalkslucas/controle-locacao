@@ -1,0 +1,13 @@
+.btn-modal {
+  margin-top: 10px;
+}
+
+.btn.btn-laranja {
+  width: 100%;
+  background-color: #e28800;
+  color: white;
+  &:hover {
+    background-color: #c57600;
+    color: white;
+  }
+}
