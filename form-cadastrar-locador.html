@@ -48,66 +48,66 @@
             <div class="col-md-12">
               <div class="card-body">
                 <h3 class="card-title text-center display-4">Cadastro de Locador</h3>
-                <form action="post">
+                <form action="cadastrarLocador.php" method="post">
                   <div class="pb-1">
-                    <label id="nomeLocador" for="nomeLocador">
+                    <label id="nomeLocador">
                       Nome do Locador
-                      <input id="nomeLocador" class="form-control" type="text" placeholder="Digite o nome completo">
+                      <input id="nome" name="nome" class="form-control" type="text" placeholder="Digite o nome completo">
                     </label>
   
-                    <label id="cpfCnpj" for="cpfCnpj">
+                    <label id="cpfCnpj">
                       CPF/CNPJ
-                      <input id="cpfCnpj" class="form-control" type="text" placeholder="Digite somente os números">
+                      <input id="cpfCnpj" name="cpfCnpj" class="form-control" type="text" placeholder="Digite somente os números">
                     </label>
                     
-                    <label id="emailLocador" for="emailLocador">
+                    <label id="email">
                       E-mail
-                      <input id="emailLocador" class="form-control" type="email" placeholder="Ex: abc@ultra.eng.br OU abc@gmail.com">
+                      <input id="email" name="email" class="form-control" type="email" placeholder="Ex: abc@ultra.eng.br OU abc@gmail.com">
                     </label>
 
-                    <label id="telefone1" for="telefone1">
+                    <label id="telefone1">
                       Telefone Fixo
-                      <input id="telefone1" class="form-control" type="text" placeholder="Ex: 3198765432">
+                      <input id="telefone1" name="telefone1" class="form-control" type="text" placeholder="Ex: 3198765432">
                     </label>
   
-                    <label id="telefone2" for="telefone2">
+                    <label id="telefone2">
                       Telefone Celular
-                      <input id="telefone2" class="form-control" type="text" placeholder="Ex: 31987654321">
+                      <input id="telefone2" name="telefone2" class="form-control" type="text" placeholder="Ex: 31987654321">
                     </label>
 
-                    <label id="cepLocador" for="cepLocador">
+                    <label id="cepLocador">
                       CEP
-                      <input id="cepLocador" name="cepLocador" class="form-control" type="text" placeholder="Digite o CEP do Endereço">
+                      <input id="cep" name="cep" class="form-control" type="text" placeholder="Digite o CEP do Endereço">
                     </label>
                     
-                    <label id="enderecoLocador" for="enderecoLocador">
+                    <label id="enderecoLocador">
                       Endereço
-                      <input id="enderecoLocador" name="enderecoLocador" class="form-control" type="text" placeholder="Nome da Rua, Avenida, Travessa...">
+                      <input id="rua" name="rua" class="form-control" type="text" placeholder="Nome da Rua, Avenida, Travessa...">
                     </label>
   
-                    <label id="numEndLocador" for="numEndLocador">
+                    <label id="numEndLocador">
                       Numero
-                      <input id="numEndLocador" name="numEndLocador" class="form-control" type="text" placeholder="Ex: 00 ou S/N">
+                      <input id="numero" name="numero" class="form-control" type="text" placeholder="Ex: 00 ou S/N">
                     </label>
   
-                    <label id="compEndLocador" for="compEndLocador">
+                    <label id="compEndLocador">
                       Complemento
-                      <input id="compEndLocador" name="compEndLocador" class="form-control" type="text" placeholder="Casa, Bloco, Apto, Quadra, Lote...">
+                      <input id="complemento" name="complemento" class="form-control" type="text" placeholder="Casa, Bloco, Apto, Quadra, Lote...">
                     </label>
   
-                    <label id="bairroLocador" for="bairroLocador">
+                    <label id="bairroLocador">
                       Bairro
-                      <input id="bairroLocador" name="bairro" class="form-control" type="text">
+                      <input id="bairro" name="bairro" class="form-control" type="text">
                     </label>
   
-                    <label id="cidadeLocador" for="cidadeLocador">
+                    <label id="cidadeLocador">
                       Cidade
-                      <input id="cidadeLocador" name="cidadeLocador"  class="form-control" type="text">
+                      <input id="cidade" name="cidade"  class="form-control" type="text">
                     </label>
   
-                    <label id="estadoLocador" for="estadoLocador">
+                    <label id="estadoLocador">
                       Estado
-                      <select class="form-select" id="UF" name="UF">
+                      <select class="form-select" id="uf" name="uf">
                         <option value="">--</option>
                         <option value="AC">AC</option>
                         <option value="AL">AL</option>
@@ -139,34 +139,34 @@
                       </select>
                     </label>
 
-                    <label id="bancoLocador" for="bancoLocador">
+                    <label id="bancoLocador">
                       Banco
-                      <input id="bancoLocador" name="bancoLocador" class="form-control" type="text">
+                      <input id="banco" name="banco" class="form-control" type="text">
                     </label>
-                    <label id="numAgenciaLocador" for="numAgenciaLocador">
+                    <label id="numAgenciaLocador">
                       Agência
-                      <input id="numAgenciaLocador" name="numAgenciaLocador" class="form-control" type="text">
+                      <input id="agencia" name="agencia" class="form-control" type="text">
                     </label>
-                    <label id="numContaBancoLocador" for="numContaBancoLocador">
+                    <label id="numContaBancoLocador">
                       Conta
-                      <input id="numContaBancoLocador" name="numContaBancoLocador" class="form-control" type="text">
+                      <input id="conta" name="conta" class="form-control" type="text">
                     </label>
-                    <label id="tipoContaBancoLocador" for="tipoContaBancoLocador">
+                    <label id="tipoContaBancoLocador">
                       Tipo da Conta
-                      <select class="form-select" name="tipoContaBancoLocador" id="tipoContaBancoLocador">
+                      <select class="form-select" name="tipoConta" id="tipoConta">
                         <option value="">--</option>
-                        <option value="ATIVO">Conta Corrente</option>
-                        <option value="ATIVO">Conta Poupança</option>
-                        <option value="ATIVO">Conta de Pagamento</option>
+                        <option value="CONTA CORRENTE">Conta Corrente</option>
+                        <option value="CONTA POUPANÇA">Conta Poupança</option>
+                        <option value="CONTA DE PAGAMENTOS">Conta de Pagamento</option>
                       </select>  
                     </label>
-                    <label id="pixContaBancoLocador" for="pixContaBancoLocador">
+                    <label id="pixContaBancoLocador">
                       PIX
-                      <input id="pixContaBancoLocador" name="pixContaBancoLocador" class="form-control" type="text">
+                      <input id="pix" name="pix" class="form-control" type="text">
                     </label>
                   </div> 
 
-                  <label class="d-flex mt-3" id="enviarLocacao" for="enviarLocacao">
+                  <label class="d-flex mt-3" id="enviarLocacao">
                     <input class="btn btn-laranja" type="submit" value="Cadastrar Locador">
                   </label>
                 </form>
@@ -187,7 +187,5 @@
   
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  
-  <script src="assets/js/validarMoeda.js" defer></script>
 </body>
 </html>

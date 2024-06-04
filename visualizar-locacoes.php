@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,7 +48,7 @@
       include_once "conexao.php";
       try {
         //query sql de consulta
-        $sql = 'SELECT idlocacao, nome, rua, numero, complemento, bairro, cidade, estado, cep FROM locacao l inner join gestor g on l.id_gestor = g.idgestor inner join cadastro c on g.id_cadastro = c.idcadastro inner join endereco e on l.id_endereco = e.idendereco';
+        $sql = 'SELECT idlocacao, nome, rua, numero, complemento, bairro, cidade, estado, cep FROM locacao l inner join gestor g on l.id_gestor = g.idgestor inner join endereco e on l.id_endereco = e.idendereco';
         //execução da instrução sql
         $consulta = $conectar->query($sql);
         while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
