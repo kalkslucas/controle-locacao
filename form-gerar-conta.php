@@ -49,7 +49,7 @@
             <div class="col-md-12">
               <div class="card-body">
                 <h3 class="card-title text-center display-4">Cadastro de Conta</h3>
-                <form action="post">
+                <form action="gerarConta.php" method="post">
                   <div class="mt-1">
                     <label id="tipoConta" for="tipoConta">
                       Tipo de conta
