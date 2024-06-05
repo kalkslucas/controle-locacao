@@ -3,6 +3,8 @@ include_once 'conexao.php';
 try {
   $conectar->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $conectar->beginTransaction();
+
+  //locador's variables
   $nome = filter_var($_POST['nome']);
   $cpfCnpj = filter_var($_POST['cpfCnpj']);
   $email = filter_var($_POST['email']);
