@@ -51,63 +51,74 @@
                 <h3 class="card-title text-center display-4">Cadastro de Conta</h3>
                 <form action="gerarConta.php" method="post">
                   <div class="mt-1">
-                    <label id="tipoConta" for="tipoConta">
+                    <label id="tipoDespesa">
                       Tipo de conta
-                      <select class="form-select" name="tipoConta" id="tipoConta">
+                      <select class="form-select" name="tipoDespesa" id="tipoDespesa">
                         <option value="">---</option>
-                        <option value="ATIVO">Energia</option>
-                        <option value="ATIVO">Água</option>
-                        <option value="ATIVO">Internet</option>
-                        <option value="ATIVO">Condomínio</option>
+                        <option value="ENERGIA">Energia</option>
+                        <option value="ÁGUA">Água</option>
+                        <option value="INTERNET">Internet</option>
+                        <option value="CONDOMÍNIO">Condomínio</option>
+                        <option value="IPTU">IPTU</option>
+                        <option value="IMPOSTO DE RENDA">Imposto de Renda</option>
                       </select>
                     </label>
   
-                    <label id="empresa" for="empresa">
+                    <label id="empresa">
                       Empresa
                       <input id="empresa" name="empresa" class="form-control" type="text" placeholder="Digite o nome da empresa">
                     </label>
   
-                    <label id="titular" for="titular">
+                    <label id="titular">
                       Titular
                       <input id="titular" name="titular" class="form-control" type="text" placeholder="Digite o nome do titular da conta">
                     </label>
                     
-                    <label id="numInstalacao" for="numInstalacao">
+                    <label id="numInstalacao">
                       Número da Instalação
                       <input id="numInstalacao" name="numInstalacao" class="form-control" type="text" placeholder="Digite o n° da instalação">
                     </label>
                     
-                    <label id="consumoVelocidade" for="consumoVelocidade">
+                    <label id="consumoVelocidade">
                       Consumo/Velocidade
-                      <input id="consumoVelocidade" name="consumoVelocidade" class="form-control" type="text" placeholder="Nome da Rua, Avenida, Travessa...">
+                      <input id="consumoVelocidade" name="consumoVelocidade" class="form-control" type="text" placeholder="36m³, 40kWh, 500MB">
                     </label>
 
-                    <label id="valorConta" for="valorConta">
+                    <label id="valorConta">
                       Valor da Conta
-                      <input id="valorConta" name="valorConta" class="form-control" type="text" placeholder="Ex: 00 ou S/N">
+                      <input id="valorConta" name="valorConta" class="form-control" type="text" placeholder="Ex: 9999.99">
                     </label>
 
-                    <label id="dataVencimento" for="dataVencimento">
+                    <label id="dataVencimento">
                       Data de Vencimento
-                      <input id="dataVencimento" name="dataVencimento" class="form-control" type="text" placeholder="Casa, Bloco, Apto, Quadra, Lote...">
+                      <input id="dataVencimento" name="dataVencimento" class="form-control" type="date">
                     </label>
 
-                    <label id="vincularLocacao" for="vincularLocacao">
+                    <label id="vincularLocacao">
                       Vincular a Locação
-                      <select class="form-select" name="status" id="status">
+                      <select class="form-select" name="vincularLocacao" id="vincularLocacao">
                         <option value="">---</option>
-                        <option value="ATIVO">Energia</option>
-                        <option value="ATIVO">Água</option>
-                        <option value="ATIVO">Internet</option>
-                        <option value="ATIVO">Condomínio</option>
+                        <?php
+                          include_once 'conexao.php';
+                          try {
+                            $query = "SELECT idlocacao, ftc, rua, numero, bairro, cidade, estado, cep, nome FROM locacao l INNER JOIN endereco e ON l.id_endereco = e.idendereco INNER JOIN gestor g ON l.id_gestor = g.idgestor";
+
+                            $consulta = $conectar->query($query);
+                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                              echo "<option value='$linha[idlocacao]'>$linha[ftc] | $linha[rua], $linha[numero], $linha[bairro], $linha[cidade] - $linha[estado] | $linha[nome]";
+                            }
+                          } catch (PDOException $e) {
+                            echo 'Error: ' . $e->getMessage();
+                            // Log the error
+                            error_log('Error: ' . $e->getMessage(), 0);
+                          }
+                        ?>
                       </select>
                     </label>
-
-                    
                   </div>
                   
 
-                  <label class="d-flex mt-3" id="enviarLocacao" for="enviarLocacao">
+                  <label class="d-flex mt-3" id="enviarLocacao">
                     <input class="btn btn-laranja" type="submit" value="Cadastrar Conta">
                   </label>
                 </form>
