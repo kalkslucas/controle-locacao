@@ -21,8 +21,8 @@ try {
   $tipoConta = filter_var($_POST['tipoConta']);
   $pix = filter_var($_POST['pix']);
 
+  // Insert into endereco table
   $queryEndereco = "INSERT INTO endereco (tipo_endereco, rua, numero, complemento, bairro, cidade, estado, cep) VALUES ('ESCRITORIO', :rua, :numero, :complemento, :bairro, :cidade, :estado, :cep)";
-
   $insertEndereco = $conectar->prepare($queryEndereco);
   $insertEndereco->bindParam(':rua', $rua, PDO::PARAM_STR);
   $insertEndereco->bindParam(':numero', $numero, PDO::PARAM_STR);
@@ -33,8 +33,9 @@ try {
   $insertEndereco->bindParam(':cep', $cep, PDO::PARAM_STR);
   $insertEndereco->execute();
 
-  $queryLocador = "INSERT INTO locador (nome, cpf_cnpj, email, telefone_1, telefone_2, banco, agencia, conta, tipo_conta, pix, id_endereco) VALUES (:nome, :cpfCnpj, :email, :telefone1, :telefone2, :banco, :agencia, :conta, :tipo_conta, :pix, (SELECT idendereco FROM endereco WHERE rua = :rua))";
-
+  // Insert into locador table
+  $idEndereco = $conectar->lastInsertId(); // Get the last inserted ID
+  $queryLocador = "INSERT INTO locador (nome, cpf_cnpj, email, telefone_1, telefone_2, banco, agencia, conta, tipo_conta, pix, id_endereco) VALUES (:nome, :cpfCnpj, :email, :telefone1, :telefone2, :banco, :agencia, :conta, :tipo_conta, :pix, :idEndereco)";
   $insertLocador = $conectar->prepare($queryLocador);
   $insertLocador->bindParam(':nome', $nome, PDO::PARAM_STR);
   $insertLocador->bindParam(':cpfCnpj', $cpfCnpj, PDO::PARAM_STR);
@@ -46,8 +47,8 @@ try {
   $insertLocador->bindParam(':conta', $conta, PDO::PARAM_STR);
   $insertLocador->bindParam(':tipo_conta', $tipoConta, PDO::PARAM_STR);
   $insertLocador->bindParam(':pix', $pix, PDO::PARAM_STR);
+  $insertLocador->bindParam(':idEndereco', $idEndereco, PDO::PARAM_INT);
   $insertLocador->execute();
-
 
   $conectar->commit();
 } catch (PDOException $e) {
