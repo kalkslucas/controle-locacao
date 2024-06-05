@@ -49,38 +49,49 @@
             <div class="col-md-12">
               <div class="card-body">
                 <h3 class="card-title text-center display-4">Cadastro de FSC</h3>
-                <form action="post">
+                <form action="gerarFsc.php" method="post">
                   <div class="mt-1">  
-                    <label id="numeroFsc" for="numeroFsc">
+                    <label id="numeroFsc">
                       Número FSC
                       <input id="numeroFsc" name="numeroFsc" class="form-control" type="text" placeholder="Digite o número da FSC">
                     </label>
   
-                    <label id="validadeFsc" for="validadeFsc">
+                    <label id="validadeFsc">
                       Validade
-                      <input id="validadeFsc" name="validadeFsc" class="form-control" type="text" placeholder="Digite a data final de validade">
+                      <input id="validadeFsc" name="validadeFsc" class="form-control" type="date" placeholder="Digite a data final de validade">
                     </label>
-
-                    <label id="anexoFsc" for="anexoFsc">
+<!-- 
+                    <label id="anexoFsc">
                       Anexo de Contratos
                       <input type="file" class="form-control" name="anexoFsc" id="anexoFsc" multiple>
                     </label>
-
-                    <label id="vincularLocacao" for="vincularLocacao">
+-->
+                    <label id="vincularLocacao">
                       Vincular a Locação
                       <select class="form-select" name="vincularLocacao" id="vincularLocacao">
                         <option value="">---</option>
-                        <option value="ATIVO">Energia</option>
-                        <option value="ATIVO">Água</option>
-                        <option value="ATIVO">Internet</option>
-                        <option value="ATIVO">Condomínio</option>
+                        <?php
+                          include_once 'conexao.php';
+                          try {
+                            $query = "SELECT idlocacao, ftc, rua, numero, bairro, cidade, estado, cep, nome FROM locacao l INNER JOIN endereco e ON l.id_endereco = e.idendereco INNER JOIN gestor g ON l.id_gestor = g.idgestor";
+
+                            $consulta = $conectar->query($query);
+                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                              echo "<option value='$linha[idlocacao]'>$linha[ftc] | $linha[rua], $linha[numero], $linha[bairro], $linha[cidade] - $linha[estado] | $linha[nome]";
+                            }
+                          } catch (PDOException $e) {
+                            echo 'Error: ' . $e->getMessage();
+                            // Log the error
+                            error_log('Error: ' . $e->getMessage(), 0);
+                          }
+                        ?>
                       </select>
                     </label>
                   </div>
                   
 
-                  <label class="d-flex mt-3" id="enviarLocacao" for="enviarLocacao">
-                    <input class="btn btn-laranja" type="submit" value="Cadastrar Conta">
+                  <label class="d-flex mt-3" id="enviarLocacao">
+                    <input class="btn btn-laranja" type="submit" value="Cadastrar FSC">
                   </label>
                 </form>
               </div>
