@@ -15,17 +15,15 @@
 <?php
 include_once "conexao.php";
 $idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT ftc, status, inicio_locacao, termino_locacao, rua, numero, complemento, bairro, cidade, estado, cep, nome, tipo_conta_fixa, valor_mes
+$sql = "SELECT ftc, situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, rua, numero, complemento, bairro, cidade, estado, cep, nome, tipo_despesa, valor_mes
   from locacao l
   inner join endereco e
   on l.id_endereco = e.idendereco
-  inner join conta_fixa cf
-  on cf.id_locacao = l.idlocacao
+  inner join despesas d
+  on d.id_locacao = l.idlocacao
   inner join gestor g 
   on l.id_gestor = g.idgestor 
-  inner join cadastro c 
-  on g.id_cadastro = c.idcadastro
-  where idlocacao = '$idLocacao' and tipo_conta_fixa = 'ALUGUEL'";
+  where idlocacao = '$idLocacao' and tipo_despesa = 'ALUGUEL'";
 $consulta = $conectar->query($sql);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -106,9 +104,9 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                     <input id="gestor" class="form-control" type="text" value="<?= $linha['nome'] ?>" aria-label="<?= $linha['nome'] ?>" disabled readonly>
                   </label>
 
-                  <label id="status" for="status">
+                  <label id="situacao" for="status">
                     Status
-                    <input id="status" class="form-control" type="text" value="<?= $linha['status'] ?>" aria-label="<?= $linha['status'] ?>" disabled readonly>
+                    <input id="situacao" class="form-control" type="text" value="<?= $linha['situacao'] ?>" aria-label="<?= $linha['situacao'] ?>" disabled readonly>
                   </label>
 
                   <label id="endereco" for="endereco">
