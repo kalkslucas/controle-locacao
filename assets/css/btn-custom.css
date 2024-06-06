@@ -3,7 +3,6 @@
 }
 
 .btn.btn-laranja {
-  width: 100%;
   background-color: #e28800;
   color: white;
   &:hover {

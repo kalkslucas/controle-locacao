@@ -11,3 +11,16 @@
 .navbar-brand img {
   width: 40px;
 }
+
+.menu a {
+  width: 18rem;
+}
+
+.card {
+  width: 25rem;
+}
+
+.card-text#piechart {
+  margin: 0;
+  padding: 0;
+}

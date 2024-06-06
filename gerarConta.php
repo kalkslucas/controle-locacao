@@ -32,5 +32,3 @@ $conectar->commit();
 
   error_log("Error: ". $e->getMessage());
 }
-
-?>
