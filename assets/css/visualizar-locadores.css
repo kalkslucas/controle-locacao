@@ -1,0 +1,20 @@
+.card {
+  margin-top: 10px;
+  width: 600px;
+  min-height: 400px;
+}
+
+.card-img-top {
+  height: 200px;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.grid-locadores{
+  display: grid;
+  grid-template-columns: 1fr * 10;
+}
