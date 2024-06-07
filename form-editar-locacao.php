@@ -129,7 +129,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       <td>
                         <label id="fimLocacao" for="fimLocacao">
                           Término da Locação
-                          <input id="fimLocacao" class="form-control" type="text" value="<?= $linha['termino_locacao'] ?>" aria-label="<?= $linha['termino_locacao'] ?>">
+                          <input id="fimLocacao" name="fimLocacao" class="form-control" type="text" value="<?= $linha['termino_locacao'] ?>" aria-label="<?= $linha['termino_locacao'] ?>">
                         </label>
                       </td>
                     </tr>
@@ -203,7 +203,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         Valor do Aluguel
                           <div class="input-group">
                             <span class="input-group-text">R$</span>
-                            <input id="valorAluguel" class="form-control" type="text" value="<?= $linha['valor_mes'] ?>" aria-label="<?= $linha['valor_mes'] ?>">
+                            <input id="valorAluguel" name="valorAluguel" class="form-control" type="text" value="<?= $linha['valor_mes'] ?>" aria-label="<?= $linha['valor_mes'] ?>">
                           </div>
                         </label>
                       </td>
@@ -216,10 +216,6 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       </td>
                     </tr>
                   </table>
-
-                  <div class="btns">
-                    
-                  </div>
                 </form>
 
               </div>

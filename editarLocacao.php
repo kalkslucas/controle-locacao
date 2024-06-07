@@ -5,17 +5,13 @@ try {
   $conectar->beginTransaction();
 
 
-  $idLocador = filter_var($_POST['idLocador']);
-  $cpf_cnpj = filter_var($_POST['cpf_cnpj']);
-  $nome = filter_var($_POST['nome']);
-  $email = filter_var($_POST['email']);
-  $banco = filter_var($_POST['banco']);
-  $agencia = filter_var($_POST['agencia']);
-  $conta = filter_var($_POST['conta']);
-  $tipo_conta = filter_var($_POST['tipo_conta']);
-  $pix = filter_var($_POST['pix']);
-  $telefone_1 = filter_var($_POST['telefone_1']);
-  $telefone_2 = filter_var($_POST['telefone_2']);
+  $idLocacao = filter_var($_POST['idLocacao']);
+  $ftc = filter_var($_POST['ftc']);
+  $gestor = filter_var($_POST['gestor']);
+  $situacao = filter_var($_POST['situacao']);
+  $inicioLocacao = filter_var($_POST['inicioLocacao']);
+  $fimLocacao = filter_var($_POST['fimLocacao']);
+  $locador = filter_var($_POST['locador']);
   $rua = filter_var($_POST['rua']);
   $numero = filter_var($_POST['numero']);
   $complemento = filter_var($_POST['complemento']);
@@ -23,10 +19,10 @@ try {
   $cidade = filter_var($_POST['cidade']);
   $estado = filter_var($_POST['estado']);
   $cep = filter_var($_POST['cep']);
+  $valorAluguel = filter_var($_POST['valorAluguel']);
 
 
-
-  $update = $conectar->prepare("UPDATE locador l INNER JOIN endereco e ON l.id_endereco = e.idendereco SET nome = :nome, cpf_cnpj = :cpf_cnpj, email = :email, banco = :banco, agencia = :agencia, conta = :conta, tipo_conta = :tipo_conta, pix = :pix, telefone_1 = :telefone_1, telefone_2 = :telefone_2, rua = :rua, numero = :numero, complemento = :complemento, bairro = :bairro, cidade = :cidade, estado = :estado, cep = :cep WHERE idlocador = :idlocador");
+  $update = $conectar->prepare("UPDATE locacao lc INNER JOIN endereco e ON lC.id_endereco = e.idendereco INNER JOIN SET gestor g on lc.id_gestor = g.idgestor inner join despesas d on d.id_locacao = lc.idlocacao inner join locador l on lc.id_locador = l.idlocador SET nome = :nome, cpf_cnpj = :cpf_cnpj, email = :email, banco = :banco, agencia = :agencia, conta = :conta, tipo_conta = :tipo_conta, pix = :pix, telefone_1 = :telefone_1, telefone_2 = :telefone_2, rua = :rua, numero = :numero, complemento = :complemento, bairro = :bairro, cidade = :cidade, estado = :estado, cep = :cep WHERE idlocador = :idlocador");
 
   $update->bindParam(":idlocador", $idLocador, PDO::PARAM_INT);
   $update->bindParam(":nome", $nome, PDO::PARAM_STR);
