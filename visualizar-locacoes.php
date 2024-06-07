@@ -62,7 +62,10 @@
                   <br>
                   $linha[bairro] - $linha[cidade] - $linha[estado]
                 </p>
-                <a href='./ver-locacao.php?idlocacao=$linha[idlocacao]' class='btn btn-laranja'>Ver locação</a>
+                <div class='card-btns'>
+                  <a href='./ver-locacao.php?idlocacao=$linha[idlocacao]' class='btn btn-laranja'>Ver locação</a>
+                  <a href='./form-editar-locacao.php?idlocacao=$linha[idlocacao]' class='btn btn-laranja'>Editar locação</a>
+                </div>
               </div>
             </div>
           </div>";

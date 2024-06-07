@@ -14,12 +14,18 @@
 </head>
 <?php
 include_once "conexao.php";
-$idLocador = filter_var($_GET['idlocador'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT idlocador, nome, cpf_cnpj, email, banco, agencia, conta, tipo_conta, pix, telefone_1, telefone_2, rua, numero, complemento, bairro, cidade, estado, cep
-  from locador l
+$idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
+$sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, lc.situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, l.nome as locador, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep, d.valor_mes
+  from locacao lc
   inner join endereco e
-  on l.id_endereco = e.idendereco
-  where idlocador = '$idLocador'";
+  on lc.id_endereco = e.idendereco
+  inner join gestor g
+  on lc.id_gestor = g.idgestor
+  inner join despesas d
+  on d.id_locacao = lc.idlocacao
+  inner join locador l
+  on lc.id_locador = l.idlocador
+  where idlocacao = '$idLocacao' and tipo_despesa = 'ALUGUEL'";
 $consulta = $conectar->query($sql);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -89,74 +95,41 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
             <div class="col-md-8">
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
-                <form action="editarLocador.php" method="post">
+                <form action="editarLocacao.php" method="post">
                   <label id="idlocador">
-                    Código Locador
-                    <input type="text" class="form-control" id="idLocador" name="idLocador" value="<?= $linha['idlocador'] ?>" aria-label="<?= $linha['idlocador'] ?>" disabled readonly>
+                    Código Locação
+                    <input type="text" id="idLocacao" name="idLocacao" value="<?= $linha['idlocacao'] ?>" aria-label="<?= $linha['idlocacao'] ?>" disabled readonly>
                   </label>
                   <table class="table table-borderless">
                     <tr>
                       <td>
-                        <label id="cpf_cnpj">
-                          CPF | CNPJ
-                          <input id="cpf_cnpj" name="cpf_cnpj" class="form-control" type="text" value="<?= $linha['cpf_cnpj'] ?>" aria-label="<?= $linha['cpf_cnpj'] ?>">
+                        <label id="ftc">
+                          FTC
+                          <input id="ftc" name="ftc" class="form-control" type="text" value="<?= $linha['ftc'] ?>" aria-label="<?= $linha['ftc'] ?>">
                         </label>
                       </td>
                       <td>
-                        <label id="nome">
-                          Nome
-                          <input id="nome" name="nome" class="form-control" type="text" value="<?= $linha['nome'] ?>" aria-label="<?= $linha['nome'] ?>">
+                        <label id="gestor" for="gestor">
+                          Gestor
+                          <input id="gestor" name="gestor" class="form-control" type="text" value="<?= $linha['gestor'] ?>" aria-label="<?= $linha['gestor'] ?>">
                         </label>
                       </td>
                       <td>
-                        <label id="email">
-                          E-mail
-                          <input id="email" name="email" class="form-control" type="mail" value="<?= $linha['email'] ?>" aria-label="<?= $linha['email'] ?>">
+                        <label id="situacao" for="status">
+                          Status
+                          <input id="situacao" name="situacao" class="form-control" type="text" value="<?= $linha['situacao'] ?>" aria-label="<?= $linha['situacao'] ?>">
                         </label>
                       </td>
                       <td>
-                        <label id="banco">
-                          Banco
-                          <input id="banco" name="banco" class="form-control" type="text" value="<?= $linha['banco'] ?>" aria-label="<?= $linha['banco'] ?>">
+                        <label id="inicioLocacao" for="inicioLocacao">
+                          Início da Locação
+                          <input id="inicioLocacao" class="form-control" type="text" value="<?= $linha['inicio_locacao'] ?>" aria-label="<?= $linha['inicio_locacao'] ?>">
                         </label>
                       </td>
                       <td>
-                        <label id="agencia">
-                          Agência
-                          <input id="agencia" name="agencia" class="form-control" type="text" value="<?= $linha['agencia'] ?>" aria-label="<?= $linha['agencia'] ?>">
-                        </label>
-                      </td>
-                    </tr>
-                    
-                    <tr>
-                      <td>
-                        <label id="conta">
-                          Conta
-                          <input id="conta" name="conta" class="form-control" type="text" value="<?= $linha['conta'] ?>" aria-label="<?= $linha['conta'] ?>">
-                        </label>
-                      </td>
-                      <td>
-                        <label id="tipo_conta">
-                          Tipo de Conta
-                          <input id="tipo_conta" name="tipo_conta" class="form-control" type="text" value="<?= $linha['tipo_conta'] ?>" aria-label="<?= $linha['tipo_conta'] ?>">
-                        </label>
-                      </td>
-                      <td>
-                        <label id="pix">
-                          PIX
-                          <input id="pix" name="pix" class="form-control" type="text" value="<?= $linha['pix'] ?>" aria-label="<?= $linha['pix'] ?>">
-                        </label>
-                      </td>
-                      <td>
-                        <label id="telefone_1">
-                          Telefone
-                          <input id="telefone_1" name="telefone_1" class="form-control" type="text" value="<?= $linha['telefone_1'] ?>" aria-label="<?= $linha['telefone_1'] ?>">
-                        </label>
-                      </td>
-                      <td>
-                        <label id="telefone_2">
-                          Celular
-                          <input id="telefone_2" name="telefone_2" class="form-control" type="text" value="<?= $linha['telefone_2'] ?>" aria-label="<?= $linha['telefone_2'] ?>">
+                        <label id="fimLocacao" for="fimLocacao">
+                          Término da Locação
+                          <input id="fimLocacao" class="form-control" type="text" value="<?= $linha['termino_locacao'] ?>" aria-label="<?= $linha['termino_locacao'] ?>">
                         </label>
                       </td>
                     </tr>
@@ -164,17 +137,30 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                     <tr>
                       <td colspan="2">
                         <label style="width:100%;" id="endereco" for="endereco">
+                          Locador
+                          <input  id="locador" name="locador" class="form-control" type="text" value="<?= $linha['locador'] ?>" aria-label="<?= $linha['locador'] ?>">
+                        </label>
+                      </td>
+
+                      <td colspan="2">
+                        <label style="width:100%;" id="endereco" for="endereco">
                           Endereço
                           <input  id="rua" name="rua" class="form-control" type="text" value="<?= $linha['rua'] ?>" aria-label="<?= $linha['rua'] ?>">
                         </label>
                       </td>
+
                       <td>
                         <label id="numero" for="numero">
                           Numero
                           <input id="numero" name="numero" class="form-control" type="text" value="<?= $linha['numero'] ?>" aria-label="<?= $linha['numero'] ?>">
                         </label>
                       </td>
+                    </tr>
+                  
 
+                      
+
+                    <tr>
                       <td>
                         <label id="complemento" for="complemento">
                           Complemento
@@ -182,15 +168,6 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         </label>
                       </td>
 
-                      <td>
-                        <label id="cep" for="cep">
-                          CEP
-                          <input id="cep" name="cep"  class="form-control" type="text" value="<?= $linha['cep'] ?>" aria-label="<?= $linha['cep'] ?>">
-                        </label>
-                      </td>
-                    </tr>
-
-                    <tr>
                       <td>
                         <label id="bairro" for="bairro">
                           Bairro
@@ -212,14 +189,37 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         </label>
                       </td>
 
-                      <td colspan="2">
+                      <td>
+                        <label id="cep" for="cep">
+                          CEP
+                          <input id="cep" name="cep"  class="form-control" type="text" value="<?= $linha['cep'] ?>" aria-label="<?= $linha['cep'] ?>">
+                        </label>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <label id="valorAluguel" for="valorAluguel">
+                        Valor do Aluguel
+                          <div class="input-group">
+                            <span class="input-group-text">R$</span>
+                            <input id="valorAluguel" class="form-control" type="text" value="<?= $linha['valor_mes'] ?>" aria-label="<?= $linha['valor_mes'] ?>">
+                          </div>
+                        </label>
+                      </td>
+
+                      <td colspan="4" class="text-end">
                         <br>
-                        <label style="width: 100%;" id="enviar">
+                        <label style="width: 25%;" id="enviar">
                           <input class="form-control btn btn-success" type="submit" value="Confirmar Edição">
                         </label>
-                      </td>  
+                      </td>
                     </tr>
                   </table>
+
+                  <div class="btns">
+                    
+                  </div>
                 </form>
 
               </div>

@@ -7,6 +7,12 @@
   height: 200px;
 }
 
+.card-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .card-body {
   display: flex;
   flex-direction: column;
