@@ -5,12 +5,12 @@ try {
   $conectar->beginTransaction();
 
 
-  $idLocacao = filter_var($_POST['idLocacao']);
+  $idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
   $ftc = filter_var($_POST['ftc']);
   $gestor = filter_var($_POST['gestor']);
   $situacao = filter_var($_POST['situacao']);
-  $inicioLocacao = filter_var($_POST['inicioLocacao']);
-  $fimLocacao = filter_var($_POST['fimLocacao']);
+  $inicioLocacao = DateTime::createFromFormat('d/m/Y', $_POST['inicioLocacao'])->format('Y-m-d');
+  $fimLocacao = DateTime::createFromFormat('d/m/Y', $_POST['fimLocacao'])->format('Y-m-d');
   $locador = filter_var($_POST['locador']);
   $rua = filter_var($_POST['rua']);
   $numero = filter_var($_POST['numero']);
@@ -21,20 +21,15 @@ try {
   $cep = filter_var($_POST['cep']);
   $valorAluguel = filter_var($_POST['valorAluguel']);
 
+  $update = $conectar->prepare("UPDATE locacao lc INNER JOIN endereco e ON lc.id_endereco = e.idendereco INNER JOIN gestor g on lc.id_gestor = g.idgestor inner join despesas d on d.id_locacao = lc.idlocacao inner join locador l on lc.id_locador = l.idlocador SET lc.ftc = :ftc, g.nome = :gestor, situacao = :situacao, inicio_locacao = :inicioLocacao, termino_locacao = :fimLocacao, l.nome = :locador, rua = :rua, numero = :numero, complemento = :complemento, bairro = :bairro, cidade = :cidade, estado = :estado, cep = :cep, d.valor_mes = :valorAluguel WHERE lc.idlocacao = :idlocacao");
 
-  $update = $conectar->prepare("UPDATE locacao lc INNER JOIN endereco e ON lC.id_endereco = e.idendereco INNER JOIN SET gestor g on lc.id_gestor = g.idgestor inner join despesas d on d.id_locacao = lc.idlocacao inner join locador l on lc.id_locador = l.idlocador SET nome = :nome, cpf_cnpj = :cpf_cnpj, email = :email, banco = :banco, agencia = :agencia, conta = :conta, tipo_conta = :tipo_conta, pix = :pix, telefone_1 = :telefone_1, telefone_2 = :telefone_2, rua = :rua, numero = :numero, complemento = :complemento, bairro = :bairro, cidade = :cidade, estado = :estado, cep = :cep WHERE idlocador = :idlocador");
-
-  $update->bindParam(":idlocador", $idLocador, PDO::PARAM_INT);
-  $update->bindParam(":nome", $nome, PDO::PARAM_STR);
-  $update->bindParam(":cpf_cnpj", $cpf_cnpj, PDO::PARAM_STR);
-  $update->bindParam(":email", $email, PDO::PARAM_STR);
-  $update->bindParam(":banco", $banco, PDO::PARAM_STR);
-  $update->bindParam(":agencia", $agencia, PDO::PARAM_STR);
-  $update->bindParam(":conta", $conta, PDO::PARAM_STR);
-  $update->bindParam(":tipo_conta", $tipo_conta, PDO::PARAM_STR);
-  $update->bindParam(":pix", $pix, PDO::PARAM_STR);
-  $update->bindParam(":telefone_1", $telefone_1, PDO::PARAM_STR);
-  $update->bindParam(":telefone_2", $telefone_2, PDO::PARAM_STR);
+  $update->bindParam(":idlocacao", $idLocacao, PDO::PARAM_INT);
+  $update->bindParam(":ftc", $ftc, PDO::PARAM_STR);
+  $update->bindParam(":gestor", $gestor, PDO::PARAM_STR);
+  $update->bindParam(":situacao", $situacao, PDO::PARAM_STR);
+  $update->bindParam(":inicioLocacao", $inicioLocacao, PDO::PARAM_STR);
+  $update->bindParam(":fimLocacao", $fimLocacao, PDO::PARAM_STR);
+  $update->bindParam(":locador", $locador, PDO::PARAM_STR);
   $update->bindParam(":rua", $rua, PDO::PARAM_STR);
   $update->bindParam(":numero", $numero, PDO::PARAM_STR);
   $update->bindParam(":complemento", $complemento, PDO::PARAM_STR);
@@ -42,6 +37,7 @@ try {
   $update->bindParam(":cidade", $cidade, PDO::PARAM_STR);
   $update->bindParam(":estado", $estado, PDO::PARAM_STR);
   $update->bindParam(":cep", $cep, PDO::PARAM_STR);
+  $update->bindParam(":valorAluguel", $valorAluguel, PDO::PARAM_STR);
   $update->execute();
 
   $conectar->commit();

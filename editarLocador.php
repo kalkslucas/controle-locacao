@@ -5,7 +5,7 @@ try {
   $conectar->beginTransaction();
 
 
-  $idLocador = filter_var($_POST['idLocador']);
+  $idLocador = filter_var($_GET['idlocador'], FILTER_SANITIZE_NUMBER_INT);
   $cpf_cnpj = filter_var($_POST['cpf_cnpj']);
   $nome = filter_var($_POST['nome']);
   $email = filter_var($_POST['email']);

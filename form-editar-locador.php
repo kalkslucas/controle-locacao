@@ -89,11 +89,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
             <div class="col-md-8">
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
-                <form action="editarLocador.php" method="post">
-                  <label id="idlocador">
-                    Código Locador
-                    <input type="text" class="form-control" id="idLocador" name="idLocador" value="<?= $linha['idlocador'] ?>" aria-label="<?= $linha['idlocador'] ?>" disabled readonly>
-                  </label>
+                <form action="editarLocador.php?idlocador=<?= $linha['idlocador']?>" method="post">
                   <table class="table table-borderless">
                     <tr>
                       <td>

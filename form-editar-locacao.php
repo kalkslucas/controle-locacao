@@ -95,11 +95,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
             <div class="col-md-8">
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
-                <form action="editarLocacao.php" method="post">
-                  <label id="idlocador">
-                    Código Locação
-                    <input type="text" id="idLocacao" name="idLocacao" value="<?= $linha['idlocacao'] ?>" aria-label="<?= $linha['idlocacao'] ?>" disabled readonly>
-                  </label>
+                <form action="editarLocacao.php?idlocacao=<?= $linha['idlocacao'] ?>" method="post">
                   <table class="table table-borderless">
                     <tr>
                       <td>
@@ -123,7 +119,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       <td>
                         <label id="inicioLocacao" for="inicioLocacao">
                           Início da Locação
-                          <input id="inicioLocacao" class="form-control" type="text" value="<?= $linha['inicio_locacao'] ?>" aria-label="<?= $linha['inicio_locacao'] ?>">
+                          <input id="inicioLocacao" name="inicioLocacao" class="form-control" type="text" value="<?= $linha['inicio_locacao'] ?>" aria-label="<?= $linha['inicio_locacao'] ?>">
                         </label>
                       </td>
                       <td>
