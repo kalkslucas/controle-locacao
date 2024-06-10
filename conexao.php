@@ -1,6 +1,9 @@
 <?php
-global $conectar;
+
 session_start();
+
+global $conectar;
+
 
 try {
   //Conecta ao banco de dados

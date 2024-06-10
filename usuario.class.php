@@ -1,5 +1,4 @@
 <?php
-include("conexao.php");
 class Usuario {
   public function login($usuario, $senha) {
 
@@ -21,6 +20,22 @@ class Usuario {
     } else {
       return false;
     }
+  }
+
+  public function logged($idUsuario) {
+    global $conectar;
+
+    $infoUser = array();
+    $query = "SELECT nome, perfil FROM users WHERE idusuario = :idUsuario";
+    $query = $conectar->prepare($query);
+    $query->bindValue(":idUsuario", $idUsuario);
+    $query->execute();
+
+    if($query->rowCount() > 0) {
+      $infoUser = $query->fetch(PDO::FETCH_ASSOC);
+    }
+
+    return $infoUser;
   }
 }
 

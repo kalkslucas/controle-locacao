@@ -5,6 +5,14 @@
   background-clip: border-box;
 }
 
+.infoUser {
+  padding: 0.5rem 0.25rem;
+}
+
+.infoUser p {
+  margin: 0;
+}
+
 @media (max-width: 576px) {
   .page{
     background: url(/assets/img/background-mobile.svg);

@@ -1,4 +1,7 @@
-<?php require 'conexao.php'; if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )): ?>
+<?php 
+require 'verificaUsuario.php';
+if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )): 
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -38,7 +41,11 @@
           </li>
         </ul>
       </div>
-      <div class="infoUser">
+      <div class="user d-flex text-center">
+        <label class="infoUser border d-flex flex-column align-items-center">
+          <p class=""> <?= $nomeUser; ?></p>
+          <p class=""> <?= $perfilUser; ?></p>
+        </label>
         <a class="btn btn-outline-danger" href="logout.php">Sair</a>
       </div>
     </div>
