@@ -36,6 +36,9 @@
           </li>
         </ul>
       </div>
+      <div class="infoUser">
+        <a class="btn btn-outline-danger" href="logout.php">Sair</a>
+      </div>
     </div>
   </nav>
 

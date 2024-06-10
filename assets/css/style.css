@@ -1,0 +1,25 @@
+:root {
+  --cor-fonte: #363636;
+  --cor-fundo-navbar: #EBD9C4;
+  --cor-fundo-body: #dddbdb; 
+}
+
+main {
+  margin-top: 10px;
+}
+
+.tabela {
+  width: 70%;
+  
+}
+
+.table th, .table td {
+  background-color: var(--cor-fonte);
+  color: var(--cor-fundo-navbar);
+  width: 50%;
+  border-color: #535353;
+}
+
+.table th {
+  font-size: 20px; 
+}
