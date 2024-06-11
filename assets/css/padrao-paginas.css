@@ -11,3 +11,11 @@
 .navbar-brand img {
   width: 40px;
 }
+
+.infoUser {
+  padding: 0.5rem 0.25rem;
+}
+
+.infoUser p {
+  margin: 0;
+}

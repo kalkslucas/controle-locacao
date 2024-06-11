@@ -1,3 +1,8 @@
+<?php 
+require 'verificaUsuario.php';
+if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )): 
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -23,22 +28,20 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link" href="./controle-locacao.php">
               Gestão de Locação
             </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="./controle-locacao.php">Início</a></li>
-              <li><a class="dropdown-item" href="./visualizar-locacoes.php">Visualizar Locações</a></li>
-              <li><a class="dropdown-item" href="./cadastrar-pessoa.php">Cadastro de Pessoas</a></li>
-              <li><a class="dropdown-item" href="./cadastrar-locador.php">Cadastro de Locadores</a></li>
-              <li><a class="dropdown-item" href="./cadastrar-locacao.php">Cadastro de Locações</a></li>
-              <li><a class="dropdown-item" href="./gerar-conta.php">Gerar conta</a></li>
-            </ul>
-          </li>
           <li class="nav-item">
             <a class="nav-link disabled" aria-disabled="true">Em construção...</a>
           </li>
         </ul>
+      </div>
+      <div class="user d-flex text-center">
+        <label class="infoUser border d-flex flex-column align-items-center">
+          <p class=""> <?= $nomeUser; ?></p>
+          <p class=""> <?= $perfilUser; ?></p>
+        </label>
+        <a class="btn btn-outline-danger" href="logout.php">Sair</a>
       </div>
     </div>
   </nav>
@@ -305,3 +308,5 @@
 </body>
 
 </html>
+
+<?php else: header('Location: login.php');endif;?>

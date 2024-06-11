@@ -1,3 +1,8 @@
+<?php 
+require 'verificaUsuario.php';
+if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )): 
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -19,20 +24,21 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="./controle-locacao.php" role="button">
+          <li class="nav-item dropdown">
+            <a class="nav-link" href="./controle-locacao.php">
               Gestão de Locação
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./ramais.html" role="button">
-              Ramais
-            </a>
-          </li>
           <li class="nav-item">
             <a class="nav-link disabled" aria-disabled="true">Em construção...</a>
           </li>
         </ul>
+      </div>
+      <div class="user d-flex text-center">
+        <label class="infoUser border d-flex flex-column align-items-center">
+          <p class=""> <?= $nomeUser; ?></p>
+          <p class=""> <?= $perfilUser; ?></p>
+        </label>
+        <a class="btn btn-outline-danger" href="logout.php">Sair</a>
       </div>
     </div>
   </nav>
@@ -89,3 +95,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+<?php else: header('Location: login.php');endif;?>
