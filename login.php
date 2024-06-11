@@ -26,14 +26,7 @@
           <label class="w-100 my-1" for="password">
             <input class="form-control" type="password" name="senha" id="senha" placeholder="Senha">
           </label>
-          <div class="form-check my-2">
-            <input class="form-check-input" type="checkbox" name="remember" id="flexCheckDefault">
-            <label class="form-check-label text-light" for="remember">
-              Lembre-me
-            </label>
-          </div>
-          
-          <input class="w-100 btn btn-danger" type="submit" value="Entrar">
+          <input class="mt-2 w-100 btn btn-danger" type="submit" value="Entrar">
         </form>
       </div>
     </div>

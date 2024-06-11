@@ -3,15 +3,9 @@ require 'verificaUsuario.php';
 if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )): 
 ?>
 
-<?php 
-  include_once'conexao.php';
-  $sql = "SELECT COUNT(*) AS QUANT_LOCACOES FROM LOCACAO";
-  $consulta = $conectar->query($sql);
-  $linha = $consulta->fetch(PDO::FETCH_ASSOC);
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,9 +13,11 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 
   <link rel="stylesheet" href="assets/css/padrao-paginas.css">
   <link rel="stylesheet" href="assets/css/btn-custom.css">
-  <link rel="stylesheet" href="assets/css/controle-locacao.css">
+  <link rel="stylesheet" href="assets/css/visualizar-locadores.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 </head>
+
 <body class="page">
   <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container-fluid">
@@ -51,57 +47,63 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   </nav>
 
   <main class="container-fluid">
-    <div class="row py-3">
+    <div class="row p-5 justify-content-center">
       <div class="col-12">
-        <div class="menu d-flex flex-row justify-content-around">
-          <a href="visualizar-locacoes.php" class="d-block btn btn-warning">Locações</a>
-          <a href="visualizar-locadores.php" class="d-block btn btn-warning">Locadores</a>
-          <a href="visualizar-gestores.php" class="d-block btn btn-warning">Gestores</a>
-          <a href="visualizar-alojados.php" class="d-block btn btn-warning">Alojados</a>
-          <a href="visualizar-despesas.php" class="d-block btn btn-warning">Despesas</a>
-          <a href="visualizar-fsc.php" class="d-block btn btn-warning">FSCs</a>
-        </div>
-      </div>
-    </div>
+        <?php
+        echo "
+                <div class='table-responsive'>
+                  <table class='table table-borderless'>
+                    <thead>
+                      <tr class='text-center'>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Telefone</th>
+                        <th>Visualizar</th>
+                        <th>Editar</th>
+                      </tr>
+                    </thead>
+                    <tbody>";
+        ?>
 
+        <?php
+          include_once "conexao.php";
+          try {
+            //query sql de consulta
+            $sql = 'SELECT idalojado, nome, email, telefone_1 FROM alojado';
+            //execução da instrução sql
+            $consulta = $conectar->query($sql);
+            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+              echo "  <tr class='text-center'>
+                        <td>$linha[nome]</td>
+                        <td>$linha[email]</td>
+                        <td>$linha[telefone_1]</td>
+                        <td><a href='./ver-locador.php?idlocador=$linha[idalojado]' class='btn btn-laranja'>Ver dados</a></td>
+                        <td><a href='./form-editar-locador.php?idlocador=$linha[idalojado]' class='btn btn-laranja'>Editar dados</a></td>
+                      </tr>
+              ";
+            }
+          } catch (PDOException $e) {
+            echo $e->getMessage();
+          }
+        ?>
 
-    <div class="info-cards row py-3">
-      <div class="col d-flex justify-content-center">
-        <div class="card">
-          <div class="card-body d-flex flex-column justify-content-around align-items-center">
-            <h5 class="card-title">Quantidade de Locações Realizadas</h5>
-            <p class="display-5"><?= $linha['QUANT_LOCACOES'] ?></p>
-            <p class="card-text">Locações</p>
-          </div>
-        </div>
-      </div>
-      <div class="col d-flex justify-content-center">
-        <div class="card">
-          <div class="card-body d-flex flex-column justify-content-around align-items-center">
-            <h5 class="card-title">Situações das Locações</h5>
-            <p class="text-center">5 Ativos</p>
-            <p class="text-center">3 Inativos</p>
-            <p class="text-center">8 Pendentes</p>
-          </div>
-        </div>
-      </div>
-      <div class="col d-flex justify-content-center">
-        <div class="card">
-          <div class="card-body d-flex flex-column justify-content-around align-items-center">
-            <h5 class="card-title">Quantidade de Locações Realizadas</h5>
-            <p class="display-5">8</p>
-            <p class="card-text">Locações</p>
-          </div>
-        </div>
-      </div>
-
+        <?php
+          echo"
+                    </tbody>  
+                  </table>
+                </div>";
+        ?>
+      </div> 
     </div>
   </main>
-  
+
+  <footer class="text-end p-3 footer fixed-bottom">
+    <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
-</html>
 
+</html>
 
 <?php else: header('Location: login.php');endif;?>

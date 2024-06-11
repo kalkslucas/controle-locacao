@@ -32,7 +32,7 @@ body {
 }
 
 .ultra-img {
-  width: 80vw;
+  width: 35vw;
 }
 
 #img-container {
@@ -53,7 +53,7 @@ body {
 }
 
 
-@media (min-width: 576px) {
+@media (max-width: 576px) {
   .ultra-img {
     width: 25vw;
   }
