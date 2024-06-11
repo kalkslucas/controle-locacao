@@ -46,13 +46,18 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
     </div>
   </nav>
 
+  <div class="text-end p-3">
+    <a href='./form-cadastrar-locador.php' class='btn btn-warning'>Cadastrar Locador</a>
+    <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
+  </div>
+
   <main class="container-fluid">
-    <div class="row p-5 justify-content-center">
+    <div class="row p-3 justify-content-center">
       <div class="col-12">
         <?php
         echo "
                 <div class='table-responsive'>
-                  <table class='table'>
+                  <table class='table table-borderless'>
                     <thead>
                       <tr class='text-center'>
                         <th>Nome</th>
@@ -96,11 +101,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
       </div> 
     </div>
   </main>
-
-  <footer class="text-end p-3 footer fixed-bottom">
-    <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
-  </footer>
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 

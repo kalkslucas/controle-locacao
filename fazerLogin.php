@@ -1,5 +1,4 @@
 <?php
-include_once("conexao.php");
 try {
   if(isset($_POST["usuario"]) && !empty($_POST["usuario"]) && isset($_POST["senha"]) && !empty($_POST["senha"])) {
     require 'conexao.php';

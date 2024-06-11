@@ -46,7 +46,12 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
     </div>
   </nav>
 
-  <main class="container">
+  <div class="text-end p-3">
+    <a href='./form-cadastrar-locacao.php' class='btn btn-warning'>Cadastrar Locação</a>
+    <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
+  </div>
+
+  <main class="container-fluid">
     <div class="row justify-content-center">
       <?php
       include_once "conexao.php";
@@ -80,12 +85,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
       ?>
     </div>
   </main>
-
-  <footer class="text-end p-3 footer fixed-bottom">
-    <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
-  </footer>
-
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 

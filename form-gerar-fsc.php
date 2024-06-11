@@ -45,10 +45,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   </nav>
 
   <main class="container">
-    <div class="text-end p-3">
-
-    </div>
-
     <div class="row justify-content-center">
       <div class="col">
         <div class="card shadow-lg mt-3 mb-3">

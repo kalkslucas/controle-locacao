@@ -41,7 +41,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
         </ul>
       </div>
       <div class="user d-flex text-center">
-        <label class="infoUser border d-flex flex-column align-items-center">
+        <label class="infoUser border rounded d-flex flex-column align-items-center">
           <p class=""> <?= $nomeUser; ?></p>
           <p class=""> <?= $perfilUser; ?></p>
         </label>
@@ -53,7 +53,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <main class="container-fluid">
     <div class="row py-3">
       <div class="col-12">
-        <div class="menu d-flex flex-row justify-content-around">
+        <div class="menu d-flex flex-row justify-content-around sticky-top">
           <a href="visualizar-locacoes.php" class="d-block btn btn-warning">Locações</a>
           <a href="visualizar-locadores.php" class="d-block btn btn-warning">Locadores</a>
           <a href="visualizar-gestores.php" class="d-block btn btn-warning">Gestores</a>
