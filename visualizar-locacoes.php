@@ -36,20 +36,21 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
           </li>
         </ul>
       </div>
-      <div class="user d-flex text-center">
+      <div class="px-2">
+        <a href='./form-cadastrar-locacao.php' class='btn btn-warning'>Cadastrar Locação</a>
+        <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
+      </div>
+      <div class="user px-2 d-flex text-center">
         <label class="infoUser border d-flex flex-column align-items-center">
           <p class=""> <?= $nomeUser; ?></p>
           <p class=""> <?= $perfilUser; ?></p>
         </label>
-        <a class="btn btn-outline-danger" href="logout.php">Sair</a>
       </div>
+      <a class="btn btn-outline-danger" href="logout.php">Sair</a>
     </div>
   </nav>
 
-  <div class="text-end p-3">
-    <a href='./form-cadastrar-locacao.php' class='btn btn-warning'>Cadastrar Locação</a>
-    <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
-  </div>
+  
 
   <main class="container-fluid">
     <div class="row justify-content-center">
