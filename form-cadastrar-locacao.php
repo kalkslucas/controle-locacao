@@ -238,6 +238,16 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         placeholder="dd/mm/aaaa"
                       />
                     </label>
+
+                    <label id="observacoes" class="d-block mt-1">
+                      Observações
+                    </label>
+                    <textarea
+                      id="observacoes" 
+                      name="observacoes" 
+                      class="mt-2 form-control"
+                      rows="5" 
+                      ></textarea>
                     <!-- 
                     <label id="valorAluguel">
                       Valor do Aluguel

@@ -106,7 +106,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 
     <div class="row justify-content-end">
       <div class="col-lg-1 col-md-2 col-sm-12 mb-4">
-        <a href="./visualizar-locacoes.html" class="text-center btn btn-danger w-100">Voltar</a>
+        <a href="./visualizar-fsc.php" class="text-center btn btn-danger w-100">Voltar</a>
       </div>
     </div>
     

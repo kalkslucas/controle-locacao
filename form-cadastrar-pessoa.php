@@ -109,7 +109,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
     </div>
     <div class="row justify-content-end">
       <div class="col-md-1 col-sm-12 mb-4">
-        <a href="./visualizar-locacoes.html" class="btn btn-danger btn-modal w-auto">Voltar</a>
+        <a href="./visualizar-gestores.php" class="btn btn-danger btn-modal w-auto">Voltar</a>
       </div>
     </div>
   </main>

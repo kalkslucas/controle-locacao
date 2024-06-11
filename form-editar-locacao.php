@@ -20,7 +20,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, lc.situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, l.nome as locador, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep, d.valor_mes
+$sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, lc.situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, observacoes, l.nome as locador, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep, d.valor_mes
   from locacao lc
   inner join endereco e
   on lc.id_endereco = e.idendereco
@@ -207,8 +207,26 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                           </div>
                         </label>
                       </td>
+                    </tr>
 
-                      <td colspan="4" class="text-end">
+                    <tr>
+                      <td colspan="5">
+                        <label id="observacoes" class="d-block mt-1">
+                        Observação
+                        </label>
+                        <textarea
+                          id="observacoes" 
+                          name="observacoes" 
+                          class="mt-2 form-control"
+                          rows="5"
+                          >
+                          <?php echo $linha['observacoes'] ?>
+                        </textarea>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td colspan="5" class="text-end">
                         <br>
                         <label style="width: 25%;" id="enviar">
                           <input class="form-control btn btn-success" type="submit" value="Confirmar Edição">

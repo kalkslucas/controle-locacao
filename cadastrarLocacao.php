@@ -17,6 +17,7 @@ try {
   $estado = filter_var($_POST['uf']);
   $inicioLocacao = filter_var($_POST['inicioLocacao']);
   $terminoLocacao = filter_var($_POST['terminoLocacao']);
+  $observacoes = filter_var($_POST['observacoes']);
 
   $queryEndereco = "INSERT INTO endereco (tipo_endereco, rua, numero, complemento, bairro, cidade, estado, cep) VALUES ('LOCACAO', :rua, :numero, :complemento, :bairro, :cidade, :estado, :cep)";
   $insertEndereco = $conectar->prepare($queryEndereco);
@@ -31,12 +32,13 @@ try {
 
 
   $idEndereco = $conectar->lastInsertId(); // Get the last inserted ID
-  $queryLocacao = "INSERT INTO locacao (ftc, situacao, inicio_locacao, termino_locacao, id_gestor, id_locador, id_endereco) VALUES (:ftc, :situacao, :inicio_locacao, :termino_locacao, :gestor, :locador, :idEndereco)";
+  $queryLocacao = "INSERT INTO locacao (ftc, situacao, inicio_locacao, termino_locacao, observacoes, id_gestor, id_locador, id_endereco) VALUES (:ftc, :situacao, :inicio_locacao, :termino_locacao, :observacoes, :gestor, :locador, :idEndereco)";
   $insertLocacao = $conectar->prepare($queryLocacao);
   $insertLocacao->bindParam(':ftc', $ftc, PDO::PARAM_STR);
   $insertLocacao->bindParam(':situacao', $situacao, PDO::PARAM_STR);
   $insertLocacao->bindParam(':inicio_locacao', $inicioLocacao, PDO::PARAM_STR);
   $insertLocacao->bindParam(':termino_locacao', $terminoLocacao, PDO::PARAM_STR);
+  $insertLocacao->bindParam(':observacoes', $observacoes, PDO::PARAM_STR);
   $insertLocacao->bindParam(':gestor', $gestor, PDO::PARAM_INT);
   $insertLocacao->bindParam(':locador', $locador, PDO::PARAM_INT);
   $insertLocacao->bindParam(':idEndereco', $idEndereco, PDO::PARAM_INT);
