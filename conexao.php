@@ -7,7 +7,7 @@ global $conectar;
 
 try {
   //Conecta ao banco de dados
-  $conectar = new PDO("mysql:host=localhost;dbname=controle_locacao", "root", "root");
+  $conectar = new PDO("mysql:host=localhost;dbname=controle_locacao", "root", "");
   $conectar->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 } catch (PDOException $e) {
