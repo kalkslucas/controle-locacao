@@ -89,7 +89,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
             <div class="col-md-8">
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
-                <form action="editarDespesa.php?iddespesa=<?=$iddespesa?>" method="post">
+                <form enctype="multipart/form-data" action="editarDespesa.php?iddespesa=<?=$iddespesa?>" method="post">
                 <table class="table table-borderless">
                     <tr>
                       <td>
@@ -143,7 +143,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       <td colspan="2">
                         <label id="anexo_contas">
                           Visualizar Anexos
-                          <input id="anexo_contas" name="anexo_contas" class="form-control" type="file" value="<?= $linha['anexo_contas'] ?>" aria-label="<?= $linha['anexo_contas'] ?>" multiple>
+                          <input id="anexo_contas" name="anexo_contas" class="form-control" type="file" value="<?= $linha['anexo_contas'] ?>" aria-label="<?= $linha['anexo_contas'] ?>">
                         </label>
                       </td>
                     </tr>

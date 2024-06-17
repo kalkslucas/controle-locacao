@@ -140,10 +140,10 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                     </tr>
 
                     <tr>
-                      <td>
-                        <label id="anexo_contas">
+                      <td colspan="2">
+                        <label id="anexo_contas" style="width: 100%;">
                           Visualizar Anexos
-                          <input id="anexo_contas" name="anexo_contas" class="form-control" type="text" value="<?= $linha['anexo_contas'] ?>" aria-label="<?= $linha['anexo_contas'] ?>"disabled readonly>
+                          <div id="anexo_contas" name="anexo_contas" class="form-control" aria-label="<?= $linha['anexo_contas'] ?>"><?= "<a target='_blank' href='$linha[anexo_contas] '>Comprovante de Pagamento</a> "?></div>
                         </label>
                       </td>
                     </tr>
