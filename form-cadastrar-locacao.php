@@ -263,7 +263,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                       </div>
                     </label>
                     -->
-                    <!--
+
                     <label id="imagensLocacao">
                       Adicionar Fotos de Vistoria
                       <input 
@@ -285,7 +285,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         multiple
                       />
                     </label>
-                      -->
                   </div>
 
                   <label class="d-flex mt-3" id="enviarLocacao" for="enviarLocacao">
