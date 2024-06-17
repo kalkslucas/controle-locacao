@@ -153,7 +153,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 
     <div class="row justify-content-end">
       <div class="col-md-1 col-sm-12 mb-4">
-        <a href="./visualizar-locadores.php" class="btn btn-danger btn-modal w-100">Voltar</a>
+        <a href="./visualizar-gestores.php" class="btn btn-danger btn-modal w-100">Voltar</a>
       </div>
     </div>
 
