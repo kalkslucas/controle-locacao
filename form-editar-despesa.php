@@ -89,7 +89,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
             <div class="col-md-8">
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
-                <form ation="editarDespesa?iddespesa=<?=$iddespesa?>" method="post">
+                <form action="editarDespesa.php?iddespesa=<?=$iddespesa?>" method="post">
                 <table class="table table-borderless">
                     <tr>
                       <td>
