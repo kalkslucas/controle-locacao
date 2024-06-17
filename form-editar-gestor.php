@@ -19,8 +19,8 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 </head>
 <?php
 include_once "conexao.php";
-$idgestor = filter_var($_GET['idgestor'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT nome, email, cargo, setor, unidade, telefone_1, telefone_2 from gestor where idgestor = '$idgestor'";
+$idGestor = filter_var($_GET['idgestor'], FILTER_SANITIZE_NUMBER_INT);
+$sql = "SELECT nome, email, cargo, setor, unidade, telefone_1, telefone_2 from gestor where idgestor = '$idGestor'";
 $consulta = $conectar->query($sql);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -89,7 +89,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
             <div class="col-md-8">
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
-                <form action="editarGestor.php?idgestor=<?=$linha['idgestor']?>" method="post">
+                <form action="editarGestor.php?idgestor=<?=$idGestor?>" method="post">
                 <table class="table table-borderless">
                     <tr>
                       <td>
