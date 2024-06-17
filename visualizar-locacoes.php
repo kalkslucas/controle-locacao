@@ -36,10 +36,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
           </li>
         </ul>
       </div>
-      <div class="px-2">
-        <a href='./form-cadastrar-locacao.php' class='btn btn-warning'>Cadastrar Locação</a>
-        <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
-      </div>
       <div class="user px-2 d-flex text-center">
         <label class="infoUser border d-flex flex-column align-items-center">
           <p class=""> <?= $nomeUser; ?></p>
@@ -50,9 +46,13 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
     </div>
   </nav>
 
-  
+  <div class="text-end p-2">
+    <a href='./form-cadastrar-locacao.php' class='btn btn-warning'>Cadastrar Locação</a>
+    <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
+  </div>
 
   <main class="container-fluid">
+    
     <div class="row justify-content-center">
       <?php
       include_once "conexao.php";
