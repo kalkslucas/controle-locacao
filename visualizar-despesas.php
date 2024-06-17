@@ -84,8 +84,8 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         <td>$linha[titular]</td>
                         <td>$linha[valor_mes]</td>
                         <td>$linha[vencimento]</td>
-                        <td><a href='./ver-locador.php?idlocador=$linha[iddespesa]' class='btn btn-laranja'>Ver detalhes da despesa</a></td>
-                        <td><a href='./form-editar-locador.php?idlocador=$linha[iddespesa]' class='btn btn-laranja'>Editar despesa</a></td>
+                        <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Ver detalhes da despesa</a></td>
+                        <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Editar despesa</a></td>
                       </tr>
               ";
             }
