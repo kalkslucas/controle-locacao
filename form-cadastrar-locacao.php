@@ -54,7 +54,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
             <div class="col-md-12">
               <div class="card-body">
                 <h3 class="card-title text-center display-4">Cadastro de Locação</h3>
-                <form action="cadastrarLocacao.php" method="post">
+                <form action="cadastrarLocacao.php" enctype="multipart/form-data" method="post">
                   <div class="mt-1">
                     <label id="ftc">
                       FTC
@@ -265,21 +265,10 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     -->
 
                     <label id="imagensLocacao">
-                      Adicionar Fotos de Vistoria
+                      Adicionar Fotos e Documentos
                       <input 
-                        id="imagensLocacao" 
-                        name="imagensLocacao" 
-                        class="form-control" 
-                        type="file" 
-                        multiple
-                      />
-                    </label>
-
-                    <label id="contratosLocacao">
-                      Adicionar Contratos
-                      <input 
-                        id="contratosLocacao" 
-                        name="contratosLocacao" 
+                        id="anexo_foto_docs" 
+                        name="anexo_foto_docs[]" 
                         class="form-control" 
                         type="file" 
                         multiple
