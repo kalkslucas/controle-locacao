@@ -20,7 +20,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $iddespesa = filter_var($_GET['iddespesa'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT tipo_despesa, empresa, titular, num_instalacao, consumo_velocidade, valor_mes, vencimento from despesas where iddespesa = '$iddespesa'";
+$sql = "SELECT tipo_despesa, empresa, titular, num_instalacao, consumo_velocidade, valor_mes, vencimento, parcela from despesas where iddespesa = '$iddespesa'";
 $consulta = $conectar->query($sql);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -140,6 +140,13 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                     </tr>
 
                     <tr>
+
+                      <td>
+                        <label id="parcela">
+                          Parcela
+                          <input id="parcela" name="parcela" class="form-control" type="text" value="<?= $linha['parcela'] ?>" aria-label="<?= $linha['parcela'] ?>" readonly>
+                        </label>
+                      </td>
                       <td colspan="2">
                         <label id="anexo_contas">
                           Visualizar Anexos

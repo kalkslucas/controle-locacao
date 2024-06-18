@@ -56,12 +56,72 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
       <div class="col-12">
         <?php
         echo "
+              <h3>Contas pagas</h3>
                 <div class='table-responsive'>
                   <table class='table table-borderless'>
                     <thead>
                       <tr class='text-center'>
                         <th>Tipo da Despesa</th>
                         <th>Titular</th>
+                        <th>Parcela</th>
+                        <th>Valor</th>
+                        <th>Data de Vencimento</th>
+                        <th>Visualizar</th>
+                        <th>Editar</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>";
+        ?>
+
+        <?php
+          include_once "conexao.php";
+          try {
+            //query sql de consulta
+            $sql = 'SELECT iddespesa, tipo_despesa, titular, valor_mes, DATE_FORMAT(vencimento, "%d/%m/%Y") as vencimento, parcela FROM despesas WHERE situacao_conta = 1';
+            //execução da instrução sql
+            $consulta = $conectar->query($sql);
+            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+              echo "  <tr class='text-center'>
+                        <td>$linha[tipo_despesa]</td>
+                        <td>$linha[titular]</td>
+                        <td>$linha[parcela]</td>
+                        <td>$linha[valor_mes]</td>
+                        <td>$linha[vencimento]</td>
+                        <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Ver detalhes da despesa</a></td>
+                        <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Editar despesa</a></td>
+                        <td><a href='./deixarDespesaEmAberto.php?iddespesa=$linha[iddespesa]' class='btn btn-danger'>Retomar conta em aberto</a></td>
+                      </tr>
+              ";
+            }
+          } catch (PDOException $e) {
+            echo $e->getMessage();
+          }
+        ?>
+
+        <?php
+          echo"
+                    </tbody>  
+                  </table>
+                </div>";
+        ?>
+      </div> 
+    </div>
+
+
+
+    <div class="row p-3 justify-content-center">
+      <div class="col-12">
+        <?php
+        echo "
+              <h3>Contas em aberto</h3>
+                <div class='table-responsive'>
+                  <table class='table table-borderless'>
+                    <thead>
+                      <tr class='text-center'>
+                        <th>Tipo da Despesa</th>
+                        <th>Titular</th>
+                        <th>Parcela</th>
                         <th>Valor</th>
                         <th>Data de Vencimento</th>
                         <th>Visualizar</th>
@@ -76,13 +136,14 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
           include_once "conexao.php";
           try {
             //query sql de consulta
-            $sql = 'SELECT iddespesa, tipo_despesa, titular, valor_mes, DATE_FORMAT(vencimento, "%d/%m/%Y") as vencimento FROM despesas ORDER BY vencimento asc';
+            $sql = 'SELECT iddespesa, tipo_despesa, titular, valor_mes, DATE_FORMAT(vencimento, "%d/%m/%Y") as vencimento, parcela FROM despesas WHERE situacao_conta = 0';
             //execução da instrução sql
             $consulta = $conectar->query($sql);
             while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
               echo "  <tr class='text-center'>
                         <td>$linha[tipo_despesa]</td>
                         <td>$linha[titular]</td>
+                        <td>$linha[parcela]</td>
                         <td>$linha[valor_mes]</td>
                         <td>$linha[vencimento]</td>
                         <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Ver detalhes da despesa</a></td>
