@@ -20,17 +20,15 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, lc.situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, observacoes, l.nome as locador, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep, d.valor_mes
+$sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, lc.situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, observacoes, l.nome as locador, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep
   from locacao lc
   inner join endereco e
   on lc.id_endereco = e.idendereco
   inner join gestor g
   on lc.id_gestor = g.idgestor
-  inner join despesas d
-  on d.id_locacao = lc.idlocacao
   inner join locador l
   on lc.id_locador = l.idlocador
-  where idlocacao = '$idLocacao' and tipo_despesa = 'ALUGUEL'";
+  where idlocacao = '$idLocacao'";
 $consulta = $conectar->query($sql);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -196,7 +194,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         </label>
                       </td>
                     </tr>
-
+<!--
                     <tr>
                       <td>
                         <label id="valorAluguel" for="valorAluguel">
@@ -208,7 +206,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         </label>
                       </td>
                     </tr>
-
+-->
                     <tr>
                       <td colspan="5">
                         <label id="observacoes" class="d-block mt-1">
