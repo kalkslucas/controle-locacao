@@ -89,25 +89,25 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
             <div class="col-md-8">
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
-                <form enctype="multipart/form-data" action="editarDespesa.php?iddespesa=<?=$iddespesa?>" method="post">
+                <form enctype="multipart/form-data" action="pagarDespesa.php?iddespesa=<?=$iddespesa?>" method="post">
                 <table class="table table-borderless">
                     <tr>
                       <td>
                         <label id="tipo_despesa">
                           Tipo da despesa
-                          <input id="tipo_despesa" name="tipo_despesa" class="form-control" type="text" value="<?= $linha['tipo_despesa'] ?>" aria-label="<?= $linha['tipo_despesa'] ?>">
+                          <input id="tipo_despesa" name="tipo_despesa" class="form-control" type="text" value="<?= $linha['tipo_despesa'] ?>" aria-label="<?= $linha['tipo_despesa'] ?>" readonly>
                         </label>
                       </td>
                       <td>
                         <label id="empresa">
                           Empresa
-                          <input id="empresa" name="empresa" class="form-control" type="text" value="<?= $linha['empresa'] ?>" aria-label="<?= $linha['empresa'] ?>">
+                          <input id="empresa" name="empresa" class="form-control" type="text" value="<?= $linha['empresa'] ?>" aria-label="<?= $linha['empresa'] ?>" readonly>
                         </label>
                       </td>
                       <td colspan="2">
                         <label id="titular" style="width: 100%;">
                           Titular
-                          <input id="titular" name="titular" class="form-control" type="text" value="<?= $linha['titular'] ?>" aria-label="<?= $linha['titular'] ?>">
+                          <input id="titular" name="titular" class="form-control" type="text" value="<?= $linha['titular'] ?>" aria-label="<?= $linha['titular'] ?>" readonly>
                         </label>
                       </td>
                     </tr>
@@ -116,25 +116,25 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       <td>
                         <label id="num_instalacao">
                           Número da Instalação
-                          <input id="num_instalacao" name="num_instalacao" class="form-control" type="text" value="<?= $linha['num_instalacao'] ?>" aria-label="<?= $linha['num_instalacao'] ?>">
+                          <input id="num_instalacao" name="num_instalacao" class="form-control" type="text" value="<?= $linha['num_instalacao'] ?>" aria-label="<?= $linha['num_instalacao'] ?>" readonly>
                         </label>
                       </td>
                       <td>
                         <label id="consumo_velocidade">
                           Consumo/Velocidade
-                          <input id="consumo_velocidade" name="consumo_velocidade" class="form-control" type="text" value="<?= $linha['consumo_velocidade'] ?>" aria-label="<?= $linha['consumo_velocidade'] ?>">
+                          <input id="consumo_velocidade" name="consumo_velocidade" class="form-control" type="text" value="<?= $linha['consumo_velocidade'] ?>" aria-label="<?= $linha['consumo_velocidade'] ?>" readonly>
                         </label>
                       </td>
                       <td>
                         <label id="valor_mes">
                           Valor da conta
-                          <input id="valor_mes" name="valor_mes" class="form-control" type="text" value="<?= $linha['valor_mes'] ?>" aria-label="<?= $linha['valor_mes'] ?>">
+                          <input id="valor_mes" name="valor_mes" class="form-control" type="text" value="<?= $linha['valor_mes'] ?>" aria-label="<?= $linha['valor_mes'] ?>" readonly>
                         </label>
                       </td>
                       <td>
                         <label id="vencimento">
                           Data de Vencimento
-                          <input id="vencimento" name="vencimento" class="form-control" type="text" value="<?= $linha['vencimento'] ?>" aria-label="<?= $linha['vencimento'] ?>">
+                          <input id="vencimento" name="vencimento" class="form-control" type="text" value="<?= $linha['vencimento'] ?>" aria-label="<?= $linha['vencimento'] ?>" readonly>
                         </label>
                       </td>
                     </tr>
@@ -143,7 +143,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       <td colspan="2">
                         <label id="anexo_contas">
                           Visualizar Anexos
-                          <input id="anexo_contas" name="anexo_contas" class="form-control" type="file" value="<?= $linha['anexo_contas'] ?>" aria-label="<?= $linha['anexo_contas'] ?>">
+                          <input id="anexo_contas" name="anexo_contas" class="form-control" type="file">
                         </label>
                       </td>
                     </tr>
@@ -152,7 +152,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       <td colspan="4" class="text-end">
                         <br>
                         <label style="width: 25%;" id="enviar">
-                          <input class="form-control btn btn-success" type="submit" value="Confirmar Edição">
+                          <input class="form-control btn btn-success" type="submit" value="Confirmar Pagamento">
                         </label>
                       </td>
                     </tr>
