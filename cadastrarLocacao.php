@@ -1,12 +1,13 @@
 <?php
-function enviarArquivos($error, $size, $name, $tmp_name, $idLocacao){
+function enviarArquivos($error, $size, $name, $tmp_name, $idLocacao)
+{
   include 'conexao.php';
 
-  if($error){
+  if ($error) {
     die('Falha ao enviar o arquivo');
   }
 
-  if($size > 67108864){
+  if ($size > 67108864) {
     die('Arquivo muito grande!! Máximo 64MB');
   }
   $pasta = 'assets/docs/';
@@ -14,14 +15,14 @@ function enviarArquivos($error, $size, $name, $tmp_name, $idLocacao){
   $novoNomeDoArq = uniqid();
   $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
 
-  $path = $pasta.$novoNomeDoArq.'.'.$extensao;
+  $path = $pasta . $novoNomeDoArq . '.' . $extensao;
 
-  if($extensao != 'jpg' && $extensao != 'png' && $extensao != 'pdf'){
+  if ($extensao != 'jpg' && $extensao != 'png' && $extensao != 'pdf') {
     die('Tipo de arquivo não aceito');
   }
 
   $deu_certo = move_uploaded_file($tmp_name, $path);
-  if($deu_certo){
+  if ($deu_certo) {
     $inserirArquivo = $conectar->prepare("INSERT INTO anexos (nome_arquivo, path, id_locacao) VALUES (:nome_arquivo, :path, :idlocacao)");
     $inserirArquivo->bindParam(":nome_arquivo", $nomeDoArquivo, PDO::PARAM_STR);
     $inserirArquivo->bindParam(":path", $path, PDO::PARAM_STR);
@@ -30,6 +31,37 @@ function enviarArquivos($error, $size, $name, $tmp_name, $idLocacao){
     return true;
   } else {
     return false;
+  }
+}
+
+function gerarAluguel($inicioLocacao, $terminoLocacao, $locador, $valorAluguel, $idLocacao){
+  include 'conexao.php';
+  $start_date = $inicioLocacao;
+  $end_date = $terminoLocacao;
+  
+
+  $interval = new DateInterval('P1M');
+
+  $dateStart = new DateTime($start_date);
+  $dateEnd = new DateTime($end_date);
+
+  $difference = $dateStart->diff($dateEnd);
+  
+  $num_payments = ($difference->y * 12) + $difference->m;
+
+  for($i = 1; $i <= $num_payments; $i++){
+    $payment_date = $dateStart->format('Y-m-d');
+
+    $inserirAluguel = $conectar->prepare("INSERT INTO despesas (tipo_despesa, empresa, titular, valor_mes, vencimento, parcela, id_locacao) VALUES ('ALUGUEL', :empresa, :titular, :valor_mes, :vencimento, :parcela, :id_locacao)");
+    $inserirAluguel->bindParam(":empresa",$locador,PDO::PARAM_STR);
+    $inserirAluguel->bindParam(":titular",$locador,PDO::PARAM_STR);
+    $inserirAluguel->bindParam(":valor_mes",$valorAluguel,PDO::PARAM_STR);
+    $inserirAluguel->bindParam(":vencimento",$payment_date,PDO::PARAM_STR);
+    $inserirAluguel->bindParam(":parcela",$i,PDO::PARAM_STR);
+    $inserirAluguel->bindParam(":id_locacao",$idLocacao,PDO::PARAM_INT);
+    $inserirAluguel->execute();
+
+    $dateStart->add($interval);
   }
 }
 
@@ -51,6 +83,7 @@ try {
   $estado = filter_var($_POST['uf']);
   $inicioLocacao = filter_var($_POST['inicioLocacao']);
   $terminoLocacao = filter_var($_POST['terminoLocacao']);
+  $valorAluguel = filter_var($_POST['valorAluguel']);
   $observacoes = filter_var($_POST['observacoes']);
 
   $queryEndereco = "INSERT INTO endereco (tipo_endereco, rua, numero, complemento, bairro, cidade, estado, cep) VALUES ('LOCACAO', :rua, :numero, :complemento, :bairro, :cidade, :estado, :cep)";
@@ -69,7 +102,6 @@ try {
 
   $conectar->beginTransaction();
 
- 
   $queryLocacao = "INSERT INTO locacao (ftc, situacao, inicio_locacao, termino_locacao, observacoes, id_gestor, id_locador, id_endereco) VALUES (:ftc, :situacao, :inicio_locacao, :termino_locacao, :observacoes, :gestor, :locador, :idEndereco)";
   $insertLocacao = $conectar->prepare($queryLocacao);
   $insertLocacao->bindParam(':ftc', $ftc, PDO::PARAM_STR);
@@ -82,34 +114,34 @@ try {
   $insertLocacao->bindParam(':idEndereco', $idEndereco, PDO::PARAM_INT);
   $insertLocacao->execute();
 
-  
   $idLocacao = $conectar->lastInsertId();
   $conectar->commit();
+
   if (isset($_FILES['anexo_foto_docs'])) {
     $arquivos = $_FILES['anexo_foto_docs'];
     $tudo_certo = true;
-    foreach($arquivos['name'] as $index => $arq ){
+    foreach ($arquivos['name'] as $index => $arq) {
       $deu_certo = enviarArquivos($arquivos['error'][$index], $arquivos['size'][$index], $arquivos['name'][$index], $arquivos['tmp_name'][$index], $idLocacao);
-      if(!$deu_certo){
+      if (!$deu_certo) {
         $tudo_certo = false;
       }
     }
-    if($tudo_certo){
+    if ($tudo_certo) {
       echo '<p>Todos os arquivos foram enviados com sucesso!</p>';
     } else {
       echo '<p>Falha ao enviar um ou mais arquivos</p>';
     }
   }
 
-
-
+  if(isset($_POST['valorAluguel'])) {
+    gerarAluguel($inicioLocacao, $terminoLocacao, $locador, $valorAluguel, $idLocacao);
+  }
+  
   echo 'Cadastro Concluído!';
 
   $conectar->exec('SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED');
- 
 } catch (PDOException $e) {
   echo 'Error: ' . $e->getMessage();
   // Log the error
   error_log('Error: ' . $e->getMessage(), 0);
 }
-?>

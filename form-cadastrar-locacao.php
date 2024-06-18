@@ -248,7 +248,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                       class="mt-2 form-control"
                       rows="5" 
                       ></textarea>
-                    <!-- 
                     <label id="valorAluguel">
                       Valor do Aluguel
                       <div class="input-group">
@@ -262,8 +261,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         />
                       </div>
                     </label>
-                    -->
-
                     <label id="imagensLocacao">
                       Adicionar Fotos e Documentos
                       <input 
