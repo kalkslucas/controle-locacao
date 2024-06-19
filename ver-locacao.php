@@ -16,6 +16,12 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <link rel="stylesheet" href="assets/css/ver-locacao.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
+  <style>
+    label{
+      width: 100%;
+    }
+  </style>
+
 </head>
 <?php
 include_once "conexao.php";
@@ -66,35 +72,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
       <div class="col">
         <div class="card mt-3 mb-3">
           <div class="row">
-            <div class="col-md-4">
-              <div class="img-container">
-                <img src="./assets/img/imovel-1.jpg" class="img-fluid" alt="imagem principal da locação">
-
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-laranja btn-modal" data-bs-toggle="modal" data-bs-target="#modalFotos">
-                  Ver fotos da locação
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade modal-xl" id="modalFotos" tabindex="-1" aria-labelledby="modalFotos" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-body">
-                        <img class="img-fluid mb-2" src="./assets/img/imovel-modal-1.jpg" alt="">
-                        <img class="img-fluid mb-2" src="./assets/img/imovel-modal-2.jpg" alt="">
-                        <img class="img-fluid mb-2" src="./assets/img/imovel-modal-3.jpg" alt="">
-                        <img class="img-fluid mb-2" src="./assets/img/imovel-modal-4.jpg" alt="">
-                        <img class="img-fluid mb-2" src="./assets/img/imovel-modal-5.jpg" alt="">
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-8">
+            <div class="col-md-12">
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
                 <form method="get">
@@ -220,6 +198,60 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                           disabled readonly>
                           <?php echo $linha['observacoes'] ?>
                         </textarea>
+                      </td>
+                    </tr>
+                    <tr>
+                    <td colspan="5" class="text-end">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-laranja btn-modal" style="width: 20rem;" data-bs-toggle="modal" data-bs-target="#modalFotos">
+                          Ver anexos
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade modal-xl" id="modalFotos" tabindex="-1" aria-labelledby="modalFotos" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-body">
+                              <?php
+                                  $sqlAnexo = "SELECT * FROM anexos WHERE id_locacao = '$idLocacao'";
+                                  $consulta = $conectar->query($sqlAnexo);
+                                  if($consulta){
+                                    $linhaAnexo = $consulta->fetch(PDO::FETCH_ASSOC);
+                                    if($linhaAnexo){
+                                      $dataUpload = date('d/m/Y H:i:s', strtotime($linhaAnexo['data_upload']));
+                                      echo "<table class='table table-borderless'>
+                                              <thead>
+                                                <tr class='text-center'>
+                                                  <th>Visualização</th>
+                                                  <th>Arquivo</th>
+                                                  <th>Deletar</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                <tr class='text-center'>
+                                                  <td><img width='100vw' src='$linhaAnexo[path]'</td>
+                                                  <td><a target='_blank' href='$linhaAnexo[path]'>$linhaAnexo[nome_arquivo]</a></td>
+                                                  <td>$dataUpload</td>
+                                                </tr>
+                                              </tbody>
+                                            </table>";
+                                    } else {
+                                      echo 'Nenhum anexo encontrado!';
+                                    }
+                                  } else {
+                                    echo 'Erro ao executar a consulta de anexos!';
+                                  }
+                                  
+                                    
+
+                                  ?>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </td>
                     </tr>
                   </table>  
