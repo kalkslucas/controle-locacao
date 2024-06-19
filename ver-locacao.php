@@ -232,7 +232,14 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       </td>
                     </tr>
                     <tr>
-                    <td colspan="5" class="text-end">
+                      <?php
+                        echo "
+                        <td>
+                          <a href='./visualizar-despesas-locacao.php?idlocacao=$linha[idlocacao]'>Ver Despesas</a>
+                        </td>";
+                      ?>
+                      
+                    <td colspan="2" class="text-end">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-laranja btn-modal" style="width: 20rem;" data-bs-toggle="modal" data-bs-target="#modalFotos">
                           Ver anexos

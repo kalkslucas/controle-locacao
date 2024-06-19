@@ -88,7 +88,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     </label>
 
                     <label id="locador">
-                      Gestor
+                      Locador
                       <select class="form-select" name="locador" id="locador">
                         <option value="">Selecione o locador</option>
                         <?php

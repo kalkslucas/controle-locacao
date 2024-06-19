@@ -20,17 +20,15 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, lc.situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, observacoes, l.nome as locador, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep, d.valor_mes
+$sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, lc.situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, DATE_FORMAT(vistoria_entrada, '%d/%m/%Y') as vistoria_entrada, DATE_FORMAT(vistoria_saida, '%d/%m/%Y') as vistoria_saida, observacoes, l.nome as locador, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep
   from locacao lc
   inner join endereco e
   on lc.id_endereco = e.idendereco
   inner join gestor g
   on lc.id_gestor = g.idgestor
-  inner join despesas d
-  on d.id_locacao = lc.idlocacao
   inner join locador l
   on lc.id_locador = l.idlocador
-  where idlocacao = '$idLocacao' and tipo_despesa = 'ALUGUEL'";
+  where idlocacao = '$idLocacao'";
 $consulta = $conectar->query($sql);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -68,35 +66,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
       <div class="col">
         <div class="card mt-3 mb-3">
           <div class="row">
-            <div class="col-md-4">
-              <div class="img-container">
-                <img src="./assets/img/imovel-1.jpg" class="img-fluid" alt="imagem principal da locação">
-
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-laranja btn-modal" data-bs-toggle="modal" data-bs-target="#modalFotos">
-                  Ver fotos da locação
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade modal-xl" id="modalFotos" tabindex="-1" aria-labelledby="modalFotos" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-body">
-                        <img class="img-fluid mb-2" src="./assets/img/imovel-modal-1.jpg" alt="">
-                        <img class="img-fluid mb-2" src="./assets/img/imovel-modal-2.jpg" alt="">
-                        <img class="img-fluid mb-2" src="./assets/img/imovel-modal-3.jpg" alt="">
-                        <img class="img-fluid mb-2" src="./assets/img/imovel-modal-4.jpg" alt="">
-                        <img class="img-fluid mb-2" src="./assets/img/imovel-modal-5.jpg" alt="">
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-8">
+            <div class="col-md-12">
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
                 <form action="editarLocacao.php?idlocacao=<?= $linha['idlocacao'] ?>" method="post">
@@ -133,6 +103,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         </label>
                       </td>
                     </tr>
+
 
                     <tr>
                       <td colspan="2">
@@ -203,7 +174,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         Valor do Aluguel
                           <div class="input-group">
                             <span class="input-group-text">R$</span>
-                            <input id="valorAluguel" name="valorAluguel" class="form-control" type="text" value="<?= $linha['valor_mes'] ?>" aria-label="<?= $linha['valor_mes'] ?>">
+                            <input id="valorAluguel" name="valorAluguel" class="form-control" type="text">
                           </div>
                         </label>
                       </td>
