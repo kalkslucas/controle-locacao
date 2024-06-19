@@ -20,7 +20,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $iddespesa = filter_var($_GET['iddespesa'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT tipo_despesa, empresa, titular, num_instalacao, consumo_velocidade, valor_mes, vencimento, parcela from despesas where iddespesa = '$iddespesa'";
+$sql = "SELECT tipo_despesa, empresa, titular, num_instalacao, consumo_velocidade, valor_mes, DATE_FORMAT(vencimento, '%d/%m/%Y') as vencimento, parcela from despesas where iddespesa = '$iddespesa'";
 $consulta = $conectar->query($sql);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -113,18 +113,35 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                     </tr>
                     
                     <tr>
-                      <td>
-                        <label id="num_instalacao">
-                          Número da Instalação
-                          <input id="num_instalacao" name="num_instalacao" class="form-control" type="text" value="<?= $linha['num_instalacao'] ?>" aria-label="<?= $linha['num_instalacao'] ?>" readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="consumo_velocidade">
-                          Consumo/Velocidade
-                          <input id="consumo_velocidade" name="consumo_velocidade" class="form-control" type="text" value="<?= $linha['consumo_velocidade'] ?>" aria-label="<?= $linha['consumo_velocidade'] ?>" readonly>
-                        </label>
-                      </td>
+                    <?php
+                      if($linha['tipo_despesa'] == 'ÁGUA' || $linha['tipo_despesa'] == 'ENERGIA' || $linha['tipo_despesa'] == 'INTERNET') {
+                        echo "<td>
+                                <label id='num_instalacao'>
+                                  Número da Instalação
+                                  <input id='num_instalacao' name='num_instalacao' class='form-control' type='text' value='$linha[num_instalacao]' aria-label='$linha[num_instalacao]'>
+                                </label>
+                              </td>
+                              <td>
+                                <label id='consumo_velocidade'>
+                                  Consumo/Velocidade
+                                  <input id='consumo_velocidade' name='consumo_velocidade' class='form-control' type='text' value='$linha[consumo_velocidade]' aria-label='$linha[consumo_velocidade]'>
+                                </label>
+                              </td>";
+                      } else {
+                        echo "<td class='d-none'>
+                                <label id='num_instalacao'>
+                                  Número da Instalação
+                                  <input id='num_instalacao' name='num_instalacao' class='form-control' type='text' value='<?= $linha[num_instalacao] ?>' aria-label='<?= $linha[num_instalacao] ?>'>
+                                </label>
+                              </td>
+                              <td class='d-none'>
+                                <label id='consumo_velocidade'>
+                                  Consumo/Velocidade
+                                  <input id='consumo_velocidade' name='consumo_velocidade' class='form-control' type='text' value='<?= $linha[consumo_velocidade] ?>' aria-label='<?= $linha[consumo_velocidade] ?>'>
+                                </label>
+                              </td>";
+                      }
+                      ?>
                       <td>
                         <label id="valor_mes">
                           Valor da conta
@@ -137,16 +154,17 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                           <input id="vencimento" name="vencimento" class="form-control" type="text" value="<?= $linha['vencimento'] ?>" aria-label="<?= $linha['vencimento'] ?>" readonly>
                         </label>
                       </td>
-                    </tr>
-
-                    <tr>
-
                       <td>
                         <label id="parcela">
                           Parcela
                           <input id="parcela" name="parcela" class="form-control" type="text" value="<?= $linha['parcela'] ?>" aria-label="<?= $linha['parcela'] ?>" readonly>
                         </label>
                       </td>
+                    </tr>
+
+                    <tr>
+
+                      
                       <td colspan="2">
                         <label id="anexo_contas">
                           Visualizar Anexos
@@ -156,7 +174,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                     </tr>
 
                     <tr>
-                      <td colspan="4" class="text-end">
+                      <td colspan="5" class="text-end">
                         <br>
                         <label style="width: 25%;" id="enviar">
                           <input class="form-control btn btn-success" type="submit" value="Confirmar Pagamento">

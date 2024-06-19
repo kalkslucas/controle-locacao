@@ -20,7 +20,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $iddespesa = filter_var($_GET['iddespesa'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT tipo_despesa, empresa, titular, num_instalacao, consumo_velocidade, valor_mes, vencimento, anexo_contas, parcela, situacao_conta from despesas where iddespesa = '$iddespesa'";
+$sql = "SELECT tipo_despesa, empresa, titular, num_instalacao, consumo_velocidade, valor_mes, DATE_FORMAT(vencimento, '%d/%m/%Y') as vencimento, anexo_contas, parcela, situacao_conta from despesas where iddespesa = '$iddespesa'";
 $consulta = $conectar->query($sql);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>

@@ -20,7 +20,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $iddespesa = filter_var($_GET['iddespesa'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT tipo_despesa, empresa, titular, num_instalacao, consumo_velocidade, valor_mes, vencimento, anexo_contas, parcela, situacao_conta from despesas where iddespesa = '$iddespesa'";
+$sql = "SELECT tipo_despesa, empresa, titular, num_instalacao, consumo_velocidade, valor_mes, DATE_FORMAT(vencimento, '%d/%m/%Y') as vencimento, anexo_contas, parcela, situacao_conta from despesas where iddespesa = '$iddespesa'";
 $consulta = $conectar->query($sql);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -178,7 +178,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                     </tr>
 
                     <tr>
-                      <td colspan="4" class="text-end">
+                      <td colspan="5" class="text-end">
                         <br>
                         <label style="width: 25%;" id="enviar">
                           <input class="form-control btn btn-success" type="submit" value="Confirmar Edição">
@@ -197,7 +197,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 
     <div class="row justify-content-end">
       <div class="col-md-1 col-sm-12 mb-4">
-        <a href="./visualizar-despesas.php" class="btn btn-danger btn-modal w-100">Voltar</a>
+        <a href="./visualizar-despesas.php" class="btn btn-danger w-100">Voltar</a>
       </div>
     </div>
 
