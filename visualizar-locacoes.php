@@ -58,7 +58,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
       include_once "conexao.php";
       try {
         //query sql de consulta
-        $sql = 'SELECT idlocacao, nome, rua, numero, complemento, bairro, cidade, estado, cep FROM locacao l inner join gestor g on l.id_gestor = g.idgestor inner join endereco e on l.id_endereco = e.idendereco';
+        $sql = 'SELECT ftc, idlocacao, nome, rua, numero, complemento, bairro, cidade, estado, cep FROM locacao l inner join gestor g on l.id_gestor = g.idgestor inner join endereco e on l.id_endereco = e.idendereco';
         //execução da instrução sql
         $consulta = $conectar->query($sql);
         while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
@@ -66,7 +66,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
           echo "<div class='col d-flex justify-content-center'>
             <div class='card'>
               <div class='card-body'>
-                <h5 class='card-title'>$linha[nome]</h5>
+                <h5 class='card-title'>Locação $linha[ftc]</h5>
                 <p class='card-text'>
                   $linha[rua], $linha[numero], $linha[complemento]
                   <br>

@@ -1,6 +1,6 @@
 <?php 
 require 'verificaUsuario.php';
-if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )): 
+if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])): 
 ?>
 
 <?php 

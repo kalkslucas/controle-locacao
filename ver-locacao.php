@@ -26,7 +26,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, lc.situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, observacoes, l.nome as locador, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep
+$sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, lc.situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, DATE_FORMAT(vistoria_entrada, '%d/%m/%Y') as vistoria_entrada, DATE_FORMAT(vistoria_saida, '%d/%m/%Y') as vistoria_saida, observacoes, l.nome as locador, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep
   from locacao lc
   inner join endereco e
   on lc.id_endereco = e.idendereco
@@ -111,6 +111,52 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                     </tr>
 
                     <tr>
+                      <td>
+                        <label id="vistoriaEntrada" for="vistoriaEntrada">
+                          Vistoria de Entrada
+                          <input type="text" name="vistoriaEntrada" id="vistoriaEntrada" class="form-control" value="<?= $linha['vistoria_entrada'] ?>" disabled readonly>
+                        </label>
+                      </td>
+                      <td>
+                        <label id="vistoriaSaida" for="vistoriaSaida">
+                          Vistoria de Saída
+                          <input type="text" name="vistoriaSaida" id="vistoriaSaida" class="form-control" value="<?= $linha['vistoria_saida'] ?>" disabled readonly>
+                        </label>
+                      </td>
+
+                      <?php
+                        $sqlValor = "SELECT * FROM despesas WHERE id_locacao = '$idLocacao' AND tipo_despesa = 'ALUGUEL'";
+                        $consulta = $conectar->query($sqlValor);
+                        if($consulta){
+                          $linhaValor = $consulta->fetch(PDO::FETCH_ASSOC);
+                          if($linhaValor){
+                            echo "
+                              <td>
+                                <label id='valorAluguel' for='valorAluguel'>
+                                Valor do Aluguel
+                                  <div class='input-group'>
+                                    <span class='input-group-text'>R$</span>
+                                    <input id='valorAluguel' name='valorAluguel' class='form-control' type='text' value='$linhaValor[VALOR_MES]' aria-label='$linhaValor[VALOR_MES]' disabled readonly>
+                                  </div>
+                                </label>
+                              </td>
+                            ";
+                          } else {
+                            echo "<td>
+                              <label id='valorAluguel' for='valorAluguel'>
+                                Valor do Aluguel
+                                    <input id='valorAluguel' name='valorAluguel' class='form-control' type='text' value='Valor não encontrado' aria-label='Valor não encontrado' disabled readonly>
+                                </label>
+                            </td>";
+                          }
+                        } else {
+                          echo 'Erro ao executar a consulta de aluguel!';
+                        }
+                        ?>
+                      
+                    </tr>
+
+                    <tr>
                       <td colspan="2">
                         <label style="width:100%;" id="endereco" for="endereco">
                           Locador
@@ -133,9 +179,6 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       </td>
                     </tr>
                   
-
-                      
-
                     <tr>
                       <td>
                         <label id="complemento" for="complemento">
@@ -172,19 +215,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         </label>
                       </td>
                     </tr>
-<!--
-                    <tr>
-                      <td>
-                        <label id="valorAluguel" for="valorAluguel">
-                        Valor do Aluguel
-                          <div class="input-group">
-                            <span class="input-group-text">R$</span>
-                            <input id="valorAluguel" name="valorAluguel" class="form-control" type="text" value="<?= $linha['valor_mes'] ?>" aria-label="<?= $linha['valor_mes'] ?>"disabled readonly>
-                          </div>
-                        </label>
-                      </td>
-                    </tr>
--->
+
                     <tr>
                       <td colspan="5">
                         <label id="observacoes" class="d-block mt-1">
@@ -241,10 +272,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                                   } else {
                                     echo 'Erro ao executar a consulta de anexos!';
                                   }
-                                  
-                                    
-
-                                  ?>
+                                ?>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
