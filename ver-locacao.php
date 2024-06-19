@@ -26,7 +26,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, lc.situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, DATE_FORMAT(vistoria_entrada, '%d/%m/%Y') as vistoria_entrada, DATE_FORMAT(vistoria_saida, '%d/%m/%Y') as vistoria_saida, observacoes, l.nome as locador, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep
+$sql = "SELECT lc.idlocacao, lc.ftc, lc.centro_custo, f.numero_fsc, g.nome as gestor, lc.situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, DATE_FORMAT(vistoria_entrada, '%d/%m/%Y') as vistoria_entrada, DATE_FORMAT(vistoria_saida, '%d/%m/%Y') as vistoria_saida, observacoes, lc.id_locador as locador, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep
   from locacao lc
   inner join endereco e
   on lc.id_endereco = e.idendereco
@@ -34,6 +34,8 @@ $sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, lc.situacao, DATE_FORMAT(
   on lc.id_gestor = g.idgestor
   inner join locador l
   on lc.id_locador = l.idlocador
+  inner join fsc f
+  on f.id_locacao = lc.idlocacao
   where idlocacao = '$idLocacao'";
 $consulta = $conectar->query($sql);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
@@ -85,6 +87,12 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         </label>
                       </td>
                       <td>
+                        <label id="fsc" for="fsc">
+                          FSC
+                          <input type="text" name="fsc" id="fsc" class="form-control" value="<?= $linha['numero_fsc'] ?>" disabled readonly>
+                        </label>
+                      </td>
+                      <td>
                         <label id="gestor" for="gestor">
                           Gestor
                           <input id="gestor" name="gestor" class="form-control" type="text" value="<?= $linha['gestor'] ?>" aria-label="<?= $linha['gestor'] ?>"disabled readonly>
@@ -111,6 +119,13 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                     </tr>
 
                     <tr>
+                      
+                      <td>
+                        <label id="centroCusto" for="centroCusto">
+                          Centro de Custo
+                          <input type="text" name="centroCusto" id="centroCusto" class="form-control" value="<?= $linha['centro_custo'] ?>" disabled readonly>
+                        </label>
+                      </td>
                       <td>
                         <label id="vistoriaEntrada" for="vistoriaEntrada">
                           Vistoria de Entrada
@@ -157,10 +172,17 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                     </tr>
 
                     <tr>
-                      <td colspan="2">
+                      <td colspan="1">
                         <label style="width:100%;" id="endereco" for="endereco">
                           Locador
-                          <input  id="locador" name="locador" class="form-control" type="text" value="<?= $linha['locador'] ?>" aria-label="<?= $linha['locador'] ?>"disabled readonly>
+                          <?php
+                            echo "
+                            <a class='d-block btn btn-laranja' style='width: 100%;' href='./ver-locador.php?idlocador=$linha[locador]'>Ver Locador</a>";
+                          ?>
+                      <!-- 
+                          <input id="locador" name="locador" class="form-control" type="text" value="<?= $linha['locador'] ?>" aria-label="<?= $linha['locador'] ?>"disabled readonly>  
+                      -->
+                          
                         </label>
                       </td>
 
@@ -177,16 +199,16 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                           <input id="numero" name="numero" class="form-control" type="text" value="<?= $linha['numero'] ?>" aria-label="<?= $linha['numero'] ?>"disabled readonly>
                         </label>
                       </td>
-                    </tr>
-                  
-                    <tr>
+
                       <td>
                         <label id="complemento" for="complemento">
                           Complemento
                           <input id="complemento" name="complemento" class="form-control" type="text" value="<?= $linha['complemento'] ?>" aria-label="<?= $linha['complemento'] ?>"disabled readonly>
                         </label>
                       </td>
-
+                    </tr>
+                  
+                    <tr>
                       <td>
                         <label id="bairro" for="bairro">
                           Bairro
@@ -231,17 +253,17 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         </textarea>
                       </td>
                     </tr>
-                    <tr>
+                    <tr class="">
                       <?php
                         echo "
-                        <td>
-                          <a href='./visualizar-despesas-locacao.php?idlocacao=$linha[idlocacao]'>Ver Despesas</a>
+                        <td colspan='2' class='text-end'>
+                          <a class='btn btn-laranja' style='width: 20rem;' href='./visualizar-despesas-locacao.php?idlocacao=$linha[idlocacao]'>Ver Despesas</a>
                         </td>";
                       ?>
                       
-                    <td colspan="2" class="text-end">
+                      <td colspan="2" class="text-end">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-laranja btn-modal" style="width: 20rem;" data-bs-toggle="modal" data-bs-target="#modalFotos">
+                        <button type="button" class="btn btn-laranja" style="width: 20rem;" data-bs-toggle="modal" data-bs-target="#modalFotos">
                           Ver anexos
                         </button>
 
