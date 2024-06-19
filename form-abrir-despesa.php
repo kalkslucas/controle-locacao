@@ -20,7 +20,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $iddespesa = filter_var($_GET['iddespesa'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT tipo_despesa, empresa, titular, num_instalacao, consumo_velocidade, valor_mes, DATE_FORMAT(vencimento, '%d/%m/%Y') as vencimento, anexo_contas, parcela, situacao_conta from despesas where iddespesa = '$iddespesa'";
+$sql = "SELECT tipo_despesa, empresa, titular, num_instalacao, consumo_velocidade, valor_mes, DATE_FORMAT(vencimento, '%d/%m/%Y') as vencimento, parcela, anexo_contas from despesas where iddespesa = '$iddespesa'";
 $consulta = $conectar->query($sql);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -89,25 +89,25 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
             <div class="col-md-8">
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
-                <form method="get">
+                <form enctype="multipart/form-data" action="deixarDespesaEmAberto.php?iddespesa=<?=$iddespesa?>" method="post">
                 <table class="table table-borderless">
                     <tr>
                       <td>
                         <label id="tipo_despesa">
                           Tipo da despesa
-                          <input id="tipo_despesa" name="tipo_despesa" class="form-control" type="text" value="<?= $linha['tipo_despesa'] ?>" aria-label="<?= $linha['tipo_despesa'] ?>"disabled readonly>
+                          <input id="tipo_despesa" name="tipo_despesa" class="form-control" type="text" value="<?= $linha['tipo_despesa'] ?>" aria-label="<?= $linha['tipo_despesa'] ?>" readonly>
                         </label>
                       </td>
                       <td>
                         <label id="empresa">
                           Empresa
-                          <input id="empresa" name="empresa" class="form-control" type="text" value="<?= $linha['empresa'] ?>" aria-label="<?= $linha['empresa'] ?>"disabled readonly>
+                          <input id="empresa" name="empresa" class="form-control" type="text" value="<?= $linha['empresa'] ?>" aria-label="<?= $linha['empresa'] ?>" readonly>
                         </label>
                       </td>
                       <td colspan="2">
                         <label id="titular" style="width: 100%;">
                           Titular
-                          <input id="titular" name="titular" class="form-control" type="text" value="<?= $linha['titular'] ?>" aria-label="<?= $linha['titular'] ?>"disabled readonly>
+                          <input id="titular" name="titular" class="form-control" type="text" value="<?= $linha['titular'] ?>" aria-label="<?= $linha['titular'] ?>" readonly>
                         </label>
                       </td>
                     </tr>
@@ -118,13 +118,13 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         echo "<td>
                                 <label id='num_instalacao'>
                                   Número da Instalação
-                                  <input id='num_instalacao' name='num_instalacao' class='form-control' type='text' value='$linha[num_instalacao]' aria-label='$linha[num_instalacao]' disabled readonly>
+                                  <input id='num_instalacao' name='num_instalacao' class='form-control' type='text' value='$linha[num_instalacao]' aria-label='$linha[num_instalacao]'>
                                 </label>
                               </td>
                               <td>
                                 <label id='consumo_velocidade'>
                                   Consumo/Velocidade
-                                  <input id='consumo_velocidade' name='consumo_velocidade' class='form-control' type='text' value='$linha[consumo_velocidade]' aria-label='$linha[consumo_velocidade]' disabled readonly>
+                                  <input id='consumo_velocidade' name='consumo_velocidade' class='form-control' type='text' value='$linha[consumo_velocidade]' aria-label='$linha[consumo_velocidade]'>
                                 </label>
                               </td>";
                       } else {
@@ -145,42 +145,43 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       <td>
                         <label id="valor_mes">
                           Valor da conta
-                          <input id="valor_mes" name="valor_mes" class="form-control" type="text" value="<?= $linha['valor_mes'] ?>" aria-label="<?= $linha['valor_mes'] ?>"disabled readonly>
+                          <input id="valor_mes" name="valor_mes" class="form-control" type="text" value="<?= $linha['valor_mes'] ?>" aria-label="<?= $linha['valor_mes'] ?>" readonly>
                         </label>
                       </td>
                       <td>
                         <label id="vencimento">
                           Data de Vencimento
-                          <input id="vencimento" name="vencimento" class="form-control" type="text" value="<?= $linha['vencimento'] ?>" aria-label="<?= $linha['vencimento'] ?>"disabled readonly>
+                          <input id="vencimento" name="vencimento" class="form-control" type="text" value="<?= $linha['vencimento'] ?>" aria-label="<?= $linha['vencimento'] ?>" readonly>
+                        </label>
+                      </td>
+                      <td>
+                        <label id="parcela">
+                          Parcela
+                          <input id="parcela" name="parcela" class="form-control" type="text" value="<?= $linha['parcela'] ?>" aria-label="<?= $linha['parcela'] ?>" readonly>
                         </label>
                       </td>
                     </tr>
 
                     <tr>
-                      <?php
-                      if($linha['situacao_conta'] == 0){
-                        echo "<td colspan='2'>
-                        <label id='anexo_contas' style='width: 100%;'>
-                          Situação da Conta
-                          <div id='anexo_contas' name='anexo_contas' class='rounded p-2 text-white text-center bg-danger'>Em aberto</div>
-                        </label>
-                      </td>";
-                      } else {
-                        echo "<td colspan='2'>
-                        <label id='anexo_contas' style='width: 100%;'>
-                          Situação da Conta
-                          <div id='anexo_contas' name='anexo_contas' class='rounded p-2 text-white text-center bg-success'>Pago</div>
-                        </label>
-                      </td>";
-                        echo "<td colspan='2'>
-                        <label id='anexo_contas' style='width: 100%;'>
-                          Visualizar Anexos
-                          <div id='anexo_contas' name='anexo_contas' aria-label='$linha[anexo_contas]'><a target='_blank' href='$linha[anexo_contas]' class='w-100 btn btn-secondary text-decoration-none text-white'>Comprovante de Pagamento</a></div>
-                        </label>
-                      </td>";
-                      }
-                      ?>
+
                       
+                      <td colspan="2">
+                        <label id="anexo_contas">
+                          Visualizar Anexos
+                          <div id="anexo_contas" name="anexo_contas" class="form-control" type="file" value="<?=$linha['anexo_contas']?>" aria-label="<?=$linha['anexo_contas']?>" disabled readonly> 
+                            <a target="_blank" href="<?=$linha['anexo_contas']?>">Comprovante de Pagamento</a> 
+                          </div>
+                        </label>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td colspan="5" class="text-end">
+                        <br>
+                        <label style="width: 25%;" id="enviar">
+                          <input class="form-control btn btn-danger" type="submit" value="Confirmar reabertura da despesa">
+                        </label>
+                      </td>
                     </tr>
                   </table>
                 </form>

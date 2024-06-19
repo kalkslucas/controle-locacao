@@ -8,7 +8,6 @@ try {
   $iddespesa = filter_var($_GET['iddespesa'], FILTER_SANITIZE_NUMBER_INT);
   $anexo_contas = filter_var($_FILES['anexo_contas']);
   $agora = (new DateTime('now'))->format('Y-m-d H:i:s');
-  $agora = date_default_timezone_set('America/Sao_Paulo');
 
   if(isset($_FILES['anexo_contas'])){
     $arquivo = $_FILES['anexo_contas'];
