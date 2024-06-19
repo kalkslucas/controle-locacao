@@ -20,7 +20,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $iddespesa = filter_var($_GET['iddespesa'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT tipo_despesa, empresa, titular, num_instalacao, consumo_velocidade, valor_mes, vencimento, anexo_contas from despesas where iddespesa = '$iddespesa'";
+$sql = "SELECT tipo_despesa, empresa, titular, num_instalacao, consumo_velocidade, valor_mes, vencimento, anexo_contas, parcela, situacao_conta from despesas where iddespesa = '$iddespesa'";
 $consulta = $conectar->query($sql);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -113,18 +113,36 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                     </tr>
                     
                     <tr>
-                      <td>
-                        <label id="num_instalacao">
-                          Número da Instalação
-                          <input id="num_instalacao" name="num_instalacao" class="form-control" type="text" value="<?= $linha['num_instalacao'] ?>" aria-label="<?= $linha['num_instalacao'] ?>">
-                        </label>
-                      </td>
-                      <td>
-                        <label id="consumo_velocidade">
-                          Consumo/Velocidade
-                          <input id="consumo_velocidade" name="consumo_velocidade" class="form-control" type="text" value="<?= $linha['consumo_velocidade'] ?>" aria-label="<?= $linha['consumo_velocidade'] ?>">
-                        </label>
-                      </td>
+                      <?php
+                      if($linha['tipo_despesa'] == 'ÁGUA' || $linha['tipo_despesa'] == 'ENERGIA' || $linha['tipo_despesa'] == 'INTERNET') {
+                        echo "<td>
+                                <label id='num_instalacao'>
+                                  Número da Instalação
+                                  <input id='num_instalacao' name='num_instalacao' class='form-control' type='text' value='$linha[num_instalacao]' aria-label='$linha[num_instalacao]'>
+                                </label>
+                              </td>
+                              <td>
+                                <label id='consumo_velocidade'>
+                                  Consumo/Velocidade
+                                  <input id='consumo_velocidade' name='consumo_velocidade' class='form-control' type='text' value='$linha[consumo_velocidade]' aria-label='$linha[consumo_velocidade]'>
+                                </label>
+                              </td>";
+                      } else {
+                        echo "<td class='d-none'>
+                                <label id='num_instalacao'>
+                                  Número da Instalação
+                                  <input id='num_instalacao' name='num_instalacao' class='form-control' type='text' value='<?= $linha[num_instalacao] ?>' aria-label='<?= $linha[num_instalacao] ?>'>
+                                </label>
+                              </td>
+                              <td class='d-none'>
+                                <label id='consumo_velocidade'>
+                                  Consumo/Velocidade
+                                  <input id='consumo_velocidade' name='consumo_velocidade' class='form-control' type='text' value='<?= $linha[consumo_velocidade] ?>' aria-label='<?= $linha[consumo_velocidade] ?>'>
+                                </label>
+                              </td>";
+                      }
+                      ?>
+                      
                       <td>
                         <label id="valor_mes">
                           Valor da conta
@@ -140,12 +158,23 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                     </tr>
 
                     <tr>
-                      <td colspan="2">
-                        <label id="anexo_contas">
-                          Visualizar Anexos
-                          <input id="anexo_contas" name="anexo_contas" class="form-control" type="file" value="<?= $linha['anexo_contas'] ?>" aria-label="<?= $linha['anexo_contas'] ?>">
-                        </label>
-                      </td>
+                      <?php
+                        if($linha['situacao_conta'] == 0){
+                          echo "<td class='d-none' colspan='2'>
+                                  <label id='anexo_contas'>
+                                    Visualizar Anexos
+                                    <input id='anexo_contas' name='anexo_contas' class='form-control' type='file' value='$linha[anexo_contas]' aria-label=$linha[anexo_contas]'>
+                                  </label>
+                                </td>";
+                        } else {
+                          echo "<td colspan='2'>
+                                  <label id='anexo_contas' style='width: 100%;'>
+                                    Editar anexo
+                                    <input id='anexo_contas' name='anexo_contas' class='form-control' type='file' value='$linha[anexo_contas]' aria-label=$linha[anexo_contas]'>
+                                  </label>
+                                </td>";
+                        }
+                      ?>
                     </tr>
 
                     <tr>
