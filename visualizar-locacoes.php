@@ -59,7 +59,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <div class="hstack gap-3 px-2 mb-3">
     <a href='./form-cadastrar-locacao.php' class='btn btn-warning'>Cadastrar Locação</a>
     <form action="" class="d-flex ms-auto">
-      <input type="text" name="filtrar" id="filtrar" placeholder="Pesquisar" class="form-control me-2" aria-label="Pesquisar">
+      <input type="text" name="filtrar" id="filtrar" placeholder="Pesquisar" class="form-control me-2" aria-label="Pesquisar" value="<?php if(isset($_GET['filtrar'])) echo $_GET['filtrar']?>">
       <button class="btn btn-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
   </div>
@@ -70,40 +70,91 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
       include_once "conexao.php";
       try {
         //query sql de consulta
-        $sql = "SELECT ftc, situacao, idlocacao, g.nome as gestor, l.nome as locador, rua, numero, complemento, bairro, cidade, estado, cep 
-        FROM locacao lc 
-        inner join gestor g 
-        on lc.id_gestor = g.idgestor 
-        inner join endereco e 
-        on lc.id_endereco = e.idendereco
-        inner join locador l
-        on lc.id_locador = l.idlocador
-        order by gestor asc";
-        //execução da instrução sql
-        $consulta = $conectar->query($sql);
-        while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
-          //Imprime o cabeçalho da tabela e o link para novo cadastro
-          echo "<div class='col d-flex justify-content-center'>
-            <div class='card'>
-              <div class='card-body'>
-                <h5 class='card-title'>Locação $linha[ftc]</h5>
-                <p class='card-text'>
-                  Situação: <strong>$linha[situacao]</strong>
-                  <br>
-                  Locador: <strong>$linha[locador]</strong>
-                  <br>
-                  Gestor: <strong>$linha[gestor]</strong>
-                  <br>
-                  $linha[rua], $linha[numero], $linha[complemento],
-                  $linha[bairro] - $linha[cidade] - $linha[estado]
-                </p>
-                <div class='card-btns'>
-                  <a href='./ver-locacao.php?idlocacao=$linha[idlocacao]' class='btn btn-laranja'>Ver locação</a>
-                  <a href='./form-editar-locacao.php?idlocacao=$linha[idlocacao]' class='btn btn-laranja'>Editar locação</a>
+        if(!isset($_GET['filtrar'])) {
+          $sql = "SELECT ftc, situacao, idlocacao, g.nome as gestor, l.nome as locador, rua, numero, complemento, bairro, cidade, estado, cep 
+          FROM locacao lc 
+          inner join gestor g 
+          on lc.id_gestor = g.idgestor 
+          inner join endereco e 
+          on lc.id_endereco = e.idendereco
+          inner join locador l
+          on lc.id_locador = l.idlocador
+          order by gestor asc";
+          //execução da instrução sql
+          $consulta = $conectar->query($sql);
+          while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+            //Imprime o cabeçalho da tabela e o link para novo cadastro
+            echo "<div class='col d-flex justify-content-center'>
+              <div class='card'>
+                <div class='card-body'>
+                  <h5 class='card-title'>Locação $linha[ftc]</h5>
+                  <p class='card-text'>
+                    Situação: <strong>$linha[situacao]</strong>
+                    <br>
+                    Locador: <strong>$linha[locador]</strong>
+                    <br>
+                    Gestor: <strong>$linha[gestor]</strong>
+                    <br>
+                    $linha[rua], $linha[numero], $linha[complemento],
+                    $linha[bairro] - $linha[cidade] - $linha[estado]
+                  </p>
+                  <div class='card-btns'>
+                    <a href='./ver-locacao.php?idlocacao=$linha[idlocacao]' class='btn btn-laranja'>Ver locação</a>
+                    <a href='./form-editar-locacao.php?idlocacao=$linha[idlocacao]' class='btn btn-laranja'>Editar locação</a>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>";
+            </div>";
+          }
+        } else {
+          $filtrar = filter_var($_GET['filtrar']);
+          $sql = "SELECT ftc, situacao, idlocacao, g.nome as gestor, l.nome as locador, rua, numero, complemento, bairro, cidade, estado, cep 
+          FROM locacao lc 
+          inner join gestor g 
+          on lc.id_gestor = g.idgestor 
+          inner join endereco e 
+          on lc.id_endereco = e.idendereco
+          inner join locador l
+          on lc.id_locador = l.idlocador
+          where ftc like CONCAT('%', :filtrar, '%')
+          or situacao like CONCAT('%', :filtrar, '%')
+          or g.nome like CONCAT('%', :filtrar, '%')
+          or l.nome like CONCAT('%', :filtrar, '%')
+          or rua like CONCAT('%', :filtrar, '%')
+          or numero like CONCAT('%', :filtrar, '%')
+          or complemento like CONCAT('%', :filtrar, '%')
+          or bairro like CONCAT('%', :filtrar, '%')
+          or cidade like CONCAT('%', :filtrar, '%')
+          or estado like CONCAT('%', :filtrar, '%')
+          or cep like CONCAT('%', :filtrar, '%')";
+          //execução da instrução sql
+          $consulta = $conectar->prepare($sql);
+          $consulta->bindParam(":filtrar", $filtrar, PDO::PARAM_STR);
+          $consulta->execute();
+          while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+            //Imprime o cabeçalho da tabela e o link para novo cadastro
+            echo "<div class='col d-flex justify-content-center'>
+              <div class='card'>
+                <div class='card-body'>
+                  <h5 class='card-title'>Locação $linha[ftc]</h5>
+                  <p class='card-text'>
+                    Situação: <strong>$linha[situacao]</strong>
+                    <br>
+                    Locador: <strong>$linha[locador]</strong>
+                    <br>
+                    Gestor: <strong>$linha[gestor]</strong>
+                    <br>
+                    $linha[rua], $linha[numero], $linha[complemento],
+                    $linha[bairro] - $linha[cidade] - $linha[estado]
+                  </p>
+                  <div class='card-btns'>
+                    <a href='./ver-locacao.php?idlocacao=$linha[idlocacao]' class='btn btn-laranja'>Ver locação</a>
+                    <a href='./form-editar-locacao.php?idlocacao=$linha[idlocacao]' class='btn btn-laranja'>Editar locação</a>
+                  </div>
+                </div>
+              </div>
+            </div>";
+          }
         }
       } catch (PDOException $e) {
         echo $e->getMessage();
