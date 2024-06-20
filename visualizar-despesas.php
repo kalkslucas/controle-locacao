@@ -46,7 +46,16 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
     </div>
   </nav>
 
-  <div class="text-end p-3">
+  <header class="fixed text-bg-secondary border-top border-bottom p-2 mb-3 d-flex flex-row justify-content-around">
+    <a href="visualizar-locacoes.php" class="text-bg-secondary mt-auto text-decoration-none">Locações</a>
+    <a href="visualizar-locadores.php" class="text-bg-secondary mt-auto text-decoration-none">Locadores</a>
+    <a href="visualizar-gestores.php" class="text-bg-secondary mt-auto text-decoration-none">Gestores</a>
+    <a href="visualizar-alojados.php" class="text-bg-secondary mt-auto text-decoration-none">Alojados</a>
+    <a href="visualizar-despesas.php" class="text-bg-secondary mt-auto text-decoration-none">Despesas</a>
+    <a href="visualizar-fsc.php" class="text-bg-secondary mt-auto text-decoration-none">FSCs</a>
+  </header>
+
+  <div class="hstack gap-1 px-2 mb-3">
     <a href='./form-gerar-conta.php' class='btn btn-warning'>Cadastrar Despesa</a>
     <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
   </div>
@@ -82,7 +91,8 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
             //execução da instrução sql
             $consulta = $conectar->query($sql);
             while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
-              echo "  <tr class='text-center'>
+              echo "  
+                      <tr class='text-center'>
                         <td>$linha[tipo_despesa]</td>
                         <td>$linha[titular]</td>
                         <td>$linha[parcela]</td>

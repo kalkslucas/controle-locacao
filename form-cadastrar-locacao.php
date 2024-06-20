@@ -64,12 +64,13 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         class="form-control" 
                         type="text" 
                         placeholder="Ex: 00-00"
+                        required
                       />
                     </label>
 
                     <label id="gestor">
                       Gestor
-                      <select class="form-select" name="gestor" id="gestor">
+                      <select class="form-select" name="gestor" id="gestor" required>
                         <option value="">Selecione o gestor</option>
                         <?php
                         include_once 'conexao.php';
@@ -89,7 +90,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 
                     <label id="locador">
                       Locador
-                      <select class="form-select" name="locador" id="locador">
+                      <select class="form-select" name="locador" id="locador" required>
                         <option value="">Selecione o locador</option>
                         <?php
                         include_once 'conexao.php';
@@ -109,7 +110,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 
                     <label id="status">
                       Status
-                      <select class="form-select" name="situacao" id="situacao">
+                      <select class="form-select" name="situacao" id="situacao" required>
                         <option value="">Selecione o status</option>
                         <option value="ATIVO">Ativo</option>
                         <option value="ADITIVO">Aditivo</option>
@@ -127,6 +128,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         class="form-control" 
                         type="text" 
                         placeholder="Digite o CEP do Endereço"
+                        required
                       />
                     </label>
 
@@ -138,6 +140,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         class="form-control" 
                         type="text" 
                         placeholder="Nome da Rua, Avenida, Travessa..."
+                        required
                       />
                     </label>
 
@@ -149,6 +152,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         class="form-control" 
                         type="text" 
                         placeholder="Ex: 00 ou S/N"
+                        required
                       />
                     </label>
 
@@ -160,6 +164,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         class="form-control" 
                         type="text" 
                         placeholder="Casa, Bloco, Apto, Quadra, Lote..."
+                        required
                       />
                     </label>
 
@@ -170,6 +175,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         name="bairro" 
                         class="form-control" 
                         type="text"
+                        required
                       />
                     </label>
 
@@ -180,12 +186,13 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         name="cidade"
                         class="form-control"
                         type="text"
+                        required
                       />
                     </label>
 
                     <label id="estadoLocacao">
                     Estado
-                      <select class="form-select" id="uf" name="uf">
+                      <select class="form-select" id="uf" name="uf" required>
                         <option value="">--</option>
                         <option value="AC">AC</option>
                         <option value="AL">AL</option>
@@ -225,6 +232,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         class="form-control" 
                         type="date" 
                         placeholder="dd/mm/aaaa"
+                        required
                       />
                     </label>
 
@@ -236,6 +244,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         class="form-control" 
                         type="date" 
                         placeholder="dd/mm/aaaa"
+                        required
                       />
                     </label>
 
@@ -246,8 +255,11 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                       id="observacoes" 
                       name="observacoes" 
                       class="mt-2 form-control"
-                      rows="5" 
-                      ></textarea>
+                      rows="5"
+                      required 
+                      >
+                    </textarea>
+
                     <label id="valorAluguel">
                       Valor do Aluguel
                       <div class="input-group">
@@ -258,6 +270,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           class="form-control" 
                           type="text" 
                           aria-label="Valor do Aluguel"
+                          required
                         />
                       </div>
                     </label>
