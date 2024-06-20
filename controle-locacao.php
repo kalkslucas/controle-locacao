@@ -4,7 +4,7 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
 ?>
 
 <?php 
-  include_once'conexao.php';
+  include_once 'conexao.php';
   $sql = "SELECT COUNT(*) AS QUANT_LOCACOES FROM LOCACAO";
   $consulta = $conectar->query($sql);
   $linha = $consulta->fetch(PDO::FETCH_ASSOC);
@@ -45,33 +45,45 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
           <p class=""> <?= $nomeUser; ?></p>
           <p class=""> <?= $perfilUser; ?></p>
         </label>
-        <a class="btn btn-outline-danger" href="logout.php">Sair</a>
+        <a class="btn btn-danger m-auto mx-2" href="logout.php">Sair</a>
       </div>
     </div>
   </nav>
+  
+  <header class="text-bg-secondary border-top border-bottom p-2 mb-3 d-flex flex-row justify-content-around">
+    <a href="visualizar-locacoes.php" class="text-bg-secondary mt-auto text-decoration-none">Locações</a>
+    <a href="visualizar-locadores.php" class="text-bg-secondary mt-auto text-decoration-none">Locadores</a>
+    <a href="visualizar-gestores.php" class="text-bg-secondary mt-auto text-decoration-none">Gestores</a>
+    <a href="visualizar-alojados.php" class="text-bg-secondary mt-auto text-decoration-none">Alojados</a>
+    <a href="visualizar-despesas.php" class="text-bg-secondary mt-auto text-decoration-none">Despesas</a>
+    <a href="visualizar-fsc.php" class="text-bg-secondary mt-auto text-decoration-none">FSCs</a>
+  </header>
+
 
   <main class="container-fluid">
-    <div class="row py-3">
-      <div class="col-12">
-        <div class="menu d-flex flex-row justify-content-around">
-          <a href="visualizar-locacoes.php" class="d-block btn btn-warning">Locações</a>
-          <a href="visualizar-locadores.php" class="d-block btn btn-warning">Locadores</a>
-          <a href="visualizar-gestores.php" class="d-block btn btn-warning">Gestores</a>
-          <a href="visualizar-alojados.php" class="d-block btn btn-warning">Alojados</a>
-          <a href="visualizar-despesas.php" class="d-block btn btn-warning">Despesas</a>
-          <a href="visualizar-fsc.php" class="d-block btn btn-warning">FSCs</a>
-        </div>
-      </div>
-    </div>
-
-
     <div class="info-cards row py-3">
       <div class="col d-flex justify-content-center">
         <div class="card">
           <div class="card-body d-flex flex-column justify-content-around align-items-center">
             <h5 class="card-title">Quantidade de Locações Realizadas</h5>
-            <p class="display-5"><?= $linha['QUANT_LOCACOES'] ?></p>
-            <p class="card-text">Locações</p>
+            <?php
+              $sql = "SELECT COUNT(*) AS QUANT_LOCACOES FROM LOCACAO";
+              $consulta = $conectar->query($sql);
+              
+              if($linha = $consulta->rowCount() > 0) {
+                while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+
+                  echo "
+                  <p class='display-5'>$linha[QUANT_LOCACOES]</p>
+                  <p class='card-text'>Locações</p>
+                  ";
+                } 
+              } else {
+                echo "<p class='display-5'>0</p>";
+              }
+              
+            ?>
+            
           </div>
         </div>
       </div>

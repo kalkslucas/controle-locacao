@@ -16,6 +16,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <link rel="stylesheet" href="assets/css/visualizar-locacao.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
+  <script src="https://kit.fontawesome.com/f8c979c0bf.js" crossorigin="anonymous"></script>
 </head>
 
 <body class="page">
@@ -46,24 +47,38 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
     </div>
   </nav>
 
-  <div class="text-end p-2">
+  <header class="fixed text-bg-secondary border-top border-bottom p-2 mb-3 d-flex flex-row justify-content-around">
+    <a href="visualizar-locacoes.php" class="text-bg-secondary mt-auto text-decoration-none">Locações</a>
+    <a href="visualizar-locadores.php" class="text-bg-secondary mt-auto text-decoration-none">Locadores</a>
+    <a href="visualizar-gestores.php" class="text-bg-secondary mt-auto text-decoration-none">Gestores</a>
+    <a href="visualizar-alojados.php" class="text-bg-secondary mt-auto text-decoration-none">Alojados</a>
+    <a href="visualizar-despesas.php" class="text-bg-secondary mt-auto text-decoration-none">Despesas</a>
+    <a href="visualizar-fsc.php" class="text-bg-secondary mt-auto text-decoration-none">FSCs</a>
+  </header>
+
+  <div class="hstack gap-3 px-2 mb-3">
     <a href='./form-cadastrar-locacao.php' class='btn btn-warning'>Cadastrar Locação</a>
-    <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
+    <form action="" class="d-flex ms-auto">
+      <input type="text" name="filtrar" id="filtrar" placeholder="Pesquisar" class="form-control me-2" aria-label="Pesquisar">
+      <button class="btn btn-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
   </div>
 
   <main class="container-fluid">
-    
     <div class="row justify-content-center">
       <?php
       include_once "conexao.php";
       try {
         //query sql de consulta
-        $sql = "SELECT ftc, idlocacao, nome, rua, numero, complemento, bairro, cidade, estado, cep 
-        FROM locacao l 
+        $sql = "SELECT ftc, situacao, idlocacao, g.nome as gestor, l.nome as locador, rua, numero, complemento, bairro, cidade, estado, cep 
+        FROM locacao lc 
         inner join gestor g 
-        on l.id_gestor = g.idgestor 
+        on lc.id_gestor = g.idgestor 
         inner join endereco e 
-        on l.id_endereco = e.idendereco";
+        on lc.id_endereco = e.idendereco
+        inner join locador l
+        on lc.id_locador = l.idlocador
+        order by gestor asc";
         //execução da instrução sql
         $consulta = $conectar->query($sql);
         while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
@@ -73,8 +88,13 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
               <div class='card-body'>
                 <h5 class='card-title'>Locação $linha[ftc]</h5>
                 <p class='card-text'>
-                  $linha[rua], $linha[numero], $linha[complemento]
+                  Situação: <strong>$linha[situacao]</strong>
                   <br>
+                  Locador: <strong>$linha[locador]</strong>
+                  <br>
+                  Gestor: <strong>$linha[gestor]</strong>
+                  <br>
+                  $linha[rua], $linha[numero], $linha[complemento],
                   $linha[bairro] - $linha[cidade] - $linha[estado]
                 </p>
                 <div class='card-btns'>
