@@ -64,7 +64,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                 <form action="cadastrarPessoa.php" method="post">
                   <label id="tipoPessoa">
                     Classificação da Pessoa
-                    <select class="form-select" name="tipoPessoa" id="tipoPessoa">
+                    <select class="form-select" name="tipoPessoa" id="tipoPessoa" required>
                       <option selected>---</option>
                       <option value="alojado">Alojado</option>
                       <option value="gestor">Gestor</option>
@@ -73,7 +73,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 
                   <label id="nomePessoa">
                     Nome
-                    <input id="nome" name="nome" class="form-control" type="text" placeholder="Digite o nome completo">
+                    <input id="nome" name="nome" class="form-control" type="text" placeholder="Digite o nome completo" required>
                   </label>
                   
                   <label id="email">
@@ -83,7 +83,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 
                   <label id="telefone1">
                     Telefone 1
-                    <input id="telefone1" name="telefone1" class="form-control" type="text" placeholder="Ex: 3198765432">
+                    <input id="telefone1" name="telefone1" class="form-control" type="text" placeholder="Ex: 3198765432" required>
                   </label>
 
                   <label id="telefone2">
@@ -93,17 +93,17 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 
                   <label id="cargo">
                     Cargo
-                    <input id="cargo" name="cargo" class="form-control" type="text" placeholder="Ex: Gerente Administrativo">
+                    <input id="cargo" name="cargo" class="form-control" type="text" placeholder="Ex: Gerente Administrativo" required>
                   </label>
 
                   <label id="setor">
                     Setor
-                    <input id="setor" name="setor" class="form-control" type="text" placeholder="Ex: Obras">
+                    <input id="setor" name="setor" class="form-control" type="text" placeholder="Ex: Obras" required>
                   </label>
 
                   <label id="unidade">
                     Unidade
-                    <input id="unidade" name="unidade" class="form-control" type="text" placeholder="Ex: Sede">
+                    <input id="unidade" name="unidade" class="form-control" type="text" placeholder="Ex: Sede" required>
                   </label>
 
                   <label class="d-flex mt-3" id="enviar">

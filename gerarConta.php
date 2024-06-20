@@ -27,6 +27,9 @@ $insert->bindParam(":vincularLocacao", $vincularLocacao, PDO::PARAM_INT);
 $insert->execute();
 
 $conectar->commit();
+
+header('Location: visualizar-despesas.php');
+
 } catch (PDOException $e) {
   echo "Error: ". $e->getMessage();
 

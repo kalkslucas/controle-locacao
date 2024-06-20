@@ -17,6 +17,10 @@ try {
   $insert->execute();
 
   $conectar->commit();
+  
+  header('Location: visualizar-fsc.php');
+  
+
 } catch (PDOException $e) {
   echo 'Error: ' . $e->getMessage();
   // Log the error

@@ -59,6 +59,8 @@ try {
   $update->execute();
 
   $conectar->commit();
+
+  header('Location: visualizar-despesas.php');
 } catch (PDOException $e) {
   $conectar->rollBack();
   echo 'Erro :' . $e->getMessage();

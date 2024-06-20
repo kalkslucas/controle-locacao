@@ -43,6 +43,8 @@ try {
   $update->execute();
 
   $conectar->commit();
+
+  header('Location: visualizar-locacoes.php');
 } catch (PDOException $e) {
   $conectar->rollBack();
   echo 'Erro :' . $e->getMessage();

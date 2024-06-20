@@ -53,6 +53,9 @@ try {
   $insertLocador->execute();
 
   $conectar->commit();
+
+  header('Location: visualizar-locadores.php');
+
 } catch (PDOException $e) {
   $conectar->rollBack();
   echo 'Erro :' . $e->getMessage();

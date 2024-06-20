@@ -28,6 +28,8 @@ try {
   $update->execute();
 
   $conectar->commit();
+
+  header('Location: visualizar-alojados.php');
 } catch (PDOException $e) {
   $conectar->rollBack();
   echo 'Erro :' . $e->getMessage();

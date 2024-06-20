@@ -28,6 +28,8 @@ try {
   $update->execute();
 
   $conectar->commit();
+
+  header('Location: visualizar-gestores.php');
 } catch (PDOException $e) {
   $conectar->rollBack();
   echo 'Erro :' . $e->getMessage();

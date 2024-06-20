@@ -137,9 +137,8 @@ try {
     gerarAluguel($inicioLocacao, $terminoLocacao, $locador, $valorAluguel, $idLocacao);
   }
   
-  echo 'Cadastro Concluído!';
+  header('Location: visualizar-locacoes.php');
 
-  $conectar->exec('SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED');
 } catch (PDOException $e) {
   echo 'Error: ' . $e->getMessage();
   // Log the error

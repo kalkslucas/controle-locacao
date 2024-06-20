@@ -65,22 +65,22 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                   <div class="mt-1">  
                     <label id="numeroFsc">
                       Número FSC
-                      <input id="numeroFsc" name="numeroFsc" class="form-control" type="text" placeholder="Digite o número da FSC">
+                      <input id="numeroFsc" name="numeroFsc" class="form-control" type="text" placeholder="Digite o número da FSC" required>
                     </label>
   
                     <label id="validadeFsc">
                       Validade
-                      <input id="validadeFsc" name="validadeFsc" class="form-control" type="date" placeholder="Digite a data final de validade">
+                      <input id="validadeFsc" name="validadeFsc" class="form-control" type="date" placeholder="Digite a data final de validade" required>
                     </label>
 <!-- 
                     <label id="anexoFsc">
                       Anexo de Contratos
-                      <input type="file" class="form-control" name="anexoFsc" id="anexoFsc" multiple>
+                      <input type="file" class="form-control" name="anexoFsc" id="anexoFsc" multiple required>
                     </label>
 -->
                     <label id="vincularLocacao">
                       Vincular a Locação
-                      <select class="form-select" name="vincularLocacao" id="vincularLocacao">
+                      <select class="form-select" name="vincularLocacao" id="vincularLocacao" required>
                         <option value="">---</option>
                         <?php
                           include_once 'conexao.php';
@@ -113,6 +113,9 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
       </div>
     </div>
 
+    
+
+
     <div class="row justify-content-end">
       <div class="col-lg-1 col-md-2 col-sm-12 mb-4">
         <a href="./visualizar-fsc.php" class="text-center btn btn-danger w-100">Voltar</a>
@@ -121,10 +124,31 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
     
   </main>
   
+                  
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  
-  <script src="assets/js/validarMoeda.js" defer></script>
+
+  <script src="./assets/js/bootstrap.bundle.min.js" defer></script>
+
+  <!--Modal de Confirmação-->
+  <div class="modal fade" id="msgCadastroRealizado" tabindex="-1" aria-labelledby="msgCadastroRealizadoLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="msgCadastroRealizadoLabel">Cadastro Concluído!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            O cadastro foi realizado com sucesso.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <a href="visualizar-locacoes.php" class="btn btn-primary">Ver Locações</a>
+          </div>
+        </div>
+      </div>
+    </div>    
+    
+    
 </body>
 </html>
 

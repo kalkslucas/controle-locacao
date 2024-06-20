@@ -65,7 +65,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                   <div class="mt-1">
                     <label id="tipoDespesa">
                       Tipo de conta
-                      <select class="form-select" name="tipoDespesa" id="tipoDespesa">
+                      <select class="form-select" name="tipoDespesa" id="tipoDespesa" required>
                         <option value="">---</option>
                         <option value="ENERGIA">Energia</option>
                         <option value="ÁGUA">Água</option>
@@ -78,12 +78,12 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   
                     <label id="empresa">
                       Empresa
-                      <input id="empresa" name="empresa" class="form-control" type="text" placeholder="Digite o nome da empresa">
+                      <input id="empresa" name="empresa" class="form-control" type="text" placeholder="Digite o nome da empresa" required>
                     </label>
   
                     <label id="titular">
                       Titular
-                      <input id="titular" name="titular" class="form-control" type="text" placeholder="Digite o nome do titular da conta">
+                      <input id="titular" name="titular" class="form-control" type="text" placeholder="Digite o nome do titular da conta" required>
                     </label>
                     
                     <label id="numInstalacao">
@@ -98,17 +98,17 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 
                     <label id="valorConta">
                       Valor da Conta
-                      <input id="valorConta" name="valorConta" class="form-control" type="text" placeholder="Ex: 9999.99">
+                      <input id="valorConta" name="valorConta" class="form-control" type="text" placeholder="Ex: 9999.99" required>
                     </label>
 
                     <label id="dataVencimento">
                       Data de Vencimento
-                      <input id="dataVencimento" name="dataVencimento" class="form-control" type="date">
+                      <input id="dataVencimento" name="dataVencimento" class="form-control" type="date" required>
                     </label>
 
                     <label id="vincularLocacao">
                       Vincular a Locação
-                      <select class="form-select" name="vincularLocacao" id="vincularLocacao">
+                      <select class="form-select" name="vincularLocacao" id="vincularLocacao" required>
                         <option value="">---</option>
                         <?php
                           include_once 'conexao.php';

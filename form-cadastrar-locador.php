@@ -77,6 +77,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           class="form-control"
                           type="text"
                           placeholder="Digite o nome completo"
+                          required
                         />
                       </label>
 
@@ -88,6 +89,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           class="form-control"
                           type="text"
                           placeholder="Digite somente os números"
+                          required
                         />
                       </label>
 
@@ -99,6 +101,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           class="form-control"
                           type="email"
                           placeholder="Ex: abc@ultra.eng.br OU abc@gmail.com"
+                          required
                         />
                       </label>
 
@@ -110,6 +113,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           class="form-control"
                           type="text"
                           placeholder="Ex: 3198765432"
+                          required
                         />
                       </label>
 
@@ -121,6 +125,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           class="form-control"
                           type="text"
                           placeholder="Ex: 31987654321"
+                          required
                         />
                       </label>
 
@@ -132,6 +137,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           class="form-control"
                           type="text"
                           placeholder="Digite o CEP do Endereço"
+                          required
                         />
                       </label>
 
@@ -143,6 +149,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           class="form-control"
                           type="text"
                           placeholder="Nome da Rua, Avenida, Travessa..."
+                          required
                         />
                       </label>
 
@@ -154,6 +161,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           class="form-control"
                           type="text"
                           placeholder="Ex: 00 ou S/N"
+                          required
                         />
                       </label>
 
@@ -165,6 +173,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           class="form-control"
                           type="text"
                           placeholder="Casa, Bloco, Apto, Quadra, Lote..."
+                          required
                         />
                       </label>
 
@@ -175,6 +184,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           name="bairro"
                           class="form-control"
                           type="text"
+                          required
                         />
                       </label>
 
@@ -185,12 +195,13 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           name="cidade"
                           class="form-control"
                           type="text"
+                          required
                         />
                       </label>
 
                       <label id="estadoLocador">
                         Estado
-                        <select class="form-select" id="uf" name="uf">
+                        <select class="form-select" id="uf" name="uf" required>
                           <option value="">--</option>
                           <option value="AC">AC</option>
                           <option value="AL">AL</option>
@@ -229,6 +240,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           name="banco"
                           class="form-control"
                           type="text"
+                          required
                         />
                       </label>
                       <label id="numAgenciaLocador">
@@ -238,6 +250,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           name="agencia"
                           class="form-control"
                           type="text"
+                          required
                         />
                       </label>
                       <label id="numContaBancoLocador">
@@ -247,6 +260,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           name="conta"
                           class="form-control"
                           type="text"
+                          required
                         />
                       </label>
                       <label id="tipoContaBancoLocador">
@@ -255,6 +269,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           class="form-select"
                           name="tipoConta"
                           id="tipoConta"
+                          required
                         >
                           <option value="">--</option>
                           <option value="CONTA CORRENTE">Conta Corrente</option>
@@ -271,6 +286,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           name="pix"
                           class="form-control"
                           type="text"
+                          required
                         />
                       </label>
                     </div>
