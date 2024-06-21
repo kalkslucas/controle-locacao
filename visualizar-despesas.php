@@ -15,7 +15,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <link rel="stylesheet" href="assets/css/btn-custom.css">
   <link rel="stylesheet" href="assets/css/visualizar-locadores.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+  <script src="https://kit.fontawesome.com/f8c979c0bf.js" crossorigin="anonymous"></script>
 </head>
 
 <body class="page">
@@ -58,6 +58,10 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <div class="hstack gap-1 px-2 mb-3">
     <a href='./form-gerar-conta.php' class='btn btn-warning'>Cadastrar Despesa</a>
     <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
+    <form action="" class="d-flex ms-auto">
+      <input type="text" name="filtrar" id="filtrar" placeholder="Pesquisar" class="form-control me-2" aria-label="Pesquisar" value="<?php if(isset($_GET['filtrar'])) echo $_GET['filtrar']?>">
+      <button class="btn btn-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
   </div>
 
   <main class="container-fluid">
@@ -86,24 +90,52 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
         <?php
           include_once "conexao.php";
           try {
-            //query sql de consulta
-            $sql = 'SELECT iddespesa, tipo_despesa, titular, valor_mes, DATE_FORMAT(vencimento, "%d/%m/%Y") as vencimento, parcela FROM despesas WHERE situacao_conta = 1';
-            //execução da instrução sql
-            $consulta = $conectar->query($sql);
-            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
-              echo "  
-                      <tr class='text-center'>
-                        <td>$linha[tipo_despesa]</td>
-                        <td>$linha[titular]</td>
-                        <td>$linha[parcela]</td>
-                        <td>$linha[valor_mes]</td>
-                        <td>$linha[vencimento]</td>
-                        <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Ver detalhes da despesa</a></td>
-                        <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Editar despesa</a></td>
-                        <td><a href='./form-abrir-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-danger'>Retomar conta em aberto</a></td>
-                      </tr>
-              ";
+            if(!isset($_GET['filtrar'])){
+              //query sql de consulta
+              $sql = "SELECT iddespesa, tipo_despesa, titular, valor_mes, DATE_FORMAT(vencimento, '%d/%m/%Y') as vencimento, parcela FROM despesas WHERE situacao_conta = 1";
+              //execução da instrução sql
+              $consulta = $conectar->query($sql);
+              while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                echo "  
+                        <tr class='text-center'>
+                          <td>$linha[tipo_despesa]</td>
+                          <td>$linha[titular]</td>
+                          <td>$linha[parcela]</td>
+                          <td>$linha[valor_mes]</td>
+                          <td>$linha[vencimento]</td>
+                          <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Ver detalhes da despesa</a></td>
+                          <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Editar despesa</a></td>
+                          <td><a href='./form-abrir-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-danger'>Retomar conta em aberto</a></td>
+                        </tr>
+                ";
+              }
+            } else {
+              $filtrar = filter_var($_GET['filtrar']);
+              $sql = "SELECT iddespesa, tipo_despesa, titular, valor_mes, DATE_FORMAT(vencimento, '%d/%m/%Y') as vencimento, parcela 
+              FROM despesas 
+              WHERE situacao_conta = 1
+              and tipo_despesa like CONCAT('%',:filtrar,'%')
+              or titular like CONCAT('%',:filtrar,'%')
+              or vencimento like CONCAT('%',:filtrar,'%')";
+              $consulta = $conectar->prepare($sql);
+              $consulta->bindParam(":filtrar", $filtrar, PDO::PARAM_STR);
+              $consulta->execute();
+              while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                echo "  
+                        <tr class='text-center'>
+                          <td>$linha[tipo_despesa]</td>
+                          <td>$linha[titular]</td>
+                          <td>$linha[parcela]</td>
+                          <td>$linha[valor_mes]</td>
+                          <td>$linha[vencimento]</td>
+                          <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Ver detalhes da despesa</a></td>
+                          <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Editar despesa</a></td>
+                          <td><a href='./form-abrir-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-danger'>Retomar conta em aberto</a></td>
+                        </tr>
+                ";
+              }
             }
+            
           } catch (PDOException $e) {
             echo $e->getMessage();
           }
@@ -145,23 +177,50 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
         <?php
           include_once "conexao.php";
           try {
-            //query sql de consulta
-            $sql = 'SELECT iddespesa, tipo_despesa, titular, valor_mes, DATE_FORMAT(vencimento, "%d/%m/%Y") as vencimento, parcela FROM despesas WHERE situacao_conta = 0';
-            //execução da instrução sql
-            $consulta = $conectar->query($sql);
-            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
-              echo "  <tr class='text-center'>
-                        <td>$linha[tipo_despesa]</td>
-                        <td>$linha[titular]</td>
-                        <td>$linha[parcela]</td>
-                        <td>$linha[valor_mes]</td>
-                        <td>$linha[vencimento]</td>
-                        <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Ver detalhes da despesa</a></td>
-                        <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Editar despesa</a></td>
-                        <td><a href='./form-pagar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-success'>Registrar Pagamento</a></td>
-                      </tr>
-              ";
-            }
+            if(!isset($_GET["filtrar"])){
+              //query sql de consulta
+              $sql = 'SELECT iddespesa, tipo_despesa, titular, valor_mes, DATE_FORMAT(vencimento, "%d/%m/%Y") as vencimento, parcela FROM despesas WHERE situacao_conta = 0';
+              //execução da instrução sql
+              $consulta = $conectar->query($sql);
+              while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                echo "  <tr class='text-center'>
+                          <td>$linha[tipo_despesa]</td>
+                          <td>$linha[titular]</td>
+                          <td>$linha[parcela]</td>
+                          <td>$linha[valor_mes]</td>
+                          <td>$linha[vencimento]</td>
+                          <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Ver detalhes da despesa</a></td>
+                          <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Editar despesa</a></td>
+                          <td><a href='./form-pagar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-success'>Registrar Pagamento</a></td>
+                        </tr>
+                ";
+              }
+            } else {
+              $filtrar = filter_var($_GET['filtrar']);
+              $sql = "SELECT iddespesa, tipo_despesa, titular, valor_mes, DATE_FORMAT(vencimento, '%d/%m/%Y') as vencimento, parcela 
+              FROM despesas 
+              WHERE situacao_conta = 0
+              and tipo_despesa like CONCAT('%',:filtrar,'%')
+              or titular like CONCAT('%',:filtrar,'%')
+              or vencimento like CONCAT('%',:filtrar,'%')";
+              $consulta = $conectar->prepare($sql);
+              $consulta->bindParam(":filtrar", $filtrar, PDO::PARAM_STR);
+              $consulta->execute();
+              while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                echo "  
+                        <tr class='text-center'>
+                          <td>$linha[tipo_despesa]</td>
+                          <td>$linha[titular]</td>
+                          <td>$linha[parcela]</td>
+                          <td>$linha[valor_mes]</td>
+                          <td>$linha[vencimento]</td>
+                          <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Ver detalhes da despesa</a></td>
+                          <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Editar despesa</a></td>
+                          <td><a href='./form-abrir-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-danger'>Retomar conta em aberto</a></td>
+                        </tr>
+                ";
+              }
+            }            
           } catch (PDOException $e) {
             echo $e->getMessage();
           }

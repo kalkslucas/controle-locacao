@@ -15,7 +15,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <link rel="stylesheet" href="assets/css/btn-custom.css">
   <link rel="stylesheet" href="assets/css/visualizar-locadores.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+  <script src="https://kit.fontawesome.com/f8c979c0bf.js" crossorigin="anonymous"></script>
 </head>
 
 <body class="page">
@@ -58,6 +58,10 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <div class="hstack gap-1 px-2 mb-3">
     <a href='./form-cadastrar-pessoa.php' class='btn btn-warning'>Cadastrar Gestor</a>
     <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
+    <form action="" class="d-flex ms-auto">
+      <input type="text" name="filtrar" id="filtrar" placeholder="Pesquisar" class="form-control me-2" aria-label="Pesquisar" value="<?php if(isset($_GET['filtrar'])) echo $_GET['filtrar']?>">
+      <button class="btn btn-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
   </div>
 
   <main class="container-fluid">
@@ -82,19 +86,40 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
         <?php
           include_once "conexao.php";
           try {
-            //query sql de consulta
-            $sql = 'SELECT idgestor, nome, email, telefone_1 FROM gestor';
-            //execução da instrução sql
-            $consulta = $conectar->query($sql);
-            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
-              echo "  <tr class='text-center'>
-                        <td>$linha[nome]</td>
-                        <td>$linha[email]</td>
-                        <td>$linha[telefone_1]</td>
-                        <td><a href='./ver-gestor.php?idgestor=$linha[idgestor]' class='btn btn-laranja'>Ver dados</a></td>
-                        <td><a href='./form-editar-gestor.php?idgestor=$linha[idgestor]' class='btn btn-laranja'>Editar dados</a></td>
-                      </tr>
+            if(!isset($_GET['filtrar'])){
+              //query sql de consulta
+              $sql = 'SELECT idgestor, nome, email, telefone_1 FROM gestor';
+              //execução da instrução sql
+              $consulta = $conectar->query($sql);
+              while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                echo "  <tr class='text-center'>
+                          <td>$linha[nome]</td>
+                          <td>$linha[email]</td>
+                          <td>$linha[telefone_1]</td>
+                          <td><a href='./ver-gestor.php?idgestor=$linha[idgestor]' class='btn btn-laranja'>Ver dados</a></td>
+                          <td><a href='./form-editar-gestor.php?idgestor=$linha[idgestor]' class='btn btn-laranja'>Editar dados</a></td>
+                        </tr>
+                ";
+              }
+            } else {
+              $filtrar = filter_var($_GET['filtrar']);
+              $sql = "SELECT idgestor, nome, email, telefone_1 
+              FROM gestor
+              WHERE nome like CONCAT('%',:filtrar,'%')
               ";
+              $consulta = $conectar->prepare($sql);
+              $consulta->bindParam(":filtrar", $filtrar, PDO::PARAM_STR);
+              $consulta->execute();
+              while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                echo "  <tr class='text-center'>
+                          <td>$linha[nome]</td>
+                          <td>$linha[email]</td>
+                          <td>$linha[telefone_1]</td>
+                          <td><a href='./ver-gestor.php?idgestor=$linha[idgestor]' class='btn btn-laranja'>Ver dados</a></td>
+                          <td><a href='./form-editar-gestor.php?idgestor=$linha[idgestor]' class='btn btn-laranja'>Editar dados</a></td>
+                        </tr>
+                ";
+              }
             }
           } catch (PDOException $e) {
             echo $e->getMessage();
