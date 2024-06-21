@@ -1,6 +1,6 @@
 <?php 
 require 'verificaUsuario.php';
-if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )): 
+if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])): 
 ?>
 
 <!DOCTYPE html>
@@ -15,12 +15,12 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <link rel="stylesheet" href="assets/css/btn-custom.css">
   <link rel="stylesheet" href="assets/css/ver-locacao.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
 </head>
+
 <?php
 include_once "conexao.php";
 $iddespesa = filter_var($_GET['iddespesa'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT tipo_despesa, empresa, titular, num_instalacao, consumo_velocidade, valor_mes, DATE_FORMAT(vencimento, '%d/%m/%Y') as vencimento, anexo_contas, parcela, situacao_conta from despesas where iddespesa = '$iddespesa'";
+$sql = "SELECT tipo_despesa, empresa, titular, num_instalacao, consumo_velocidade, valor_mes, DATE_FORMAT(vencimento, '%d/%m/%Y') as vencimento, anexo_contas, parcela, situacao_conta FROM despesas WHERE iddespesa = '$iddespesa'";
 $consulta = $conectar->query($sql);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -35,9 +35,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item dropdown">
-            <a class="nav-link" href="./controle-locacao.php">
-              Gestão de Locação
-            </a>
+            <a class="nav-link" href="./controle-locacao.php">Gestão de Locação</a>
           <li class="nav-item">
             <a class="nav-link disabled" aria-disabled="true">Em construção...</a>
           </li>
@@ -67,11 +65,11 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
       <div class="col">
         <div class="card mt-3 mb-3">
           <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
                 <form enctype="multipart/form-data" action="editarDespesa.php?iddespesa=<?=$iddespesa?>" method="post">
-                <table class="table table-borderless">
+                  <table class="table table-borderless">
                     <tr>
                       <td>
                         <label id="tipo_despesa">
@@ -92,38 +90,34 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         </label>
                       </td>
                     </tr>
-                    
                     <tr>
-                      <?php
-                      if($linha['tipo_despesa'] == 'ÁGUA' || $linha['tipo_despesa'] == 'ENERGIA' || $linha['tipo_despesa'] == 'INTERNET') {
-                        echo "<td>
-                                <label id='num_instalacao'>
-                                  Número da Instalação
-                                  <input id='num_instalacao' name='num_instalacao' class='form-control' type='text' value='$linha[num_instalacao]' aria-label='$linha[num_instalacao]'>
-                                </label>
-                              </td>
-                              <td>
-                                <label id='consumo_velocidade'>
-                                  Consumo/Velocidade
-                                  <input id='consumo_velocidade' name='consumo_velocidade' class='form-control' type='text' value='$linha[consumo_velocidade]' aria-label='$linha[consumo_velocidade]'>
-                                </label>
-                              </td>";
-                      } else {
-                        echo "<td class='d-none'>
-                                <label id='num_instalacao'>
-                                  Número da Instalação
-                                  <input id='num_instalacao' name='num_instalacao' class='form-control' type='text' value='<?= $linha[num_instalacao] ?>' aria-label='<?= $linha[num_instalacao] ?>'>
-                                </label>
-                              </td>
-                              <td class='d-none'>
-                                <label id='consumo_velocidade'>
-                                  Consumo/Velocidade
-                                  <input id='consumo_velocidade' name='consumo_velocidade' class='form-control' type='text' value='<?= $linha[consumo_velocidade] ?>' aria-label='<?= $linha[consumo_velocidade] ?>'>
-                                </label>
-                              </td>";
-                      }
-                      ?>
-                      
+                      <?php if($linha['tipo_despesa'] == 'ÁGUA' || $linha['tipo_despesa'] == 'ENERGIA' || $linha['tipo_despesa'] == 'INTERNET'): ?>
+                        <td>
+                          <label id="num_instalacao">
+                            Número da Instalação
+                            <input id="num_instalacao" name="num_instalacao" class="form-control" type="text" value="<?= $linha['num_instalacao'] ?>" aria-label="<?= $linha['num_instalacao'] ?>">
+                          </label>
+                        </td>
+                        <td>
+                          <label id="consumo_velocidade">
+                            Consumo/Velocidade
+                            <input id="consumo_velocidade" name="consumo_velocidade" class="form-control" type="text" value="<?= $linha['consumo_velocidade'] ?>" aria-label="<?= $linha['consumo_velocidade'] ?>">
+                          </label>
+                        </td>
+                      <?php else: ?>
+                        <td class="d-none">
+                          <label id="num_instalacao">
+                            Número da Instalação
+                            <input id="num_instalacao" name="num_instalacao" class="form-control" type="text" value="<?= $linha['num_instalacao'] ?>" aria-label="<?= $linha['num_instalacao'] ?>">
+                          </label>
+                        </td>
+                        <td class="d-none">
+                          <label id="consumo_velocidade">
+                            Consumo/Velocidade
+                            <input id="consumo_velocidade" name="consumo_velocidade" class="form-control" type="text" value="<?= $linha['consumo_velocidade'] ?>" aria-label="<?= $linha['consumo_velocidade'] ?>">
+                          </label>
+                        </td>
+                      <?php endif; ?>
                       <td>
                         <label id="valor_mes">
                           Valor da conta
@@ -137,27 +131,23 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         </label>
                       </td>
                     </tr>
-
                     <tr>
-                      <?php
-                        if($linha['situacao_conta'] == 0){
-                          echo "<td class='d-none' colspan='2'>
-                                  <label id='anexo_contas'>
-                                    Visualizar Anexos
-                                    <input id='anexo_contas' name='anexo_contas' class='form-control' type='file' value='$linha[anexo_contas]' aria-label=$linha[anexo_contas]'>
-                                  </label>
-                                </td>";
-                        } else {
-                          echo "<td colspan='2'>
-                                  <label id='anexo_contas' style='width: 100%;'>
-                                    Editar anexo
-                                    <input id='anexo_contas' name='anexo_contas' class='form-control' type='file' value='$linha[anexo_contas]' aria-label=$linha[anexo_contas]'>
-                                  </label>
-                                </td>";
-                        }
-                      ?>
+                      <?php if($linha['situacao_conta'] == 0): ?>
+                        <td class="d-none" colspan="2">
+                          <label id="anexo_contas">
+                            Visualizar Anexos
+                            <input id="anexo_contas" name="anexo_contas" class="form-control" type="file" value="<?= $linha['anexo_contas'] ?>" aria-label="<?= $linha['anexo_contas'] ?>">
+                          </label>
+                        </td>
+                      <?php else: ?>
+                        <td colspan="2">
+                          <label id="anexo_contas" style="width: 100%;">
+                            Editar anexo
+                            <input id="anexo_contas" name="anexo_contas" class="form-control" type="file" value="<?= $linha['anexo_contas'] ?>" aria-label="<?= $linha['anexo_contas'] ?>">
+                          </label>
+                        </td>
+                      <?php endif; ?>
                     </tr>
-
                     <tr>
                       <td colspan="5" class="text-end">
                         <br>
@@ -168,7 +158,6 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                     </tr>
                   </table>
                 </form>
-
               </div>
             </div>
           </div>
@@ -181,7 +170,6 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
         <a href="./visualizar-despesas.php" class="btn btn-danger w-100">Voltar</a>
       </div>
     </div>
-
   </main>
 
 
@@ -190,4 +178,4 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 
 </html>
 
-<?php else: header('Location: login.php');endif;?>
+<?php else: header('Location: login.php'); endif; ?>
