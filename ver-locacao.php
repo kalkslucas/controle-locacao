@@ -1,6 +1,6 @@
 <?php 
 require 'verificaUsuario.php';
-if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )): 
+if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])): 
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
   <style>
-    label{
+    label {
       width: 100%;
     }
   </style>
@@ -26,7 +26,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT lc.idlocacao, lc.ftc, lc.centro_custo, f.numero_fsc, g.nome as gestor, lc.situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, DATE_FORMAT(vistoria_entrada, '%d/%m/%Y') as vistoria_entrada, DATE_FORMAT(vistoria_saida, '%d/%m/%Y') as vistoria_saida, observacoes, lc.id_locador as locador, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep
+$sql = "SELECT lc.idlocacao, lc.ftc, lc.centro_custo, g.nome as gestor, lc.situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, DATE_FORMAT(vistoria_entrada, '%d/%m/%Y') as vistoria_entrada, DATE_FORMAT(vistoria_saida, '%d/%m/%Y') as vistoria_saida, observacoes, lc.id_locador as locador, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep
   from locacao lc
   inner join endereco e
   on lc.id_endereco = e.idendereco
@@ -34,11 +34,15 @@ $sql = "SELECT lc.idlocacao, lc.ftc, lc.centro_custo, f.numero_fsc, g.nome as ge
   on lc.id_gestor = g.idgestor
   inner join locador l
   on lc.id_locador = l.idlocador
-  inner join fsc f
-  on f.id_locacao = lc.idlocacao
-  where idlocacao = '$idLocacao'";
-$consulta = $conectar->query($sql);
+  where idlocacao = :idLocacao";
+$consulta = $conectar->prepare($sql);
+$consulta->bindParam(":idLocacao", $idLocacao, PDO::PARAM_INT);
+$consulta->execute();
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
+
+if($linha === false){
+  echo "<p>Locação não encontrada</p>";
+}
 ?>
 
 <body class="page">
@@ -87,262 +91,165 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
                 <form method="get">
-                <table class="table table-borderless">
-                    <tr>
-                      <td>
-                        <label id="ftc">
-                          FTC
-                          <input id="ftc" name="ftc" class="form-control" type="text" value="<?= $linha['ftc'] ?>" aria-label="<?= $linha['ftc'] ?>" disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="fsc" for="fsc">
-                          FSC
-                          <input type="text" name="fsc" id="fsc" class="form-control" value="<?= $linha['numero_fsc'] ?>" disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="gestor" for="gestor">
-                          Gestor
-                          <input id="gestor" name="gestor" class="form-control" type="text" value="<?= $linha['gestor'] ?>" aria-label="<?= $linha['gestor'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="situacao" for="status">
-                          Status
-                          <input id="situacao" name="situacao" class="form-control" type="text" value="<?= $linha['situacao'] ?>" aria-label="<?= $linha['situacao'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="inicioLocacao" for="inicioLocacao">
-                          Início da Locação
-                          <input id="inicioLocacao" name="inicioLocacao" class="form-control" type="text" value="<?= $linha['inicio_locacao'] ?>" aria-label="<?= $linha['inicio_locacao'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="fimLocacao" for="fimLocacao">
-                          Término da Locação
-                          <input id="fimLocacao" name="fimLocacao" class="form-control" type="text" value="<?= $linha['termino_locacao'] ?>" aria-label="<?= $linha['termino_locacao'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      
-                      <td>
-                        <label id="centroCusto" for="centroCusto">
-                          Centro de Custo
-                          <input type="text" name="centroCusto" id="centroCusto" class="form-control" value="<?= $linha['centro_custo'] ?>" disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="vistoriaEntrada" for="vistoriaEntrada">
-                          Vistoria de Entrada
-                          <input type="text" name="vistoriaEntrada" id="vistoriaEntrada" class="form-control" value="<?= $linha['vistoria_entrada'] ?>" disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="vistoriaSaida" for="vistoriaSaida">
-                          Vistoria de Saída
-                          <input type="text" name="vistoriaSaida" id="vistoriaSaida" class="form-control" value="<?= $linha['vistoria_saida'] ?>" disabled readonly>
-                        </label>
-                      </td>
-
+                  <div class="row mb-3">
+                    <div class="col-md-4">
+                      <label for="ftc">FTC</label>
+                      <input type="text" id="ftc" name="ftc" class="form-control" value="<?= $linha['ftc'] ?>" disabled readonly>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="fsc">FSC</label>
                       <?php
-                        $sqlValor = "SELECT * FROM despesas WHERE id_locacao = '$idLocacao' AND tipo_despesa = 'ALUGUEL'";
-                        $consulta = $conectar->query($sqlValor);
-                        if($consulta){
-                          $linhaValor = $consulta->fetch(PDO::FETCH_ASSOC);
-                          if($linhaValor){
-                            echo "
-                              <td>
-                                <label id='valorAluguel' for='valorAluguel'>
-                                Valor do Aluguel
-                                  <div class='input-group'>
-                                    <span class='input-group-text'>R$</span>
-                                    <input id='valorAluguel' name='valorAluguel' class='form-control' type='text' value='$linhaValor[VALOR_MES]' aria-label='$linhaValor[VALOR_MES]' disabled readonly>
-                                  </div>
-                                </label>
-                              </td>
-                            ";
-                          } else {
-                            echo "<td>
-                              <label id='valorAluguel' for='valorAluguel'>
-                                Valor do Aluguel
-                                    <input id='valorAluguel' name='valorAluguel' class='form-control' type='text' value='Valor não encontrado' aria-label='Valor não encontrado' disabled readonly>
-                                </label>
-                            </td>";
-                          }
-                        } else {
-                          echo 'Erro ao executar a consulta de aluguel!';
-                        }
-                        ?>
-                      
-                    </tr>
-
-                    <tr>
-                      <td colspan="1">
-                        <label style="width:100%;" id="endereco" for="endereco">
-                          Locador
-                          <?php
-                            echo "
-                            <a class='d-block btn btn-laranja' style='width: 100%;' href='./ver-locador.php?idlocador=$linha[locador]'>Ver Locador</a>";
-                          ?>
-                      <!-- 
-                          <input id="locador" name="locador" class="form-control" type="text" value="<?= $linha['locador'] ?>" aria-label="<?= $linha['locador'] ?>"disabled readonly>  
-                      -->
-                          
-                        </label>
-                      </td>
-
-                      <td colspan="2">
-                        <label style="width:100%;" id="endereco" for="endereco">
-                          Endereço
-                          <input  id="rua" name="rua" class="form-control" type="text" value="<?= $linha['rua'] ?>" aria-label="<?= $linha['rua'] ?>"disabled readonly>
-                        </label>
-                      </td>
-
-                      <td>
-                        <label id="numero" for="numero">
-                          Numero
-                          <input id="numero" name="numero" class="form-control" type="text" value="<?= $linha['numero'] ?>" aria-label="<?= $linha['numero'] ?>"disabled readonly>
-                        </label>
-                      </td>
-
-                      <td>
-                        <label id="complemento" for="complemento">
-                          Complemento
-                          <input id="complemento" name="complemento" class="form-control" type="text" value="<?= $linha['complemento'] ?>" aria-label="<?= $linha['complemento'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                    </tr>
-                  
-                    <tr>
-                      <td>
-                        <label id="bairro" for="bairro">
-                          Bairro
-                          <input id="bairro" name="bairro" class="form-control" type="text" value="<?= $linha['bairro'] ?>" aria-label="<?= $linha['bairro'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                      
-                      <td>
-                        <label id="cidade" for="cidade">
-                          Cidade
-                          <input id="cidade" name="cidade" class="form-control" type="text" value="<?= $linha['cidade'] ?>" aria-label="<?= $linha['cidade'] ?>"disabled readonly>
-                        </label>
-                      </td>
-
-                      <td>
-                        <label id="estado" for="estado">
-                          Estado
-                          <input id="estado" name="estado" class="form-control" type="text" value="<?= $linha['estado'] ?>" aria-label="<?= $linha['estado'] ?>"disabled readonly>
-                        </label>
-                      </td>
-
-                      <td>
-                        <label id="cep" for="cep">
-                          CEP
-                          <input id="cep" name="cep"  class="form-control" type="text" value="<?= $linha['cep'] ?>" aria-label="<?= $linha['cep'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td colspan="5">
-                        <label id="observacoes" class="d-block mt-1">
-                        Observação
-                        </label>
-                        <textarea
-                          id="observacoes" 
-                          name="observacoes" 
-                          class="mt-2 form-control"
-                          rows="5"
-                          disabled readonly>
-                          <?php echo $linha['observacoes'] ?>
-                        </textarea>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <?php
-                        echo "
-                        <td colspan='2' class='text-end'>
-                          <a class='btn btn-laranja' style='width: 20rem;' href='./visualizar-despesas-locacao.php?idlocacao=$linha[idlocacao]'>Ver Despesas</a>
-                        </td>";
+                        $sqlFsc = "SELECT numero_fsc FROM fsc WHERE id_locacao = :id_locacao";
+                        $consultaFsc = $conectar->prepare($sqlFsc);
+                        $consultaFsc->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
+                        $consultaFsc->execute();
+                        $linhaFsc = $consultaFsc->fetch(PDO::FETCH_ASSOC);
+                        $fscValue = $linhaFsc ? $linhaFsc['numero_fsc'] : 'FSC não encontrada';
                       ?>
-                      
-                      <td colspan="2" class="text-end">
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-laranja" style="width: 20rem;" data-bs-toggle="modal" data-bs-target="#modalFotos">
-                          Ver anexos
-                        </button>
+                      <input type="text" id="fsc" name="fsc" class="form-control" value="<?= $fscValue ?>" disabled readonly>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="gestor">Gestor</label>
+                      <input type="text" id="gestor" name="gestor" class="form-control" value="<?= $linha['gestor'] ?>" disabled readonly>
+                    </div>
+                  </div>
 
-                        <!-- Modal -->
-                        <div class="modal fade modal-xl" id="modalFotos" tabindex="-1" aria-labelledby="modalFotos" aria-hidden="true">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-body">
-                              <?php
-                                  $sqlAnexo = "SELECT * FROM anexos WHERE id_locacao = '$idLocacao'";
-                                  $consulta = $conectar->query($sqlAnexo);
-                                  if($consulta){
-                                    $linhaAnexo = $consulta->fetch(PDO::FETCH_ASSOC);
-                                    if($linhaAnexo){
-                                      $dataUpload = date('d/m/Y H:i:s', strtotime($linhaAnexo['data_upload']));
-                                      echo "<table class='table table-borderless'>
-                                              <thead>
-                                                <tr class='text-center'>
-                                                  <th>Visualização</th>
-                                                  <th>Arquivo</th>
-                                                  <th>Deletar</th>
-                                                </tr>
-                                              </thead>
-                                              <tbody>
-                                                <tr class='text-center'>
-                                                  <td><img width='100vw' src='$linhaAnexo[path]'</td>
-                                                  <td><a target='_blank' href='$linhaAnexo[path]'>$linhaAnexo[nome_arquivo]</a></td>
-                                                  <td>$dataUpload</td>
-                                                </tr>
-                                              </tbody>
-                                            </table>";
-                                    } else {
-                                      echo 'Nenhum anexo encontrado!';
-                                    }
-                                  } else {
-                                    echo 'Erro ao executar a consulta de anexos!';
-                                  }
-                                ?>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </table>  
+                  <div class="row mb-3">
+                    <div class="col-md-4">
+                      <label for="situacao">Status</label>
+                      <input type="text" id="situacao" name="situacao" class="form-control" value="<?= $linha['situacao'] ?>" disabled readonly>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="inicioLocacao">Início da Locação</label>
+                      <input type="text" id="inicioLocacao" name="inicioLocacao" class="form-control" value="<?= $linha['inicio_locacao'] ?>" disabled readonly>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="fimLocacao">Término da Locação</label>
+                      <input type="text" id="fimLocacao" name="fimLocacao" class="form-control" value="<?= $linha['termino_locacao'] ?>" disabled readonly>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-4">
+                      <label for="centroCusto">Centro de Custo</label>
+                      <input type="text" id="centroCusto" name="centroCusto" class="form-control" value="<?= $linha['centro_custo'] ?>" disabled readonly>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="vistoriaEntrada">Vistoria de Entrada</label>
+                      <input type="text" id="vistoriaEntrada" name="vistoriaEntrada" class="form-control" value="<?= $linha['vistoria_entrada'] ?>" disabled readonly>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="vistoriaSaida">Vistoria de Saída</label>
+                      <input type="text" id="vistoriaSaida" name="vistoriaSaida" class="form-control" value="<?= $linha['vistoria_saida'] ?>" disabled readonly>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-4">
+                      <label for="valorAluguel">Valor do Aluguel</label>
+                      <?php
+                        $sqlValor = "SELECT * FROM despesas WHERE id_locacao = :id_locacao AND tipo_despesa = 'ALUGUEL'";
+                        $consultaValor = $conectar->prepare($sqlValor);
+                        $consultaValor->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
+                        $consultaValor->execute();
+                        $linhaValor = $consultaValor->fetch(PDO::FETCH_ASSOC);
+                        $valorAluguel = $linhaValor ? 'R$ ' . number_format($linhaValor['VALOR_MES'], 2, ',', '.') : 'Não encontrado';
+                      ?>
+                      <input type="text" id="valorAluguel" name="valorAluguel" class="form-control" value="<?= $valorAluguel ?>" disabled readonly>
+                    </div>
+                    <div class="col-md-8">
+                      <label for="observacoes">Observações</label>
+                      <textarea id="observacoes" name="observacoes" class="form-control" value="<?= $linha['observacoes'] ?>" disabled readonly rows="5">
+                        <?= $linha['observacoes'] ?>
+                      </textarea>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-8">
+                      <label for="endereco">Endereço</label>
+                      <input type="text" id="endereco" name="endereco" class="form-control" value="<?= $linha['rua'] . ", " . $linha['numero'] . " - " . $linha['complemento'] . " - " . $linha['bairro'] ?>" disabled readonly>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="cidade">Cidade</label>
+                      <input type="text" id="cidade" name="cidade" class="form-control" value="<?= $linha['cidade'] ?>" disabled readonly>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-4">
+                      <label for="estado">Estado</label>
+                      <input type="text" id="estado" name="estado" class="form-control" value="<?= $linha['estado'] ?>" disabled readonly>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="cep">CEP</label>
+                      <input type="text" id="cep" name="cep" class="form-control" value="<?= $linha['cep'] ?>" disabled readonly>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="locador">Locador</label>
+                      <?php
+                        $sqlLocador = "SELECT nome FROM locador WHERE idlocador = :idlocador";
+                        $consultaLocador = $conectar->prepare($sqlLocador);
+                        $consultaLocador->bindParam(":idlocador", $linha['locador'], PDO::PARAM_INT);
+                        $consultaLocador->execute();
+                        $linhaLocador = $consultaLocador->fetch(PDO::FETCH_ASSOC);
+                      ?>
+                      <input type="text" id="locador" name="locador" class="form-control" value="<?= $linhaLocador['nome'] ?>" disabled readonly>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-12">
+                      <h4>Anexos</h4>
+                      <div class="border">
+                        <?php
+                          $sqlAnexo = "SELECT * FROM anexos WHERE id_locacao = '$idLocacao'";
+                          $consulta = $conectar->query($sqlAnexo);
+                          if($consulta){
+                            $linhaAnexo = $consulta->fetch(PDO::FETCH_ASSOC);
+                              if($linhaAnexo){
+                                $dataUpload = date('d/m/Y H:i:s', strtotime($linhaAnexo['data_upload']));
+                                echo "<table class='table table-borderless'>
+                                        <thead>
+                                          <tr class='text-center'>
+                                            <th>Visualização</th>
+                                            <th>Arquivo</th>
+                                            <th>Deletar</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr class='text-center'>
+                                            <td><img width='100vw' src='$linhaAnexo[path]'</td>
+                                            <td><a target='_blank' href='$linhaAnexo[path]'>$linhaAnexo[nome_arquivo]</a></td>
+                                            <td>$dataUpload</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>";
+                              } else {
+                                echo 'Nenhum anexo encontrado!';
+                              }
+                            } else {
+                              echo 'Erro ao executar a consulta de anexos!';
+                            }
+                          ?>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col text-center">
+                    <a class='btn btn-laranja' href='./visualizar-despesas-locacao.php?idlocacao=<?=$linha["idlocacao"]?>'>Ver Despesas</a>
+                    <a href="visualizar-locacoes.php" class="btn btn-danger btn-custom">Voltar</a>
+                  </div>
                 </form>
-
               </div>
             </div>
           </div>
-        </div>
+        </div>        
       </div>
     </div>
-
-    <div class="row justify-content-end">
-      <div class="col-md-1 col-sm-12 mb-4">
-        <a href="./visualizar-locacoes.php" class="btn btn-danger btn-modal w-100">Voltar</a>
-      </div>
-    </div>
-
   </main>
 
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HVXTZ/xOgyc6bD/gfu+VjdlH6nx9nB2mJGnsK8z6oP7kzF23V6UgKov5ChY1N+JO" crossorigin="anonymous"></script>
 </body>
 
 </html>
-
-
-<?php else: header('Location: login.php');endif;?>
+<?php else: header("Location:login.php"); endif; ?>
