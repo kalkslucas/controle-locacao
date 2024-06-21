@@ -120,6 +120,42 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                       </select>
                     </label>
 
+                    <label id="vistoriaEntrada">
+                      Vistoria de Entrada
+                      <input 
+                        id="vistoriaEntrada" 
+                        name="vistoriaEntrada" 
+                        class="form-control" 
+                        type="date" 
+                        placeholder="dd/mm/aaaa"
+                        required
+                      />
+                    </label>
+
+                    <label id="vistoriaSaida">
+                      Vistoria de Saída
+                      <input 
+                        id="vistoriaSaida" 
+                        name="vistoriaSaida" 
+                        class="form-control" 
+                        type="date" 
+                        placeholder="dd/mm/aaaa"
+                        required
+                      />
+                    </label>
+
+                    <label id="centroCusto">
+                      Centro de Custo
+                      <input 
+                        id="centroCusto"
+                        name="centroCusto" 
+                        class="form-control" 
+                        type="text" 
+                        placeholder="Ex: 00-00"
+                        required
+                      />
+                    </label>
+
                     <label id="cepLocacao">
                       CEP
                       <input 
