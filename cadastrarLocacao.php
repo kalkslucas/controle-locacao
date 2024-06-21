@@ -1,6 +1,6 @@
 <?php
-function enviarArquivos($error, $size, $name, $tmp_name, $idLocacao)
-{
+/*
+function enviarArquivos($error, $size, $name, $tmp_name, $idLocacao){
   include 'conexao.php';
 
   if ($error) {
@@ -33,6 +33,8 @@ function enviarArquivos($error, $size, $name, $tmp_name, $idLocacao)
     return false;
   }
 }
+  */
+
 
 function gerarAluguel($inicioLocacao, $terminoLocacao, $locador, $valorAluguel, $idLocacao){
   include 'conexao.php';
@@ -64,7 +66,7 @@ function gerarAluguel($inicioLocacao, $terminoLocacao, $locador, $valorAluguel, 
     $dateStart->add($interval);
   }
 }
-
+include 'enviarArquivos.php';
 include_once 'conexao.php';
 try {
   $conectar->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

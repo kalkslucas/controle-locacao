@@ -20,7 +20,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, lc.situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, DATE_FORMAT(vistoria_entrada, '%d/%m/%Y') as vistoria_entrada, DATE_FORMAT(vistoria_saida, '%d/%m/%Y') as vistoria_saida, observacoes, l.nome as locador, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep
+$sql = "SELECT lc.idlocacao, lc.ftc, lc.centro_custo, g.nome as gestor, l.nome as locador, lc.situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, DATE_FORMAT(vistoria_entrada, '%d/%m/%Y') as vistoria_entrada, DATE_FORMAT(vistoria_saida, '%d/%m/%Y') as vistoria_saida, observacoes, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep, lc.id_gestor, lc.id_locador
   from locacao lc
   inner join endereco e
   on lc.id_endereco = e.idendereco
@@ -78,157 +78,244 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
             <div class="col-md-12">
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
-                <form action="editarLocacao.php?idlocacao=<?= $linha['idlocacao'] ?>" method="post">
-                  <table class="table table-borderless">
-                    <tr>
-                      <td>
-                        <label id="ftc">
-                          FTC
-                          <input id="ftc" name="ftc" class="form-control" type="text" value="<?= $linha['ftc'] ?>" aria-label="<?= $linha['ftc'] ?>">
-                        </label>
-                      </td>
-                      <td>
-                        <label id="gestor" for="gestor">
-                          Gestor
-                          <input id="gestor" name="gestor" class="form-control" type="text" value="<?= $linha['gestor'] ?>" aria-label="<?= $linha['gestor'] ?>">
-                        </label>
-                      </td>
-                      <td>
-                        <label id="situacao" for="status">
-                          Status
-                          <input id="situacao" name="situacao" class="form-control" type="text" value="<?= $linha['situacao'] ?>" aria-label="<?= $linha['situacao'] ?>">
-                        </label>
-                      </td>
-                      <td>
-                        <label id="inicioLocacao" for="inicioLocacao">
-                          Início da Locação
-                          <input id="inicioLocacao" name="inicioLocacao" class="form-control" type="text" value="<?= $linha['inicio_locacao'] ?>" aria-label="<?= $linha['inicio_locacao'] ?>">
-                        </label>
-                      </td>
-                      <td>
-                        <label id="fimLocacao" for="fimLocacao">
-                          Término da Locação
-                          <input id="fimLocacao" name="fimLocacao" class="form-control" type="text" value="<?= $linha['termino_locacao'] ?>" aria-label="<?= $linha['termino_locacao'] ?>">
-                        </label>
-                      </td>
-                    </tr>
+                <form action="editarLocacao.php?idlocacao=<?= $linha['idlocacao'] ?>" enctype="multipart/form-data" method="post">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                      <label for="ftc">FTC</label>
+                      <input type="text" id="ftc" name="ftc" class="form-control" value="<?= $linha['ftc'] ?>">
+                    </div>
+                    <div class="col-md-4">
+                      <label for="gestor">Gestor</label>
+                      <select class="form-select" name="gestor" id="gestor" required>
+                        <option value="<?= $linha['id_gestor']?>"><?= $linha['gestor']?></option>
+                        <?php
+                        include_once 'conexao.php';
+                        try {
+                          $query = "SELECT idgestor, nome FROM gestor";
+                          $consulta = $conectar->query($query);
+
+                          while($linhaGestor = $consulta->fetch(PDO::FETCH_ASSOC)){
+                            echo "<option value='$linhaGestor[idgestor]'>$linhaGestor[nome]</option>";
+                          }
+                        } catch (PDOException $e) {
+                          echo 'Error: ' . $e->getMessage();
+                        }
+                        ?>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="locador">Locador</label>
+                      <select class="form-select" name="locador" id="locador" required>
+                        <option value="<?=$linha['id_locador'] ?>"><?= $linha['locador']?></option>
+                        <?php
+                        include_once 'conexao.php';
+                        try {
+                          $query = "SELECT idlocador, nome FROM locador";
+                          $consulta = $conectar->query($query);
+
+                          while($linhaLocador = $consulta->fetch(PDO::FETCH_ASSOC)){
+                            echo "<option value='$linhaLocador[idlocador]'>$linhaLocador[nome]</option>";
+                          }
+                        } catch (PDOException $e) {
+                          echo 'Error: ' . $e->getMessage();
+                        }
+                        ?>
+                      </select>
+                    </div>
+                  </div>
+
+                  <?php
+                  $sqlStatusAtual = "SELECT situacao FROM locacao WHERE idlocacao = $idLocacao";
+                  $consultaStatusAtual = $conectar->query($sqlStatusAtual);
+
+                  if($consultaStatusAtual->rowCount() > 0){
+                    $linhaStatusAtual = $consultaStatusAtual->fetch(PDO::FETCH_ASSOC);
+                    $statusAtual = $linhaStatusAtual["situacao"];
+                  }
+                  $sqlStatus = "SHOW COLUMNS FROM locacao LIKE 'situacao'";
+                  $consultaStatus = $conectar->query($sqlStatus);
+
+                  if( $consultaStatus->rowCount() > 0){
+                    $linhaStatus = $consultaStatus->fetch(PDO::FETCH_ASSOC);
+                    $enumValues = $linhaStatus['Type'];
+
+                    // Limpar a string para obter os valores ENUM
+                    $enumValues = str_replace("enum('", "", $enumValues);
+                    $enumValues = str_replace("')", "", $enumValues);
+                    $enumValues = explode("','", $enumValues);
+                  } else {
+                    echo "Nenhum resultado encontrado";
+                  }
+                  ?>
+                  <div class="row mb-3">
+                    <div class="col-md-4">
+                      <label for="situacao">Status</label>
+                      <?php
+                      // Gerar o HTML para o elemento <select>
+                        echo '<select class="form-select" name="situacao" id="situacao" required>';
+                        echo "<option value='$statusAtual'>$statusAtual</option>";
+                        foreach ($enumValues as $value) {
+                          if($value != $statusAtual){
+                            echo '<option value="' . $value . '">' . $value . '</option>';
+                          }
+                        }
+                        echo '</select>';
+                      ?>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="inicioLocacao">Início da Locação</label>
+                      <?php 
+                        $inicioLocacao = DateTime::createFromFormat('d/m/Y', $linha['inicio_locacao'])->format('Y-m-d');
+                      ?>
+                      <input type="date" id="inicioLocacao" name="inicioLocacao" class="form-control" value="<?= $inicioLocacao ?>" >
+                    </div>
+                    <div class="col-md-4">
+                      <label for="fimLocacao">Término da Locação</label>
+                      <?php 
+                        $terminoLocacao = DateTime::createFromFormat('d/m/Y', $linha['termino_locacao'])->format('Y-m-d');
+                      ?>
+                      <input type="date" id="fimLocacao" name="fimLocacao" class="form-control" value="<?= $terminoLocacao ?>" >
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-4">
+                      <label for="centroCusto">Centro de Custo</label>
+                      <input type="text" id="centroCusto" name="centroCusto" class="form-control" value="<?= $linha['centro_custo'] ?>" >
+                    </div>
+                    <div class="col-md-4">
+                      <label for="vistoriaEntrada">Vistoria de Entrada</label>
+                      <?php
+                        if($linha['vistoria_entrada'] == null){
+                          $vistoriaEntrada = null;
+                        } else {
+                          $vistoriaEntrada = DateTime::createFromFormat('d/m/Y', $linha['vistoria_entrada'])->format('Y-m-d');
+                        }
+                      ?>
+                      <input type="date" id="vistoriaEntrada" name="vistoriaEntrada" class="form-control" value="<?= $vistoriaEntrada ?>" >
+                    </div>
+                    <div class="col-md-4">
+                      <label for="vistoriaSaida">Vistoria de Saída</label>
+                      <?php
+                        if($linha['vistoria_saida'] == null){
+                          $vistoriaSaida = null;
+                        } else {
+                          $vistoriaSaida = DateTime::createFromFormat('d/m/Y', $linha['vistoria_entrada'])->format('Y-m-d');
+                        }
+                      ?>
+                      <input type="date" id="vistoriaSaida" name="vistoriaSaida" class="form-control" value="<?= $vistoriaSaida ?>" >
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-4">
+                      <label for="valorAluguel">Valor do Aluguel</label>
+                      <?php
+                        $sqlValor = "SELECT * FROM despesas WHERE id_locacao = :id_locacao AND tipo_despesa = 'ALUGUEL'";
+                        $consultaValor = $conectar->prepare($sqlValor);
+                        $consultaValor->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
+                        $consultaValor->execute();
+                        $linhaValor = $consultaValor->fetch(PDO::FETCH_ASSOC);
+                        $valorAluguel = $linhaValor ? 'R$ ' . number_format($linhaValor['VALOR_MES'], 2, ',', '.') : 'Não encontrado';
+                      ?>
+                      <input type="text" id="valorAluguel" name="" class="form-control" value="<?= $valorAluguel ?>" disabled readonly>
+                    </div>
+                    <div class="col-md-8">
+                      <label for="observacoes">Observações</label>
+                      <textarea id="observacoes" name="observacoes" class="form-control" value="<?= $linha['observacoes'] ?>"  rows="5">
+                        <?= $linha['observacoes'] ?>
+                      </textarea>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-3">
+                      <label for="rua">Rua</label>
+                      <input type="text" id="rua" name="rua" class="form-control" value="<?= $linha['rua']?>" >
+                    </div>
+                    <div class="col-md-3">
+                      <label for="numero">Número</label>
+                      <input type="text" id="numero" name="numero" class="form-control" value="<?= $linha['numero']?>" >
+                    </div>
+                    <div class="col-md-3">
+                      <label for="complemento">Complemento</label>
+                      <input type="text" id="complemento" name="complemento" class="form-control" value="<?= $linha['complemento']?>" >
+                    </div>
+                    <div class="col-md-3">
+                      <label for="bairro">Bairro</label>
+                      <input type="text" id="bairro" name="bairro" class="form-control" value="<?=$linha['bairro'] ?>" >
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-4">
+                      <label for="cidade">Cidade</label>
+                      <input type="text" id="cidade" name="cidade" class="form-control" value="<?= $linha['cidade'] ?>" >
+                    </div>
+                    <div class="col-md-4">
+                      <label for="estado">Estado</label>
+                      <input type="text" id="estado" name="estado" class="form-control" value="<?= $linha['estado'] ?>" >
+                    </div>
+                    <div class="col-md-4">
+                      <label for="cep">CEP</label>
+                      <input type="text" id="cep" name="cep" class="form-control" value="<?= $linha['cep'] ?>" >
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-12">
+                      <h4>Anexos</h4>
+                      <div class="border p-2">
+                        <?php
+                        echo "<table class='table table-borderless'>
+                                        <thead>
+                                          <tr class='text-center'>
+                                            <th>Visualização</th>
+                                            <th>Arquivo</th>
+                                            <th>Data de Envio</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>";
 
 
-                    <tr>
-                      <td colspan="2">
-                        <label style="width:100%;" id="endereco" for="endereco">
-                          Locador
-                          <input  id="locador" name="locador" class="form-control" type="text" value="<?= $linha['locador'] ?>" aria-label="<?= $linha['locador'] ?>">
-                        </label>
-                      </td>
-
-                      <td colspan="2">
-                        <label style="width:100%;" id="endereco" for="endereco">
-                          Endereço
-                          <input  id="rua" name="rua" class="form-control" type="text" value="<?= $linha['rua'] ?>" aria-label="<?= $linha['rua'] ?>">
-                        </label>
-                      </td>
-
-                      <td>
-                        <label id="numero" for="numero">
-                          Numero
-                          <input id="numero" name="numero" class="form-control" type="text" value="<?= $linha['numero'] ?>" aria-label="<?= $linha['numero'] ?>">
-                        </label>
-                      </td>
-                    </tr>
-                  
-
-                      
-
-                    <tr>
-                      <td>
-                        <label id="complemento" for="complemento">
-                          Complemento
-                          <input id="complemento" name="complemento" class="form-control" type="text" value="<?= $linha['complemento'] ?>" aria-label="<?= $linha['complemento'] ?>">
-                        </label>
-                      </td>
-
-                      <td>
-                        <label id="bairro" for="bairro">
-                          Bairro
-                          <input id="bairro" name="bairro" class="form-control" type="text" value="<?= $linha['bairro'] ?>" aria-label="<?= $linha['bairro'] ?>">
-                        </label>
-                      </td>
-                      
-                      <td>
-                        <label id="cidade" for="cidade">
-                          Cidade
-                          <input id="cidade" name="cidade" class="form-control" type="text" value="<?= $linha['cidade'] ?>" aria-label="<?= $linha['cidade'] ?>">
-                        </label>
-                      </td>
-
-                      <td>
-                        <label id="estado" for="estado">
-                          Estado
-                          <input id="estado" name="estado" class="form-control" type="text" value="<?= $linha['estado'] ?>" aria-label="<?= $linha['estado'] ?>">
-                        </label>
-                      </td>
-
-                      <td>
-                        <label id="cep" for="cep">
-                          CEP
-                          <input id="cep" name="cep"  class="form-control" type="text" value="<?= $linha['cep'] ?>" aria-label="<?= $linha['cep'] ?>">
-                        </label>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>
-                        <label id="valorAluguel" for="valorAluguel">
-                        Valor do Aluguel
-                          <div class="input-group">
-                            <span class="input-group-text">R$</span>
-                            <input id="valorAluguel" name="valorAluguel" class="form-control" type="text">
-                          </div>
-                        </label>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td colspan="5">
-                        <label id="observacoes" class="d-block mt-1">
-                        Observação
-                        </label>
-                        <textarea
-                          id="observacoes" 
-                          name="observacoes" 
-                          class="mt-2 form-control"
-                          rows="5"
-                          >
-                          <?php echo $linha['observacoes'] ?>
-                        </textarea>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td colspan="5" class="text-end">
-                        <br>
-                        <label style="width: 25%;" id="enviar">
-                          <input class="form-control btn btn-success" type="submit" value="Confirmar Edição">
-                        </label>
-                      </td>
-                    </tr>
+                          $sqlAnexo = "SELECT * FROM anexos WHERE id_locacao = '$idLocacao'";
+                          $consulta = $conectar->query($sqlAnexo);
+                          if($consulta){
+                            while($linhaAnexo = $consulta->fetch(PDO::FETCH_ASSOC)){
+                              $dataUpload = date('d/m/Y H:i:s', strtotime($linhaAnexo['data_upload']));
+                                echo "<tr class='text-center'>
+                                        <td><img width='100vw' src='$linhaAnexo[path]'</td>
+                                        <td><a target='_blank' href='$linhaAnexo[path]'>$linhaAnexo[nome_arquivo]</a></td>
+                                        <td>$dataUpload</td>
+                                      </tr>";
+                              }
+                            } else {
+                              echo 'Erro ao executar a consulta de anexos!';
+                            }
+                            echo '</tbody>
+                                </table>';
+                          ?>
+                      </div>
+                      <input 
+                        id="anexo_foto_docs" 
+                        name="anexo_foto_docs[]" 
+                        class="form-control mt-2" 
+                        type="file" 
+                        multiple
+                      />
+                    </div>
+                  </div>
+                  <div class="col text-center">
+                    <input type="submit" class='btn btn-success' value="Editar"></input>
+                    <a href="visualizar-locacoes.php" class="btn btn-danger btn-custom">Voltar</a>
+                  </div>
                   </table>
                 </form>
-
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="row justify-content-end">
-      <div class="col-md-1 col-sm-12 mb-4">
-        <a href="./visualizar-locacoes.php" class="btn btn-danger btn-modal w-100">Voltar</a>
-      </div>
-    </div>
-
   </main>
 
 

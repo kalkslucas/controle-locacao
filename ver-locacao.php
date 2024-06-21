@@ -202,34 +202,33 @@ if($linha === false){
                       <h4>Anexos</h4>
                       <div class="border p-2">
                         <?php
-                          $sqlAnexo = "SELECT * FROM anexos WHERE id_locacao = '$idLocacao'";
-                          $consulta = $conectar->query($sqlAnexo);
-                          if($consulta){
-                            $linhaAnexo = $consulta->fetch(PDO::FETCH_ASSOC);
-                              if($linhaAnexo){
-                                $dataUpload = date('d/m/Y H:i:s', strtotime($linhaAnexo['data_upload']));
-                                echo "<table class='table table-borderless'>
+                        echo "<table class='table table-borderless'>
                                         <thead>
                                           <tr class='text-center'>
                                             <th>Visualização</th>
                                             <th>Arquivo</th>
-                                            <th>Deletar</th>
+                                            <th>Data de Envio</th>
                                           </tr>
                                         </thead>
-                                        <tbody>
-                                          <tr class='text-center'>
-                                            <td><img width='100vw' src='$linhaAnexo[path]'</td>
-                                            <td><a target='_blank' href='$linhaAnexo[path]'>$linhaAnexo[nome_arquivo]</a></td>
-                                            <td>$dataUpload</td>
-                                          </tr>
-                                        </tbody>
-                                      </table>";
-                              } else {
-                                echo 'Nenhum anexo encontrado!';
+                                        <tbody>";
+
+
+                          $sqlAnexo = "SELECT * FROM anexos WHERE id_locacao = '$idLocacao'";
+                          $consulta = $conectar->query($sqlAnexo);
+                          if($consulta){
+                            while($linhaAnexo = $consulta->fetch(PDO::FETCH_ASSOC)){
+                              $dataUpload = date('d/m/Y H:i:s', strtotime($linhaAnexo['data_upload']));
+                                echo "<tr class='text-center'>
+                                        <td><img width='100vw' src='$linhaAnexo[path]'</td>
+                                        <td><a target='_blank' href='$linhaAnexo[path]'>$linhaAnexo[nome_arquivo]</a></td>
+                                        <td>$dataUpload</td>
+                                      </tr>";
                               }
                             } else {
                               echo 'Erro ao executar a consulta de anexos!';
                             }
+                            echo '</tbody>
+                                </table>';
                           ?>
                       </div>
                     </div>
