@@ -46,7 +46,7 @@ if($linha === false){
 ?>
 
 <body class="page">
-  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="./index.php"><img src="./assets/img/navbar-logo.png" alt=""></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,11 +64,11 @@ if($linha === false){
         </ul>
       </div>
       <div class="user d-flex text-center">
-        <label class="infoUser border d-flex flex-column align-items-center">
+        <label class="infoUser border rounded d-flex flex-column align-items-center">
           <p class=""> <?= $nomeUser; ?></p>
           <p class=""> <?= $perfilUser; ?></p>
         </label>
-        <a class="btn btn-outline-danger" href="logout.php">Sair</a>
+        <a class="btn btn-danger m-auto mx-2" href="logout.php">Sair</a>
       </div>
     </div>
   </nav>
@@ -104,7 +104,7 @@ if($linha === false){
                         $consultaFsc->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
                         $consultaFsc->execute();
                         $linhaFsc = $consultaFsc->fetch(PDO::FETCH_ASSOC);
-                        $fscValue = $linhaFsc ? $linhaFsc['numero_fsc'] : 'FSC não encontrada';
+                        $fscValue = $linhaFsc ? $linhaFsc['numero_fsc'] . '' : 'FSC não encontrada';
                       ?>
                       <input type="text" id="fsc" name="fsc" class="form-control" value="<?= $fscValue ?>" disabled readonly>
                     </div>
@@ -200,7 +200,7 @@ if($linha === false){
                   <div class="row mb-3">
                     <div class="col-md-12">
                       <h4>Anexos</h4>
-                      <div class="border">
+                      <div class="border p-2">
                         <?php
                           $sqlAnexo = "SELECT * FROM anexos WHERE id_locacao = '$idLocacao'";
                           $consulta = $conectar->query($sqlAnexo);

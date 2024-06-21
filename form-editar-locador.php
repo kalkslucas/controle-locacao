@@ -30,7 +30,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <body class="page">
-  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="./index.php"><img src="./assets/img/navbar-logo.png" alt=""></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,11 +48,11 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
         </ul>
       </div>
       <div class="user d-flex text-center">
-        <label class="infoUser border d-flex flex-column align-items-center">
+        <label class="infoUser border rounded d-flex flex-column align-items-center">
           <p class=""> <?= $nomeUser; ?></p>
           <p class=""> <?= $perfilUser; ?></p>
         </label>
-        <a class="btn btn-outline-danger" href="logout.php">Sair</a>
+        <a class="btn btn-danger m-auto mx-2" href="logout.php">Sair</a>
       </div>
     </div>
   </nav>

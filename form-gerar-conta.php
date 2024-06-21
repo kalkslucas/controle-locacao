@@ -35,11 +35,11 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
         </ul>
       </div>
       <div class="user d-flex text-center">
-        <label class="infoUser border d-flex flex-column align-items-center">
+        <label class="infoUser border rounded d-flex flex-column align-items-center">
           <p class=""> <?= $nomeUser; ?></p>
           <p class=""> <?= $perfilUser; ?></p>
         </label>
-        <a class="btn btn-outline-danger" href="logout.php">Sair</a>
+        <a class="btn btn-danger m-auto mx-2" href="logout.php">Sair</a>
       </div>
     </div>
   </nav>
