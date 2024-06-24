@@ -129,7 +129,10 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       <td>
                         <label id="vencimento">
                           Data de Vencimento
-                          <input id="vencimento" name="vencimento" class="form-control" type="text" value="<?= $linha['vencimento'] ?>" aria-label="<?= $linha['vencimento'] ?>">
+                          <?php 
+                            $vencimento = DateTime::createFromFormat('d/m/Y', $linha['vencimento'])->format('Y-m-d');
+                          ?>
+                          <input type="date" id="vencimento" name="vencimento" class="form-control" value="<?= $vencimento ?>" >
                         </label>
                       </td>
                     </tr>
@@ -138,7 +141,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         <td class="d-none" colspan="2">
                           <label id="anexo_contas">
                             Visualizar Anexos
-                            <input id="anexo_contas" name="anexo_contas" class="form-control" type="file" value="<?= $linha['anexo_contas'] ?>" aria-label="<?= $linha['anexo_contas'] ?>">
+                            <input id="anexo_contas" name="anexo_contas" class="form-control" type="file" value="<?= $linha['anexo_contas'] ?>" aria-label="<?= $linha['anexo_contas'] ?>" disabled>
                           </label>
                         </td>
                       <?php else: ?>

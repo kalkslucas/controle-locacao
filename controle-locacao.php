@@ -91,18 +91,60 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
         <div class="card">
           <div class="card-body d-flex flex-column justify-content-around align-items-center">
             <h5 class="card-title">Situações das Locações</h5>
-            <p class="text-center">5 Ativos</p>
-            <p class="text-center">3 Inativos</p>
-            <p class="text-center">8 Pendentes</p>
+            <?php
+              echo "<table class='table table-borderless w-75 m-2'>";
+              $sql = "SELECT situacao, count(situacao) as quantidade from locacao group by situacao";
+              $consultaSituacao = $conectar->query($sql);
+              if($linha = $consultaSituacao->rowCount() > 0) {
+                while($linha = $consultaSituacao->fetch(PDO::FETCH_ASSOC)){
+                  echo "<tr class='text-center'>
+                          <td class='h5'>$linha[quantidade]</td>
+                          <td>$linha[situacao]</td>
+                        </tr>";
+                }
+              } else {
+                echo "<tr>
+                <td> Sem locações cadastradas </td>
+                ";  
+              }
+              echo "</table>";
+            ?>
           </div>
         </div>
       </div>
       <div class="col d-flex justify-content-center">
         <div class="card">
           <div class="card-body d-flex flex-column justify-content-around align-items-center">
-            <h5 class="card-title">Quantidade de Locações Realizadas</h5>
-            <p class="display-5">8</p>
-            <p class="card-text">Locações</p>
+            <h5 class="card-title">Próximas contas a vencer</h5>
+            <?php
+              echo "<table class='table table-borderless'>";
+              $sql = "SELECT tipo_despesa, l.idlocacao, valor_mes, vencimento FROM despesas d inner join locacao l on d.id_locacao = l.idlocacao WHERE VENCIMENTO BETWEEN CURRENT_DATE and DATE_ADD(CURRENT_DATE, INTERVAL 5 day) and situacao_conta = 0";
+              $consultaContaAVencer = $conectar->query($sql);
+              if($linha = $consultaContaAVencer->rowCount() > 0) {
+                while($linha = $consultaContaAVencer->fetch(PDO::FETCH_ASSOC)){
+                  $valorMes = number_format($linha['valor_mes'], 2, ',', '.');
+                  $vencimento = DateTime::createFromFormat('Y-m-d', $linha['vencimento'])->format('d/m/Y');
+                  echo "<tr>
+                          <th>Tipo da Despesa</th>
+                          <th>Número da Locação</th>
+                          <th>Valor</th>
+                          <th>Data de vencimento</th>
+                        </tr>
+                  
+                        <tr>
+                          <td>$linha[tipo_despesa]</td>
+                          <td>$linha[idlocacao]</td>
+                          <td>R$ $valorMes</td>
+                          <td>$vencimento</td>
+                        </tr>";
+                }
+              } else {
+                echo "<tr class='text-center'>
+                  <td>Sem contas a vencer nos próximos 5 dias</td>
+                </tr>";
+              }
+              echo "</table>";
+            ?>
           </div>
         </div>
       </div>

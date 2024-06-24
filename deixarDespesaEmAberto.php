@@ -8,16 +8,23 @@ try {
   $iddespesa = filter_var($_GET['iddespesa'], FILTER_SANITIZE_NUMBER_INT);
   $agora = null;
 
-  $sql = "SELECT ANEXO_CONTAS FROM despesas where iddespesa = '$iddespesa'";
-  $arquivo = $conectar->query($sql);
+  $sql = "SELECT ANEXO_CONTAS FROM despesas where iddespesa = :iddespesa";
+  $arquivo = $conectar->prepare($sql);
+  $arquivo->bindParam(":iddespesa", $iddespesa, PDO::PARAM_INT);
+  $arquivo->execute();
   $fetch = $arquivo->fetch(PDO::FETCH_ASSOC);
 
   if(unlink($fetch['ANEXO_CONTAS'])) {
-    $sqlDelete = "DELETE FROM despesas WHERE iddespesa = '$iddespesa'";
-    $delete = $conectar->query($sqlDelete);
+    $update = $conectar->prepare("UPDATE despesas SET ANEXO_CONTAS = NULL, situacao_conta = :situacao_conta, data_pagamento_conta = :data_pagamento_conta WHERE iddespesa = :iddespesa");
+
+    $situacao_conta = 0;
+    $update->bindParam(":iddespesa", $iddespesa, PDO::PARAM_INT);
+    $update->bindParam(":situacao_conta", $situacao_conta, PDO::PARAM_INT);
+    $update->bindParam(":data_pagamento_conta", $agora, PDO::PARAM_STR);
+    $update->execute();
   }
 
-  $update = $conectar->prepare("UPDATE despesas SET situacao_conta = :situacao_conta, data_pagamento_conta = :data_pagamento_conta WHERE iddespesa = :iddespesa");
+  $update = $conectar->prepare("UPDATE despesas SET ANEXO_CONTAS = NULL, situacao_conta = :situacao_conta, data_pagamento_conta = :data_pagamento_conta WHERE iddespesa = :iddespesa");
 
   $situacao_conta = 0;
   $update->bindParam(":iddespesa", $iddespesa, PDO::PARAM_INT);

@@ -13,7 +13,6 @@ try {
   $consumo_velocidade = filter_var($_POST['consumo_velocidade']);
   $valor_mes = filter_var($_POST['valor_mes']);
   $vencimento = filter_var($_POST['vencimento']);
-  $anexo_contas = filter_var($_FILES['anexo_contas']);
 
   if(isset($_FILES['anexo_contas'])){
     $arquivo = $_FILES['anexo_contas'];
