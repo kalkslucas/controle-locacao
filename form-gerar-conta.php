@@ -80,6 +80,11 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                       Empresa
                       <input id="empresa" name="empresa" class="form-control" type="text" placeholder="Digite o nome da empresa" required>
                     </label>
+
+                    <label id="parcela">
+                      Parcela
+                      <input id="parcela" name="parcela" class="form-control" type="number" placeholder="Digite qual o número da parcela" required>
+                    </label>
   
                     <label id="titular">
                       Titular
