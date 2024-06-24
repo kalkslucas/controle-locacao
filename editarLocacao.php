@@ -13,6 +13,8 @@ try {
   $situacao = filter_input(INPUT_POST, 'situacao');
   $inicioLocacao = filter_input(INPUT_POST, 'inicioLocacao');
   $fimLocacao = filter_input(INPUT_POST, 'fimLocacao');
+  $vistoriaEntrada = filter_input(INPUT_POST, 'vistoriaEntrada');
+  $vistoriaSaida = filter_input(INPUT_POST, 'vistoriaSaida');
   $observacoes = filter_input(INPUT_POST, 'observacoes');
   $locador = filter_input(INPUT_POST, 'locador', FILTER_SANITIZE_NUMBER_INT);
   $rua = filter_input(INPUT_POST, 'rua');
@@ -23,7 +25,7 @@ try {
   $estado = filter_input(INPUT_POST, 'estado');
   $cep = filter_input(INPUT_POST, 'cep');
 
-  $update = $conectar->prepare("UPDATE locacao SET ftc = :ftc, id_gestor = :gestor, situacao = :situacao, inicio_locacao = :inicioLocacao, termino_locacao = :fimLocacao, observacoes = :observacoes, id_locador = :locador WHERE idlocacao = :idlocacao");
+  $update = $conectar->prepare("UPDATE locacao SET ftc = :ftc, id_gestor = :gestor, situacao = :situacao, inicio_locacao = :inicioLocacao, termino_locacao = :fimLocacao, vistoria_entrada = :vistoriaEntrada, vistoria_saida = :vistoriaSaida observacoes = :observacoes, id_locador = :locador WHERE idlocacao = :idlocacao");
 
   $update->bindParam(":idlocacao", $idLocacao, PDO::PARAM_INT);
   $update->bindParam(":ftc", $ftc, PDO::PARAM_STR);
@@ -31,6 +33,8 @@ try {
   $update->bindParam(":situacao", $situacao, PDO::PARAM_STR);
   $update->bindParam(":inicioLocacao", $inicioLocacao, PDO::PARAM_STR);
   $update->bindParam(":fimLocacao", $fimLocacao, PDO::PARAM_STR);
+  $update->bindParam(":vistoriaEntrada", $vistoriaEntrada, PDO::PARAM_STR);
+  $update->bindParam(":vistoriaSaida", $vistoriaSaida, PDO::PARAM_STR);
   $update->bindParam(":observacoes", $observacoes, PDO::PARAM_STR);
   $update->bindParam(":locador", $locador, PDO::PARAM_INT);
   $update->execute();
