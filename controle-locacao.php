@@ -103,7 +103,7 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
                         </tr>";
                 }
               } else {
-                echo "<tr>
+                echo "<tr class='text-center'>
                 <td> Sem locações cadastradas </td>
                 ";  
               }

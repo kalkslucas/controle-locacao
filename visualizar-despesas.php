@@ -75,7 +75,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     <thead>
                       <tr class='text-center'>
                         <th>Tipo da Despesa</th>
-                        <th>Titular</th>
+                        <th>Número da Locação</th>
                         <th>Parcela</th>
                         <th>Valor</th>
                         <th>Data de Vencimento</th>
@@ -92,14 +92,14 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
           try {
             if(!isset($_GET['filtrar'])){
               //query sql de consulta
-              $sql = "SELECT iddespesa, tipo_despesa, titular, valor_mes, DATE_FORMAT(vencimento, '%d/%m/%Y') as vencimento, parcela FROM despesas WHERE situacao_conta = 1";
+              $sql = "SELECT iddespesa, tipo_despesa, titular, valor_mes, DATE_FORMAT(vencimento, '%d/%m/%Y') as vencimento, parcela, id_locacao FROM despesas WHERE situacao_conta = 1";
               //execução da instrução sql
               $consulta = $conectar->query($sql);
               while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                 echo "  
                         <tr class='text-center'>
                           <td>$linha[tipo_despesa]</td>
-                          <td>$linha[titular]</td>
+                          <td>$linha[id_locacao]</td>
                           <td>$linha[parcela]</td>
                           <td>$linha[valor_mes]</td>
                           <td>$linha[vencimento]</td>
@@ -111,7 +111,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
               }
             } else {
               $filtrar = filter_var($_GET['filtrar']);
-              $sql = "SELECT iddespesa, tipo_despesa, titular, valor_mes, DATE_FORMAT(vencimento, '%d/%m/%Y') as vencimento, parcela 
+              $sql = "SELECT iddespesa, tipo_despesa, titular, valor_mes, DATE_FORMAT(vencimento, '%d/%m/%Y') as vencimento, parcela, id_locacao 
               FROM despesas 
               WHERE situacao_conta = 1
               and tipo_despesa like CONCAT('%',:filtrar,'%')
@@ -124,7 +124,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                 echo "  
                         <tr class='text-center'>
                           <td>$linha[tipo_despesa]</td>
-                          <td>$linha[titular]</td>
+                          <td>$linha[id_locacao]</td>
                           <td>$linha[parcela]</td>
                           <td>$linha[valor_mes]</td>
                           <td>$linha[vencimento]</td>
@@ -162,7 +162,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     <thead>
                       <tr class='text-center'>
                         <th>Tipo da Despesa</th>
-                        <th>Titular</th>
+                        <th>Número da Locação</th>
                         <th>Parcela</th>
                         <th>Valor</th>
                         <th>Data de Vencimento</th>
@@ -179,13 +179,13 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
           try {
             if(!isset($_GET["filtrar"])){
               //query sql de consulta
-              $sql = 'SELECT iddespesa, tipo_despesa, titular, valor_mes, DATE_FORMAT(vencimento, "%d/%m/%Y") as vencimento, parcela FROM despesas WHERE situacao_conta = 0';
+              $sql = 'SELECT iddespesa, tipo_despesa, titular, valor_mes, DATE_FORMAT(vencimento, "%d/%m/%Y") as vencimento, parcela, id_locacao FROM despesas WHERE situacao_conta = 0';
               //execução da instrução sql
               $consulta = $conectar->query($sql);
               while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                 echo "  <tr class='text-center'>
                           <td>$linha[tipo_despesa]</td>
-                          <td>$linha[titular]</td>
+                          <td>$linha[id_locacao]</td>
                           <td>$linha[parcela]</td>
                           <td>$linha[valor_mes]</td>
                           <td>$linha[vencimento]</td>
@@ -197,7 +197,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
               }
             } else {
               $filtrar = filter_var($_GET['filtrar']);
-              $sql = "SELECT iddespesa, tipo_despesa, titular, valor_mes, DATE_FORMAT(vencimento, '%d/%m/%Y') as vencimento, parcela 
+              $sql = "SELECT iddespesa, tipo_despesa, titular, valor_mes, DATE_FORMAT(vencimento, '%d/%m/%Y') as vencimento, parcela, id_locacao 
               FROM despesas 
               WHERE situacao_conta = 0
               and tipo_despesa like CONCAT('%',:filtrar,'%')
@@ -210,7 +210,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                 echo "  
                         <tr class='text-center'>
                           <td>$linha[tipo_despesa]</td>
-                          <td>$linha[titular]</td>
+                          <td>$linha[id_locacao]</td>
                           <td>$linha[parcela]</td>
                           <td>$linha[valor_mes]</td>
                           <td>$linha[vencimento]</td>

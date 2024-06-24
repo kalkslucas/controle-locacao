@@ -128,7 +128,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         class="form-control" 
                         type="date" 
                         placeholder="dd/mm/aaaa"
-                        required
                       />
                     </label>
 
@@ -140,7 +139,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         class="form-control" 
                         type="date" 
                         placeholder="dd/mm/aaaa"
-                        required
                       />
                     </label>
 
@@ -152,7 +150,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         class="form-control" 
                         type="text" 
                         placeholder="Ex: 00-00"
-                        required
                       />
                     </label>
 

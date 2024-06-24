@@ -17,6 +17,7 @@ try {
   $bairro = filter_var($_POST['bairro']);
   $cidade = filter_var($_POST['cidade']);
   $estado = filter_var($_POST['uf']);
+  $formaPagamento = filter_var($_POST['formaPagamento']);
   $banco = filter_var($_POST['banco']);
   $agencia = filter_var($_POST['agencia']);
   $conta = filter_var($_POST['conta']);
@@ -37,13 +38,14 @@ try {
 
   // Insert into locador table
   $idEndereco = $conectar->lastInsertId(); // Get the last inserted ID
-  $queryLocador = "INSERT INTO locador (nome, cpf_cnpj, email, telefone_1, telefone_2, banco, agencia, conta, tipo_conta, pix, id_endereco) VALUES (:nome, :cpfCnpj, :email, :telefone1, :telefone2, :banco, :agencia, :conta, :tipo_conta, :pix, :idEndereco)";
+  $queryLocador = "INSERT INTO locador (nome, cpf_cnpj, email, telefone_1, telefone_2, forma_pagamento, banco, agencia, conta, tipo_conta, pix, id_endereco) VALUES (:nome, :cpfCnpj, :email, :telefone1, :telefone2, :formaPagamento, :banco, :agencia, :conta, :tipo_conta, :pix, :idEndereco)";
   $insertLocador = $conectar->prepare($queryLocador);
   $insertLocador->bindParam(':nome', $nome, PDO::PARAM_STR);
   $insertLocador->bindParam(':cpfCnpj', $cpfCnpj, PDO::PARAM_STR);
   $insertLocador->bindParam(':email', $email, PDO::PARAM_STR);
   $insertLocador->bindParam(':telefone1', $telefone1, PDO::PARAM_STR);
   $insertLocador->bindParam(':telefone2', $telefone2, PDO::PARAM_STR);
+  $insertLocador->bindParam(':formaPagamento', $formaPagamento, PDO::PARAM_STR);
   $insertLocador->bindParam(':banco', $banco, PDO::PARAM_STR);
   $insertLocador->bindParam(':agencia', $agencia, PDO::PARAM_STR);
   $insertLocador->bindParam(':conta', $conta, PDO::PARAM_STR);

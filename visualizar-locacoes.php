@@ -88,7 +88,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
             echo "<div class='col d-flex justify-content-center'>
               <div class='card'>
                 <div class='card-body'>
-                  <h5 class='card-title'>Locação $linha[ftc]</h5>
+                  <h5 class='card-title'>Locação $linha[idlocacao]</h5>
                   <p class='card-text'>
                     Situação: <strong>$linha[situacao]</strong>
                     <br>
@@ -137,7 +137,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
             echo "<div class='col d-flex justify-content-center'>
               <div class='card'>
                 <div class='card-body'>
-                  <h5 class='card-title'>Locação $linha[ftc]</h5>
+                  <h5 class='card-title'>Locação $linha[idlocacao]</h5>
                   <p class='card-text'>
                     Situação: <strong>$linha[situacao]</strong>
                     <br>

@@ -133,6 +133,9 @@ try {
     } else {
       echo '<p>Falha ao enviar um ou mais arquivos</p>';
     }
+    return true;
+  } else {
+    return false;
   }
 
   if(isset($_POST['valorAluguel'])) {

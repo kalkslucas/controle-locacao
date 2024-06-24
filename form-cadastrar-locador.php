@@ -232,6 +232,18 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           <option value="TO">TO</option>
                         </select>
                       </label>
+                     
+                      <label id="formaPagamento">
+                        Forma de Pagamento
+                        <select name="formaPagamento" id="formaPagamento" class="form-select">
+                          <option value="">Selecione a forma de pagamento</option>
+                          <option value="BOLETO">BOLETO</option>
+                          <option value="PIX">PIX</option>
+                        </select>
+                      </label>
+
+
+
 
                       <label id="bancoLocador">
                         Banco
@@ -240,7 +252,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           name="banco"
                           class="form-control"
                           type="text"
-                          required
                         />
                       </label>
                       <label id="numAgenciaLocador">
@@ -250,7 +261,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           name="agencia"
                           class="form-control"
                           type="text"
-                          required
                         />
                       </label>
                       <label id="numContaBancoLocador">
@@ -260,7 +270,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           name="conta"
                           class="form-control"
                           type="text"
-                          required
                         />
                       </label>
                       <label id="tipoContaBancoLocador">
@@ -269,7 +278,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           class="form-select"
                           name="tipoConta"
                           id="tipoConta"
-                          required
                         >
                           <option value="">--</option>
                           <option value="CONTA CORRENTE">Conta Corrente</option>
@@ -286,7 +294,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           name="pix"
                           class="form-control"
                           type="text"
-                          required
                         />
                       </label>
                     </div>
