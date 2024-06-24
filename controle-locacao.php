@@ -5,7 +5,7 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
 
 <?php 
   include_once 'conexao.php';
-  $sql = "SELECT COUNT(*) AS QUANT_LOCACOES FROM LOCACAO";
+  $sql = "SELECT COUNT(*) AS QUANT_LOCACOES FROM locacao";
   $consulta = $conectar->query($sql);
   $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -67,7 +67,7 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
           <div class="card-body d-flex flex-column justify-content-around align-items-center">
             <h5 class="card-title">Quantidade de Locações Realizadas</h5>
             <?php
-              $sql = "SELECT COUNT(*) AS QUANT_LOCACOES FROM LOCACAO";
+              $sql = "SELECT COUNT(*) AS QUANT_LOCACOES FROM locacao";
               $consulta = $conectar->query($sql);
               
               if($linha = $consulta->rowCount() > 0) {
