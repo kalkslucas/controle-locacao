@@ -64,7 +64,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         class="form-control" 
                         type="text" 
                         placeholder="Ex: 00-00"
-                        required
                       />
                     </label>
 

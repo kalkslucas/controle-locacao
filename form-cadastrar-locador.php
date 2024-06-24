@@ -105,6 +105,11 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         />
                       </label>
 
+                      <label for="responsavel">
+                        Nome do Responsável
+                        <input type="text" name="responsavel" id="responsavel" placeholder="Digite o nome do responsável" class="form-control">
+                      </label>
+
                       <label id="telefone1">
                         Telefone Fixo
                         <input
@@ -239,11 +244,9 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           <option value="">Selecione a forma de pagamento</option>
                           <option value="BOLETO">BOLETO</option>
                           <option value="PIX">PIX</option>
+                          <option value="TED">TED</option>
                         </select>
                       </label>
-
-
-
 
                       <label id="bancoLocador">
                         Banco
