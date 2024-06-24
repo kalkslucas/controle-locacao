@@ -14,7 +14,8 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <link rel="stylesheet" href="assets/css/padrao-paginas.css">
   <link rel="stylesheet" href="assets/css/btn-custom.css">
   <link rel="stylesheet" href="assets/css/ver-locacao.css">
-  <link href="./assets/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 </head>
 <?php
 include_once "conexao.php";
