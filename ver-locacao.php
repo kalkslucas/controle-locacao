@@ -1,4 +1,5 @@
 <?php 
+$idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
 require 'verificaUsuario.php';
 if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])): 
 ?>
@@ -9,7 +10,7 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Controle de Locação - Inicio</title>
+  <title>Controle de Locação - Locação <?=$idLocacao ?></title>
 
   <link rel="stylesheet" href="assets/css/padrao-paginas.css">
   <link rel="stylesheet" href="assets/css/btn-custom.css">
