@@ -307,9 +307,17 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       />
                     </div>
                   </div>
+                  <div class="row mb-3">
+                    <div class="col-md-12">
+                      
+                      
+
+                    </div>
+                  </div>
                   <div class="col text-center">
-                    <input type="submit" class='btn btn-success' value="Editar"></input>
                     <a href="visualizar-locacoes.php" class="btn btn-danger btn-custom">Voltar</a>
+                    <input type="submit" class='btn btn-success' value="Editar"></input>
+                    <a href='deletarLocacao.php?idanexo=$linhaAnexo[idanexo]&idlocacao=$linha[idlocacao]' class='btn btn-danger'><span class="d-block text-end">Deletar Locação<i class='fa-solid fa-xmark px-2'></i></span></a>
                   </div>
                   </table>
                 </form>
