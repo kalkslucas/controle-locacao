@@ -55,7 +55,7 @@ try {
   $transactionActive = false; // Set flag to false as commit was successful
 
 
-  if (isset($_FILES['anexo_foto_docs'])) {
+  if (isset($_FILES['anexo_foto_docs']) && $_FILES['anexo_foto_docs']['error'][0] != UPLOAD_ERR_NO_FILE) {
     $arquivos = $_FILES['anexo_foto_docs'];
     $tudo_certo = true;
     foreach ($arquivos['name'] as $index => $arq) {

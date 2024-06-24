@@ -119,7 +119,7 @@ try {
   $idLocacao = $conectar->lastInsertId();
   $conectar->commit();
 
-  if (isset($_FILES['anexo_foto_docs'])) {
+  if (isset($_FILES['anexo_foto_docs']) && $_FILES['anexo_foto_docs']['error'][0] != UPLOAD_ERR_NO_FILE) {
     $arquivos = $_FILES['anexo_foto_docs'];
     $tudo_certo = true;
     foreach ($arquivos['name'] as $index => $arq) {
@@ -133,9 +133,6 @@ try {
     } else {
       echo '<p>Falha ao enviar um ou mais arquivos</p>';
     }
-    return true;
-  } else {
-    return false;
   }
 
   if(isset($_POST['valorAluguel'])) {
