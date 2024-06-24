@@ -76,6 +76,7 @@ try {
   $gestor = filter_var($_POST['gestor']);
   $locador = filter_var($_POST['locador']);
   $situacao = filter_var($_POST['situacao']);
+  $centroCusto = filter_var($_POST['centroCusto']);
   $cep = filter_var($_POST['cep']);
   $rua = filter_var($_POST['rua']);
   $numero = filter_var($_POST['numero']);
@@ -104,10 +105,11 @@ try {
 
   $conectar->beginTransaction();
 
-  $queryLocacao = "INSERT INTO locacao (ftc, situacao, inicio_locacao, termino_locacao, observacoes, id_gestor, id_locador, id_endereco) VALUES (:ftc, :situacao, :inicio_locacao, :termino_locacao, :observacoes, :gestor, :locador, :idEndereco)";
+  $queryLocacao = "INSERT INTO locacao (ftc, situacao, centro_custo, inicio_locacao, termino_locacao, observacoes, id_gestor, id_locador, id_endereco) VALUES (:ftc, :situacao, :centroCusto, :inicio_locacao, :termino_locacao, :observacoes, :gestor, :locador, :idEndereco)";
   $insertLocacao = $conectar->prepare($queryLocacao);
   $insertLocacao->bindParam(':ftc', $ftc, PDO::PARAM_STR);
   $insertLocacao->bindParam(':situacao', $situacao, PDO::PARAM_STR);
+  $insertLocacao->bindParam(':centroCusto', $centroCusto, PDO::PARAM_STR);
   $insertLocacao->bindParam(':inicio_locacao', $inicioLocacao, PDO::PARAM_STR);
   $insertLocacao->bindParam(':termino_locacao', $terminoLocacao, PDO::PARAM_STR);
   $insertLocacao->bindParam(':observacoes', $observacoes, PDO::PARAM_STR);
