@@ -274,7 +274,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       <h4>Anexos</h4>
                       <div class="border p-2">
                         <?php
-                        echo "<table class='table table-borderless'>
+                        echo "<table id='tabelaAnexos' class='table table-borderless'>
                                         <thead>
                                           <tr class='text-center'>
                                             <th>Visualização</th>
@@ -292,7 +292,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                             while($linhaAnexo = $consulta->fetch(PDO::FETCH_ASSOC)){
                               $dataUpload = date('d/m/Y H:i:s', strtotime($linhaAnexo['data_upload']));
                                 echo "<tr class='text-center'>
-                                        <td><img width='100vw' src='$linhaAnexo[path]'</td>
+                                        <td class='preview'><img width='100vw' src='$linhaAnexo[path]'</td>
                                         <td><a target='_blank' href='$linhaAnexo[path]'>$linhaAnexo[nome_arquivo]</a></td>
                                         <td>$dataUpload</td>
                                         <td><a href='deletarArquivos.php?idanexo=$linhaAnexo[idanexo]&idlocacao=$linha[idlocacao]' class='btn btn-danger'><i class='fa-solid fa-xmark'></i></a></td>
@@ -337,6 +337,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="./assets/js/imageOrDocument.js"></script>
 </body>
 
 </html>

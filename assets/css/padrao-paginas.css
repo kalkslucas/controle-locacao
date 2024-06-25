@@ -27,3 +27,11 @@
 .w-10 {
   width: 10%;
 }
+
+.pdf-icon {
+  width: 48px;
+  height: 48px;
+  background: url('../img/pdf.png') no-repeat center center;
+  background-size: contain;
+  margin: 0 auto;
+}
