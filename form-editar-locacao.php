@@ -76,6 +76,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
   </header>
 
   <main class="container-fluid">
+    <a href='deletarLocacao.php?idanexo=$linhaAnexo[idanexo]&idlocacao=$linha[idlocacao]' class='btn btn-danger text-end'><span>Deletar Locação<i class='fa-solid fa-xmark px-2'></i></span></a>
     <div class="row justify-content-center">
       <div class="col">
         <div class="card mt-3 mb-3">
@@ -321,7 +322,6 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                   <div class="col text-center">
                     <a href="visualizar-locacoes.php" class="btn btn-danger btn-custom">Voltar</a>
                     <input type="submit" class='btn btn-success' value="Editar"></input>
-                    <a href='deletarLocacao.php?idanexo=$linhaAnexo[idanexo]&idlocacao=$linha[idlocacao]' class='btn btn-danger'><span class="d-block text-end">Deletar Locação<i class='fa-solid fa-xmark px-2'></i></span></a>
                   </div>
                   </table>
                 </form>
