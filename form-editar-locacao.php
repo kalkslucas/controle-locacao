@@ -29,6 +29,8 @@ $sql = "SELECT lc.idlocacao, lc.ftc, lc.centro_custo, g.nome as gestor, l.nome a
   on lc.id_gestor = g.idgestor
   inner join locador l
   on lc.id_locador = l.idlocador
+  inner join anexos a
+  on a.id_locacao = lc.idlocacao
   where idlocacao = '$idLocacao'";
 $consulta = $conectar->query($sql);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
@@ -76,7 +78,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
   </header>
 
   <main class="container-fluid">
-    <a href='deletarLocacao.php?idanexo=$linhaAnexo[idanexo]&idlocacao=$linha[idlocacao]' class='btn btn-danger text-end'><span>Deletar Locação<i class='fa-solid fa-xmark px-2'></i></span></a>
+    <a href="deletarLocacao.php?idlocacao=<?=$linha['idlocacao']?>" class='btn btn-danger text-end'><span>Deletar Locação<i class='fa-solid fa-xmark px-2'></i></span></a>
     <div class="row justify-content-center">
       <div class="col">
         <div class="card mt-3 mb-3">
