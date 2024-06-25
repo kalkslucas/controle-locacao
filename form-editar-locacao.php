@@ -280,6 +280,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                                             <th>Visualização</th>
                                             <th>Arquivo</th>
                                             <th>Data de Envio</th>
+                                            <th>Visualizar Anexo</th>
                                             <th>Deletar Anexo</th>
                                           </tr>
                                         </thead>
@@ -293,8 +294,9 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                               $dataUpload = date('d/m/Y H:i:s', strtotime($linhaAnexo['data_upload']));
                                 echo "<tr class='text-center'>
                                         <td class='preview'><img width='100vw' src='$linhaAnexo[path]'</td>
-                                        <td><a target='_blank' href='$linhaAnexo[path]'>$linhaAnexo[nome_arquivo]</a></td>
+                                        <td>$linhaAnexo[nome_arquivo]</td>
                                         <td>$dataUpload</td>
+                                        <td><a a target='_blank' class='btn btn-primary' href='$linhaAnexo[path]'><i class='fa-solid fa-eye'></i></a></td>
                                         <td><a href='deletarArquivos.php?idanexo=$linhaAnexo[idanexo]&idlocacao=$linha[idlocacao]' class='btn btn-danger'><i class='fa-solid fa-xmark'></i></a></td>
                                       </tr>";
                               }

@@ -35,3 +35,13 @@
   background-size: contain;
   margin: 0 auto;
 }
+
+.linkAnexo {
+  text-decoration: none;
+  display: block;
+  margin: 0 auto;
+  color: black;
+  &:hover{
+    color: orange;
+  }
+}
