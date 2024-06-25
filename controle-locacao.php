@@ -23,7 +23,7 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body class="page">
-  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="./index.php"><img src="./assets/img/navbar-logo.png" alt=""></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,13 +39,13 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
             <a class="nav-link disabled" aria-disabled="true">Em construção...</a>
           </li>
         </ul>
-      </div>
-      <div class="user d-flex text-center">
-        <label class="infoUser border rounded d-flex flex-column align-items-center">
-          <p class=""> <?= $nomeUser; ?></p>
-          <p class=""> <?= $perfilUser; ?></p>
-        </label>
-        <a class="btn btn-danger m-auto mx-2" href="logout.php">Sair</a>
+        <div class="user d-flex text-center">
+          <label class="infoUser border rounded d-flex flex-column align-items-center me-auto">
+            <p class=""> <?= $nomeUser; ?></p>
+            <p class=""> <?= $perfilUser; ?></p>
+          </label>
+          <a class="btn btn-danger m-auto mx-2" href="logout.php">Sair</a>
+        </div>
       </div>
     </div>
   </nav>

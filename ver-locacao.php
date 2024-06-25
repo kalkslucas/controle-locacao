@@ -63,13 +63,13 @@ if($linha === false){
             <a class="nav-link disabled" aria-disabled="true">Em construção...</a>
           </li>
         </ul>
-      </div>
-      <div class="user d-flex text-center">
-        <label class="infoUser border rounded d-flex flex-column align-items-center">
-          <p class=""> <?= $nomeUser; ?></p>
-          <p class=""> <?= $perfilUser; ?></p>
-        </label>
-        <a class="btn btn-danger m-auto mx-2" href="logout.php">Sair</a>
+        <div class="user d-flex text-center">
+          <label class="infoUser border rounded d-flex flex-column align-items-center me-auto">
+            <p class=""> <?= $nomeUser; ?></p>
+            <p class=""> <?= $perfilUser; ?></p>
+          </label>
+          <a class="btn btn-danger m-auto mx-2" href="logout.php">Sair</a>
+        </div>
       </div>
     </div>
   </nav>
