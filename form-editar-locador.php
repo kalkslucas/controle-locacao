@@ -111,15 +111,50 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         <input id="conta" name="conta" class="form-control" type="text" value="<?= $linha['conta'] ?>" aria-label="<?= $linha['conta'] ?>">
                     </div>
                     <div class="col-md-2">
+                      
+                      <?php
+                        $sqlTipoContaAtual = "SELECT tipo_conta FROM locador WHERE idlocador = :idlocador";
+                        $consultaTipoContaAtual = $conectar->prepare($sqlTipoContaAtual);
+                        $consultaTipoContaAtual->bindParam(":idlocador", $idLocador, PDO::PARAM_INT);
+                        $consultaTipoContaAtual->execute();
+      
+                        if($consultaTipoContaAtual->rowCount() > 0){
+                          $linhaTipoContaAtual = $consultaTipoContaAtual->fetch(PDO::FETCH_ASSOC);
+                          $tipoContaAtual = $linhaTipoContaAtual["tipo_conta"];
+                        }
+                        $sqlTipoConta = "SHOW COLUMNS FROM locador LIKE 'tipo_conta'";
+                        $consultaTipoConta = $conectar->query($sqlTipoConta);
+      
+                        if($consultaTipoConta->rowCount() > 0){
+                          $linhaTipoConta = $consultaTipoConta->fetch(PDO::FETCH_ASSOC);
+                          $enumValues = $linhaTipoConta['Type'];
+      
+                          // Limpar a string para obter os valores ENUM
+                          $enumValues = str_replace("enum('", "", $enumValues);
+                          $enumValues = str_replace("')", "", $enumValues);
+                          $enumValues = explode("','", $enumValues);
+                        } else {
+                          echo "Nenhum resultado encontrado";
+                        }
+                        ?>
                       <label id="tipo_conta">Tipo de Conta</label>
-                        <input id="tipo_conta" name="tipo_conta" class="form-control" type="text" value="<?= $linha['tipo_conta'] ?>" aria-label="<?= $linha['tipo_conta'] ?>">
+                      <?php
+                      // Gerar o HTML para o elemento <select>
+                        echo '<select class="form-select" name="tipo_conta" id="tipo_conta" required>';
+                        echo "<option value='$tipoContaAtual'>$tipoContaAtual</option>";
+                        foreach ($enumValues as $value) {
+                          if($value != $tipoContaAtual){
+                            echo '<option value="' . $value . '">' . $value . '</option>';
+                          }
+                        }
+                        echo '</select>';
+                      ?>
                     </div>
                     <div class="col-md-2">
                       <label id="pix">PIX</label>
                         <input id="pix" name="pix" class="form-control" type="text" value="<?= $linha['pix'] ?>" aria-label="<?= $linha['pix'] ?>">
                     </div>
                     <div class="col-md-2">
-                      
                       <?php
                         $sqlPagAtual = "SELECT forma_pagamento FROM locador WHERE idlocador = :idlocador";
                         $consultaPagAtual = $conectar->prepare($sqlPagAtual);
