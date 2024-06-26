@@ -124,11 +124,11 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                       Status
                       <select class="form-select" name="situacao" id="situacao" required>
                         <option value="">Selecione o status</option>
-                        <option value="ATIVO">Ativo</option>
-                        <option value="ADITIVO">Aditivo</option>
-                        <option value="PENDENTE">Pendente</option>
-                        <option value="EM TRAMITAÇÃO">Em tramitação</option>
-                        <option value="INATIVO">Inativo</option>
+                        <option value="ATIVO">ATIVO</option>
+                        <option value="ADITIVO">ADITIVO</option>
+                        <option value="PENDENTE">PENDENTE</option>
+                        <option value="EM TRAMITAÇÃO">EM TRAMITAÇÃO</option>
+                        <option value="INATIVO">INATIVO</option>
                       </select>
                     </label>
 
@@ -156,13 +156,17 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 
                     <label id="centroCusto">
                       Centro de Custo
-                      <input 
-                        id="centroCusto"
-                        name="centroCusto" 
-                        class="form-control" 
-                        type="text" 
-                        placeholder="Ex: 00-00"
-                      />
+                      <select id="centroCusto" name="centroCusto" class="form-select" required>
+                        <option value="">Selecione um centro de custo</option>
+                        <?php
+                          $queryCC = "SELECT idcentrocusto, nome FROM centro_custo";
+                          $consultaCC = $conectar->query($queryCC);
+
+                          while($linhaCC = $consultaCC->fetch(PDO::FETCH_ASSOC)){
+                            echo "<option value='$linhaCC[idcentrocusto]'>$linhaCC[nome]</option>";
+                          }
+                        ?>
+                      </select>
                     </label>
 
                     <label id="cepLocacao">
@@ -284,8 +288,8 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     <label id="fimLocacao">
                       Término da Locação
                       <input 
-                        id="terminoLocacao" 
-                        name="terminoLocacao" 
+                        id="fimLocacao" 
+                        name="fimLocacao" 
                         class="form-control" 
                         type="date" 
                         placeholder="dd/mm/aaaa"
@@ -345,28 +349,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
         </div>
       </div>
     </div>
-
-   
-    <!-- Modal -->
-    <!-- Modal de Confirmação -->
-    <div class="modal fade" id="msgCadastroRealizado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Cadastro Concluído!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            O cadastro foi realizado com sucesso.
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-            <a href="visualizar-locacoes.php" class="btn btn-primary">Ver Locações</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
 
     <div class="row justify-content-end">
       <div class="col-lg-1 col-md-2 col-sm-12 mb-4">
