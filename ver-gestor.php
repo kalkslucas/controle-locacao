@@ -111,7 +111,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                   </div>
               
                   <div class="col text-center">
-                    <a href="./visualizar-alojados.php" class="btn btn-danger">Voltar</a>
+                    <a href="./visualizar-gestores.php" class="btn btn-danger">Voltar</a>
                   </div>
                 </form>
 
@@ -121,13 +121,6 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
         </div>
       </div>
     </div>
-
-    <div class="row justify-content-end">
-      <div class="col-md-1 col-sm-12 mb-4">
-        <a href="./visualizar-gestores.php" class="btn btn-danger btn-modal w-100">Voltar</a>
-      </div>
-    </div>
-
   </main>
 
 
