@@ -9,20 +9,3 @@
   flex-direction: column;
   padding: 10px;
 }
-
-/*LABEL SIZES AND BREAKPOINTS*/
-
-
-label#tipoPessoa{width: 19%;}
-label#nomePessoa{width: 40%;}
-label#email{width: 40%;}
-label#telefone1 {width: 30%; margin-left: 12%; margin-right: 12%;}
-label#telefone2 {width: 30%;}
-label#cargo, label#setor, label#unidade{width: 33%;}
-label#enviarLocacao{width: 100%;}
-
-@media (max-width: 576px) {
-  label#tipoPessoa, label#nomePessoa, label#email, label#telefone1, label#telefone2, label#cargo, label#setor, label#unidade, label#enviarLocacao{
-    width: 100%;
-  }
-}
