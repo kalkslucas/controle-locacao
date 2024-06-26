@@ -20,7 +20,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $idLocador = filter_var($_GET['idlocador'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT idlocador, nome, responsavel, cpf_cnpj, email, banco, agencia, conta, tipo_conta, pix, telefone_1, telefone_2, rua, numero, complemento, bairro, cidade, estado, cep
+$sql = "SELECT idlocador, nome, responsavel, forma_pagamento, cpf_cnpj, email, banco, agencia, conta, tipo_conta, pix, telefone_1, telefone_2, rua, numero, complemento, bairro, cidade, estado, cep
   from locador l
   inner join endereco e
   on l.id_endereco = e.idendereco
@@ -119,13 +119,44 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         <input id="pix" name="pix" class="form-control" type="text" value="<?= $linha['pix'] ?>" aria-label="<?= $linha['pix'] ?>">
                     </div>
                     <div class="col-md-2">
-                    <label id="formaPagamento">Forma de Pagamento</label>
-                        <select name="formaPagamento" id="formaPagamento" class="form-select">
-                          <option value="">Selecione a forma de pagamento</option>
-                          <option value="BOLETO">BOLETO</option>
-                          <option value="PIX">PIX</option>
-                          <option value="TED">TED</option>
-                        </select>
+                      
+                      <?php
+                        $sqlPagAtual = "SELECT forma_pagamento FROM locador WHERE idlocador = :idlocador";
+                        $consultaPagAtual = $conectar->prepare($sqlPagAtual);
+                        $consultaPagAtual->bindParam(":idlocador", $idLocador, PDO::PARAM_INT);
+                        $consultaPagAtual->execute();
+      
+                        if($consultaPagAtual->rowCount() > 0){
+                          $linhaPagAtual = $consultaPagAtual->fetch(PDO::FETCH_ASSOC);
+                          $pagAtual = $linhaPagAtual["forma_pagamento"];
+                        }
+                        $sqlPagamento = "SHOW COLUMNS FROM locador LIKE 'forma_pagamento'";
+                        $consultaPagamento = $conectar->query($sqlPagamento);
+      
+                        if($consultaPagamento->rowCount() > 0){
+                          $linhaPagamento = $consultaPagamento->fetch(PDO::FETCH_ASSOC);
+                          $enumValues = $linhaPagamento['Type'];
+      
+                          // Limpar a string para obter os valores ENUM
+                          $enumValues = str_replace("enum('", "", $enumValues);
+                          $enumValues = str_replace("')", "", $enumValues);
+                          $enumValues = explode("','", $enumValues);
+                        } else {
+                          echo "Nenhum resultado encontrado";
+                        }
+                        ?>
+                      <label id="formaPagamento">Forma de Pagamento</label>
+                      <?php
+                      // Gerar o HTML para o elemento <select>
+                        echo '<select class="form-select" name="formaPagamento" id="formaPagamento" required>';
+                        echo "<option value='$pagAtual'>$pagAtual</option>";
+                        foreach ($enumValues as $value) {
+                          if($value != $pagAtual){
+                            echo '<option value="' . $value . '">' . $value . '</option>';
+                          }
+                        }
+                        echo '</select>';
+                      ?>
                     </div>
                   </div>
 
