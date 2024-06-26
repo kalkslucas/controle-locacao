@@ -1,9 +1,8 @@
 <?php
-function gerarAluguel($inicioLocacao, $terminoLocacao, $locador, $valorAluguel, $idLocacao){
+function gerarAluguel($inicioLocacao, $fimLocacao, $locador, $valorAluguel, $idLocacao){
   include 'conexao.php';
   $start_date = $inicioLocacao;
-  $end_date = $terminoLocacao;
-  
+  $end_date = $fimLocacao;
 
   $interval = new DateInterval('P1M');
 
@@ -105,7 +104,7 @@ try {
   }
 
   if(isset($_POST['valorAluguel'])) {
-    gerarAluguel($inicioLocacao, $terminoLocacao, $locador, $valorAluguel, $idLocacao);
+    gerarAluguel($inicioLocacao, $fimLocacao, $locador, $valorAluguel, $idLocacao);
   }
   
   header('Location: visualizar-locacoes.php');
