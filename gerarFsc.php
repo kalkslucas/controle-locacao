@@ -1,4 +1,5 @@
 <?php
+include_once 'enviarArquivos.php';
 include_once 'conexao.php';
 try {
   $conectar->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -16,8 +17,24 @@ try {
   $insert->bindParam(":vincularLocacao", $vincularLocacao, PDO::PARAM_INT);
   $insert->execute();
 
+  $idFsc = $conectar->lastInsertId();
   $conectar->commit();
   
+  if (isset($_FILES['anexoFsc']) && $_FILES['anexoFsc']['error'][0] != UPLOAD_ERR_NO_FILE) {
+    $arquivos = $_FILES['anexoFsc'];
+    $tudo_certo = true;
+    foreach ($arquivos['name'] as $index => $arq) {
+      $deu_certo = enviarArquivos($arquivos['error'][$index], $arquivos['size'][$index], $arquivos['name'][$index], $arquivos['tmp_name'][$index], NULL, $idFsc);
+      if (!$deu_certo) {
+        $tudo_certo = false;
+      }
+    }
+    if ($tudo_certo) {
+      echo '<p>Todos os arquivos foram enviados com sucesso!</p>';
+    } else {
+      echo '<p>Falha ao enviar um ou mais arquivos</p>';
+    }
+  }
   header('Location: visualizar-fsc.php');
   
 

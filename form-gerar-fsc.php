@@ -65,7 +65,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
             <div class="col-md-12">
               <div class="card-body">
                 <h3 class="card-title text-center display-4">Cadastro de FSC</h3>
-                <form action="gerarFsc.php" method="post">
+                <form action="gerarFsc.php" enctype="multipart/form-data" method="post">
                   <div class="mt-1">  
                     <label id="numeroFsc">
                       Número FSC
@@ -76,12 +76,12 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                       Validade
                       <input id="validadeFsc" name="validadeFsc" class="form-control" type="date" placeholder="Digite a data final de validade" required>
                     </label>
-<!-- 
+
                     <label id="anexoFsc">
                       Anexo de Contratos
-                      <input type="file" class="form-control" name="anexoFsc" id="anexoFsc" multiple required>
+                      <input type="file" class="form-control" name="anexoFsc[]" id="anexoFsc" multiple required>
                     </label>
--->
+
                     <label id="vincularLocacao">
                       Vincular a Locação
                       <select class="form-select" name="vincularLocacao" id="vincularLocacao" required>
