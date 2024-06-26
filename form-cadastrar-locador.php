@@ -286,7 +286,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           name="tipoConta"
                           id="tipoConta"
                         >
-                          <option value="">--</option>
+                          <option value="">Selecione o tipo de conta</option>
                           <option value="CONTA CORRENTE">Conta Corrente</option>
                           <option value="CONTA POUPANÇA">Conta Poupança</option>
                           <option value="CONTA DE PAGAMENTOS">
