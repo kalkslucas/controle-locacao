@@ -103,7 +103,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
               }
             } else {
               $filtrar = filter_var($_GET['filtrar']);
-              $sql = "SELECT idfsc, numero_fsc, DATE_FORMAT(validade, '%d/%m/%Y' as validade, id_locacao FROM fsc 
+              $sql = "SELECT idfsc, numero_fsc, DATE_FORMAT(validade, '%d/%m/%Y') as validade, id_locacao FROM fsc 
               where numero_fsc like CONCAT('%',:filtrar,'%')";
               $consulta = $conectar->prepare($sql);
               $consulta->bindParam(":filtrar", $filtrar, PDO::PARAM_STR);

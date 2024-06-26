@@ -63,6 +63,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
     <a href='./form-gerar-conta.php' class='btn btn-warning'>Cadastrar Despesa</a>
     <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
     <form action="" class="d-flex ms-auto">
+      <a href="./visualizar-despesas.php" class="btn btn-primary me-2"><i class="fa-solid fa-trash"></i></a>
       <input type="text" name="filtrar" id="filtrar" placeholder="Pesquisar" class="form-control me-2" aria-label="Pesquisar" value="<?php if(isset($_GET['filtrar'])) echo $_GET['filtrar']?>">
       <button class="btn btn-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
@@ -220,7 +221,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           <td>$linha[vencimento]</td>
                           <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Ver detalhes da despesa</a></td>
                           <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Editar despesa</a></td>
-                          <td><a href='./form-abrir-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-danger'>Retomar conta em aberto</a></td>
+                          <td><a href='./form-pagar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-success'>Registrar Pagamento</a></td>
                         </tr>
                 ";
               }
