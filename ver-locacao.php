@@ -151,7 +151,16 @@ if($linha === false){
                   </div>
 
                   <div class="row mb-3">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
+                      <label for="observacoes">Observações</label>
+                      <textarea id="observacoes" name="observacoes" class="form-control" value="<?= $linha['observacoes'] ?>" disabled readonly rows="5">
+                        <?= $linha['observacoes'] ?>
+                      </textarea>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-2">
                       <label for="valorAluguel">Valor do Aluguel</label>
                       <?php
                         $sqlValor = "SELECT * FROM despesas WHERE id_locacao = :id_locacao AND tipo_despesa = 'ALUGUEL'";
@@ -163,11 +172,25 @@ if($linha === false){
                       ?>
                       <input type="text" id="valorAluguel" name="valorAluguel" class="form-control" value="<?= $valorAluguel ?>" disabled readonly>
                     </div>
-                    <div class="col-md-8">
-                      <label for="observacoes">Observações</label>
-                      <textarea id="observacoes" name="observacoes" class="form-control" value="<?= $linha['observacoes'] ?>" disabled readonly rows="5">
-                        <?= $linha['observacoes'] ?>
-                      </textarea>
+                    <div class="col-md-2">
+                      <label for="valorInternet">Valor da Internet</label>
+                      <input type="text" name="valorInternet" id="valorInternet" class="form-control" disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label for="valorEnergia">Valor da Energia</label>
+                      <input type="text" name="valorEnergia" id="valorEnergia" class="form-control" disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label for="valorAgua">Valor da Água</label>
+                      <input type="text" name="valorAgua" id="valorAgua" class="form-control" disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label for="valorCondominio">Valor do Condomínio</label>
+                      <input type="text" name="valorCondominio" id="valorCondominio" class="form-control" disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label for="valorIPTU">Valor do IPTU</label>
+                      <input type="text" name="valorIPTU" id="valorIPTU" class="form-control" disabled readonly>
                     </div>
                   </div>
 
@@ -203,6 +226,50 @@ if($linha === false){
                       <input type="text" id="locador" name="locador" class="form-control" value="<?= $linhaLocador['nome'] ?>" disabled readonly>
                     </div>
                   </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-12">
+                      <label for="listaAlojados"><h4>Alojados da locação</h4></label>
+                      <div class="px-4 pt-2 border rounded">
+                        <?php
+                          echo"<table class='table table-borderless'>";
+                          $sqlAlojados = "SELECT nome, cargo, telefone_1 FROM alojado WHERE id_locacao = :id_locacao";
+                          $consulta = $conectar->prepare($sqlAlojados);
+                          $consulta->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
+                          $consulta->execute();
+
+                          if($consulta){
+                            if($linhaAlojados = $consulta->rowCount()>0){
+                              while($linhaAlojados = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                echo "<thead>
+                                        <tr class='text-center disabledBgColor'>
+                                          <th>Nome</th>
+                                          <th>Cargo</th>
+                                          <th>Telefone</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr class='text-center'>
+                                          <td>$linhaAlojados[nome]</td>
+                                          <td>$linhaAlojados[cargo]</td>
+                                          <td>$linhaAlojados[telefone_1]</td>
+                                        </tr>";
+                              }
+                            } else {
+                              echo "<tr class='text-center'>
+                                      <td>Sem alojados para esse imóvel</td>
+                                    </tr>";
+                            }
+                          } else {
+                            echo 'Erro ao executar a consulta de alojados!';
+                          }
+                          echo "</tbody>
+                              </table>";
+                        ?>
+                      </div>
+                    </div>
+                  </div>
+
                   <div class="row mb-3">
                     <div class="col-md-12">
                       <h4>Anexos</h4>
@@ -259,7 +326,7 @@ if($linha === false){
       </div>
     </div>
 
-    
+
   </main>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
