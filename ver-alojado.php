@@ -21,7 +21,11 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $idalojado = filter_var($_GET['idalojado'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT nome, email, cargo, setor, unidade, telefone_1, telefone_2 from alojado where idalojado = '$idalojado'";
+$sql = "SELECT a.nome as alojado, a.email as email, a.cargo as cargo, a.setor as setor, a.unidade as unidade, a.telefone_1 as telefone_1, a.telefone_2 as telefone_2, a.id_locacao as id_locacao, g.nome as gestor
+from alojado a
+inner join gestor g
+on a.id_gestor = g.idgestor
+where idalojado = '$idalojado'";
 $consulta = $conectar->query($sql);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -76,58 +80,51 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha do Alojado</h3>
                 <form method="get">
-                <table class="table table-borderless">
-                    <tr>
-                      <td>
-                        <label id="nome">
-                          Nome
-                          <input id="nome" class="form-control" type="text" value="<?= $linha['nome'] ?>" aria-label="<?= $linha['nome'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="email">
-                          E-mail
-                          <input id="email" class="form-control" type="mail" value="<?= $linha['email'] ?>" aria-label="<?= $linha['email'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                    </tr>
-                    
-                    <tr>
-                      <td>
-                        <label id="conta">
-                          Cargo
-                          <input id="cargo" class="form-control" type="text" value="<?= $linha['cargo'] ?>" aria-label="<?= $linha['cargo'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="tipo_conta">
-                          Setor
-                          <input id="tipo_conta" class="form-control" type="text" value="<?= $linha['setor'] ?>" aria-label="<?= $linha['setor'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="pix">
-                          Unidade
-                          <input id="pix" class="form-control" type="text" value="<?= $linha['unidade'] ?>" aria-label="<?= $linha['unidade'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                    </tr>
+                  <div class="row mb-3">
+                    <div class="col-md-3">
+                      <label id="nome">Nome</label>
+                      <input id="nome" name="nome" class="form-control" value="<?= $linha['alojado']?>" type="text" disabled readonly>
+                    </div>
+                    <div class="col-md-3">
+                      <label id="cargo">Cargo</label>
+                      <input id="cargo" name="cargo" class="form-control" value="<?= $linha['cargo']?>" type="text" disabled readonly>
+                    </div>
+                    <div class="col-md-3">
+                      <label id="setor">Setor</label>
+                      <input id="setor" name="setor" class="form-control" value="<?= $linha['setor']?>" type="text" disabled readonly>
+                    </div>
+                    <div class="col-md-3">
+                      <label id="unidade">Unidade</label>
+                      <input id="unidade" name="unidade" class="form-control" value="<?= $linha['unidade']?>" type="text" disabled readonly>
+                    </div>
+                  </div>
 
-                    <tr>
-                      <td>
-                        <label id="telefone_1">
-                          Telefone
-                          <input id="telefone_1" class="form-control" type="text" value="<?= $linha['telefone_1'] ?>" aria-label="<?= $linha['telefone_1'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="telefone_2">
-                          Celular
-                          <input id="telefone_2" class="form-control" type="text" value="<?= $linha['telefone_2'] ?>" aria-label="<?= $linha['telefone_2'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                    </tr>
-                  </table>
+                  <div class="row mb-3">
+                    <div class="col-md-4">
+                      <label id="email">E-mail</label>
+                      <input id="email" name="email" class="form-control" value="<?= $linha['email']?>" type="email" disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label id="telefone1">Telefone 1</label>
+                      <input id="telefone1" name="telefone1" class="form-control" value="<?= $linha['telefone_1']?>" type="text" disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label id="telefone2">Telefone 2</label>
+                      <input id="telefone2" name="telefone2" class="form-control" value="<?= $linha['telefone_2']?>" type="text" disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label id="telefone2">Vinculado a Locação</label>
+                      <input id="telefone2" name="telefone2" class="form-control" value="<?= $linha['id_locacao']?>" type="text" disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label id="telefone2">Gestor Responsável</label>
+                      <input id="telefone2" name="telefone2" class="form-control" value="<?= $linha['gestor']?>" type="text" disabled readonly>
+                    </div>
+                  </div>
+              
+                  <div class="col text-center">
+                    <a href="./visualizar-alojados.php" class="btn btn-danger">Voltar</a>
+                  </div>
                 </form>
 
               </div>
