@@ -209,27 +209,33 @@ if($linha === false){
                       <div class="border p-2">
                         <?php
                         echo "<table id='tabelaAnexos' class='table table-borderless'>
-                                        <thead>
-                                          <tr class='text-center'>
-                                            <th>Visualização</th>
-                                            <th>Arquivo</th>
-                                            <th>Data de Envio</th>
-                                            <th>Visualizar Anexo</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>";
-
-
+                                <thead>
+                                  <tr class='text-center'>
+                                    <th>Visualização</th>
+                                    <th>Arquivo</th>
+                                    <th>Data de Envio</th>
+                                    <th>Visualizar Anexo</th>
+                                  </tr>
+                                </thead>
+                                <tbody>";
                           $sqlAnexo = "SELECT * FROM anexos WHERE id_locacao = '$idLocacao'";
                           $consulta = $conectar->query($sqlAnexo);
                           if($consulta){
-                            while($linhaAnexo = $consulta->fetch(PDO::FETCH_ASSOC)){
-                              $dataUpload = date('d/m/Y H:i:s', strtotime($linhaAnexo['data_upload']));
-                                echo "<tr class='text-center'>
-                                        <td class='preview'><img width='100vw' src='$linhaAnexo[path]'</td>
-                                        <td>$linhaAnexo[nome_arquivo]</td>
-                                        <td>$dataUpload</td>
-                                        <td><a a target='_blank' class='btn btn-primary' href='$linhaAnexo[path]'><i class='fa-solid fa-eye'></i></a></td>
+                            if($linhaAnexo = $consulta->rowCount()>0){
+                              while($linhaAnexo = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                $dataUpload = date('d/m/Y H:i:s', strtotime($linhaAnexo['data_upload']));
+                                  echo "
+                                        <tr class='text-center'>
+                                          <td class='preview'><img width='100vw' src='$linhaAnexo[path]'</td>
+                                          <td>$linhaAnexo[nome_arquivo]</td>
+                                          <td>$dataUpload</td>
+                                          <td><a a target='_blank' class='btn btn-primary' href='$linhaAnexo[path]'><i class='fa-solid fa-eye'></i></a></td>
+                                        </tr>";
+                                }
+                              } else {
+                                echo "
+                                      <tr class='text-center'>
+                                        <td colspan='4' class='p-3'>Nenhum arquivo anexado!!</td>
                                       </tr>";
                               }
                             } else {
