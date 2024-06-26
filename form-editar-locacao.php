@@ -21,7 +21,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT lc.idlocacao, lc.ftc, lc.centro_custo, g.nome as gestor, l.nome as locador, lc.situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, DATE_FORMAT(vistoria_entrada, '%d/%m/%Y') as vistoria_entrada, DATE_FORMAT(vistoria_saida, '%d/%m/%Y') as vistoria_saida, observacoes, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep, lc.id_gestor, lc.id_locador
+$sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, l.nome as locador, lc.situacao, inicio_locacao, termino_locacao, vistoria_entrada,vistoria_saida, observacoes, cc.nome as centro_custo, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep, lc.id_gestor, lc.id_locador, lc.id_centro_custo
   from locacao lc
   inner join endereco e
   on lc.id_endereco = e.idendereco
@@ -29,11 +29,17 @@ $sql = "SELECT lc.idlocacao, lc.ftc, lc.centro_custo, g.nome as gestor, l.nome a
   on lc.id_gestor = g.idgestor
   inner join locador l
   on lc.id_locador = l.idlocador
-  inner join anexos a
-  on a.id_locacao = lc.idlocacao
-  where idlocacao = '$idLocacao'";
-$consulta = $conectar->query($sql);
+  inner join centro_custo cc
+  on lc.id_centro_custo = cc.idcentrocusto
+  where idlocacao = :idlocacao";
+$consulta = $conectar->prepare($sql);
+$consulta->bindParam(":idlocacao", $idLocacao, PDO::PARAM_INT);
+$consulta->execute();
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
+
+function formatDate($date) {
+  return $date ? DateTime::createFromFormat('Y-m-d', $date)->format('Y-m-d') : '';
+}
 ?>
 
 <body class="page">
@@ -78,7 +84,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
   </header>
 
   <main class="container-fluid">
-    <a href="deletarLocacao.php?idlocacao=<?=$linha['idlocacao']?>" class='btn btn-danger text-end'><span>Deletar Locação<i class='fa-solid fa-xmark px-2'></i></span></a>
+    <a href="deletarLocacao.php?idlocacao=<?=$idLocacao?>" class='btn btn-danger text-end'><span>Deletar Locação<i class='fa-solid fa-xmark px-2'></i></span></a>
     <div class="row justify-content-center">
       <div class="col">
         <div class="card mt-3 mb-3">
@@ -86,7 +92,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
             <div class="col-md-12">
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
-                <form action="editarLocacao.php?idlocacao=<?= $linha['idlocacao'] ?>" enctype="multipart/form-data" method="post">
+                <form action="editarLocacao.php?idlocacao=<?= $idLocacao?>" enctype="multipart/form-data" method="post">
                 <div class="row mb-3">
                     <div class="col-md-4">
                       <label for="ftc">FTC</label>
@@ -172,46 +178,36 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                     </div>
                     <div class="col-md-4">
                       <label for="inicioLocacao">Início da Locação</label>
-                      <?php 
-                        $inicioLocacao = DateTime::createFromFormat('d/m/Y', $linha['inicio_locacao'])->format('Y-m-d');
-                      ?>
-                      <input type="date" id="inicioLocacao" name="inicioLocacao" class="form-control" value="<?= $inicioLocacao ?>" >
+                      <input type="date" id="inicioLocacao" name="inicioLocacao" class="form-control" value="<?= formatDate($linha['inicio_locacao']) ?>" >
                     </div>
                     <div class="col-md-4">
                       <label for="fimLocacao">Término da Locação</label>
-                      <?php 
-                        $terminoLocacao = DateTime::createFromFormat('d/m/Y', $linha['termino_locacao'])->format('Y-m-d');
-                      ?>
-                      <input type="date" id="fimLocacao" name="fimLocacao" class="form-control" value="<?= $terminoLocacao ?>" >
+                      <input type="date" id="fimLocacao" name="fimLocacao" class="form-control" value="<?= formatDate($linha['termino_locacao']) ?>" >
                     </div>
                   </div>
 
                   <div class="row mb-3">
                     <div class="col-md-4">
                       <label for="centroCusto">Centro de Custo</label>
-                      <input type="text" id="centroCusto" name="centroCusto" class="form-control" value="<?= $linha['centro_custo'] ?>" >
+                      <select id="centroCusto" name="centroCusto" class="form-select" required>
+                        <option value="<?= $linha['id_centro_custo'] ?>"><?= $linha['centro_custo']?></option>
+                        <?php
+                          $queryCC = "SELECT idcentrocusto, nome FROM centro_custo";
+                          $consultaCC = $conectar->query($queryCC);
+
+                          while($linhaCC = $consultaCC->fetch(PDO::FETCH_ASSOC)){
+                            echo "<option value='$linhaCC[idcentrocusto]'>$linhaCC[nome]</option>";
+                          }
+                        ?>
+                      </select>
                     </div>
                     <div class="col-md-4">
                       <label for="vistoriaEntrada">Vistoria de Entrada</label>
-                      <?php
-                        if($linha['vistoria_entrada'] == null){
-                          $vistoriaEntrada = null;
-                        } else {
-                          $vistoriaEntrada = DateTime::createFromFormat('d/m/Y', $linha['vistoria_entrada'])->format('Y-m-d');
-                        }
-                      ?>
-                      <input type="date" id="vistoriaEntrada" name="vistoriaEntrada" class="form-control" value="<?= $vistoriaEntrada ?>" >
+                      <input type="date" id="vistoriaEntrada" name="vistoriaEntrada" class="form-control" value="<?= formatDate($linha['vistoria_entrada']) ?>" >
                     </div>
                     <div class="col-md-4">
                       <label for="vistoriaSaida">Vistoria de Saída</label>
-                      <?php
-                        if($linha['vistoria_saida'] == null){
-                          $vistoriaSaida = null;
-                        } else {
-                          $vistoriaSaida = DateTime::createFromFormat('d/m/Y', $linha['vistoria_entrada'])->format('Y-m-d');
-                        }
-                      ?>
-                      <input type="date" id="vistoriaSaida" name="vistoriaSaida" class="form-control" value="<?= $vistoriaSaida ?>" >
+                      <input type="date" id="vistoriaSaida" name="vistoriaSaida" class="form-control" value="<?= formatDate($linha['vistoria_saida']) ?>" >
                     </div>
                   </div>
 

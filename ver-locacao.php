@@ -21,7 +21,7 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
 <?php
 include_once "conexao.php";
 $idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT lc.idlocacao, lc.ftc, lc.centro_custo, g.nome as gestor, lc.situacao, DATE_FORMAT(inicio_locacao, '%d/%m/%Y') as inicio_locacao, DATE_FORMAT(termino_locacao,'%d/%m/%Y') as termino_locacao, DATE_FORMAT(vistoria_entrada, '%d/%m/%Y') as vistoria_entrada, DATE_FORMAT(vistoria_saida, '%d/%m/%Y') as vistoria_saida, observacoes, lc.id_locador as locador, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep
+$sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, lc.situacao, inicio_locacao, termino_locacao, vistoria_entrada, vistoria_saida, observacoes, lc.id_locador as locador, cc.nome as centro_custo, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep
   from locacao lc
   inner join endereco e
   on lc.id_endereco = e.idendereco
@@ -29,11 +29,17 @@ $sql = "SELECT lc.idlocacao, lc.ftc, lc.centro_custo, g.nome as gestor, lc.situa
   on lc.id_gestor = g.idgestor
   inner join locador l
   on lc.id_locador = l.idlocador
+  inner join centro_custo cc
+  on lc.id_centro_custo = cc.idcentrocusto
   where idlocacao = :idLocacao";
 $consulta = $conectar->prepare($sql);
 $consulta->bindParam(":idLocacao", $idLocacao, PDO::PARAM_INT);
 $consulta->execute();
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
+
+function formatDate($date) {
+  return $date ? DateTime::createFromFormat('Y-m-d', $date)->format('d/m/Y') : '';
+}
 
 if($linha === false){
   echo "<p>Locação não encontrada</p>";
@@ -120,11 +126,11 @@ if($linha === false){
                     </div>
                     <div class="col-md-4">
                       <label for="inicioLocacao">Início da Locação</label>
-                      <input type="text" id="inicioLocacao" name="inicioLocacao" class="form-control" value="<?= $linha['inicio_locacao'] ?>" disabled readonly>
+                      <input type="text" id="inicioLocacao" name="inicioLocacao" class="form-control" value="<?= formatDate($linha['inicio_locacao']) ?>" disabled readonly>
                     </div>
                     <div class="col-md-4">
                       <label for="fimLocacao">Término da Locação</label>
-                      <input type="text" id="fimLocacao" name="fimLocacao" class="form-control" value="<?= $linha['termino_locacao'] ?>" disabled readonly>
+                      <input type="text" id="fimLocacao" name="fimLocacao" class="form-control" value="<?= formatDate($linha['termino_locacao']) ?>" disabled readonly>
                     </div>
                   </div>
 
@@ -132,14 +138,15 @@ if($linha === false){
                     <div class="col-md-4">
                       <label for="centroCusto">Centro de Custo</label>
                       <input type="text" id="centroCusto" name="centroCusto" class="form-control" value="<?= $linha['centro_custo'] ?>" disabled readonly>
+                      
                     </div>
                     <div class="col-md-4">
                       <label for="vistoriaEntrada">Vistoria de Entrada</label>
-                      <input type="text" id="vistoriaEntrada" name="vistoriaEntrada" class="form-control" value="<?= $linha['vistoria_entrada'] ?>" disabled readonly>
+                      <input type="text" id="vistoriaEntrada" name="vistoriaEntrada" class="form-control" value="<?= formatDate($linha['vistoria_entrada']) ?>" disabled readonly>
                     </div>
                     <div class="col-md-4">
                       <label for="vistoriaSaida">Vistoria de Saída</label>
-                      <input type="text" id="vistoriaSaida" name="vistoriaSaida" class="form-control" value="<?= $linha['vistoria_saida'] ?>" disabled readonly>
+                      <input type="text" id="vistoriaSaida" name="vistoriaSaida" class="form-control" value="<?= formatDate($linha['vistoria_saida']) ?>" disabled readonly>
                     </div>
                   </div>
 
