@@ -74,7 +74,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
           <div class="row">
             <div class="col-md-12">
               <div class="card-body m-4 rounded shadow-lg">
-                <h3 class="card-title text-center">Ficha da Locação</h3>
+                <h3 class="card-title text-center">Ficha da Despesa</h3>
                 <form method="get">
                 <table class="table table-borderless">
                     <tr>

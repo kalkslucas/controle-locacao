@@ -64,7 +64,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
           <div class="row">
             <div class="col-md-12">
               <div class="card-body">
-                <h3 class="card-title text-center display-4">Cadastro de Pessoas</h3>
+                <h3 class="card-title text-center display-4">Cadastro de Alojado</h3>
                 <form action="cadastrarAlojado.php" method="post">
                   <div class="row mb-3">
                     <div class="col-md-3">

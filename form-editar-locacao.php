@@ -211,19 +211,7 @@ function formatDate($date) {
                   </div>
 
                   <div class="row mb-3">
-                    <div class="col-md-4">
-                      <label for="valorAluguel">Valor do Aluguel</label>
-                      <?php
-                        $sqlValor = "SELECT * FROM despesas WHERE id_locacao = :id_locacao AND tipo_despesa = 'ALUGUEL'";
-                        $consultaValor = $conectar->prepare($sqlValor);
-                        $consultaValor->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
-                        $consultaValor->execute();
-                        $linhaValor = $consultaValor->fetch(PDO::FETCH_ASSOC);
-                        $valorAluguel = $linhaValor ? 'R$ ' . number_format($linhaValor['VALOR_MES'], 2, ',', '.') : 'Não encontrado';
-                      ?>
-                      <input type="text" id="valorAluguel" name="" class="form-control" value="<?= $valorAluguel ?>" disabled readonly>
-                    </div>
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                       <label for="observacoes">Observações</label>
                       <textarea id="observacoes" name="observacoes" class="form-control" value="<?= $linha['observacoes'] ?>"  rows="5">
                         <?= $linha['observacoes'] ?>

@@ -64,65 +64,51 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
           <div class="row">
             <div class="col-md-12">
               <div class="card-body">
-                <h3 class="card-title text-center display-4">Cadastro de Pessoas</h3>
+                <h3 class="card-title text-center display-4">Cadastro de Gestor</h3>
                 <form action="cadastrarPessoa.php" method="post">
-                  <label id="tipoPessoa">
-                    Classificação da Pessoa
-                    <select class="form-select" name="tipoPessoa" id="tipoPessoa" required>
-                      <option selected>---</option>
-                      <option value="alojado">Alojado</option>
-                      <option value="gestor">Gestor</option>
-                    </select>
-                  </label>
+                  <div class="row mb-3">
+                    <div class="col-md-3">
+                      <label id="nome">Nome</label>
+                      <input id="nome" name="nome" class="form-control" type="text" placeholder="Digite o nome completo" required>
+                    </div>
+                    <div class="col-md-3">
+                      <label id="cargo">Cargo</label>
+                      <input id="cargo" name="cargo" class="form-control" type="text" placeholder="Ex: Gerente Administrativo" required>
+                    </div>
+                    <div class="col-md-3">
+                      <label id="setor">Setor</label>
+                      <input id="setor" name="setor" class="form-control" type="text" placeholder="Ex: Obras" required>
+                    </div>
+                    <div class="col-md-3">
+                      <label id="unidade">Unidade</label>
+                      <input id="unidade" name="unidade" class="form-control" type="text" placeholder="Ex: Sede" required>
+                    </div>
+                  </div>
 
-                  <label id="nomePessoa">
-                    Nome
-                    <input id="nome" name="nome" class="form-control" type="text" placeholder="Digite o nome completo" required>
-                  </label>
-                  
-                  <label id="email">
-                    E-mail
-                    <input id="email" name="email" class="form-control" type="email" placeholder="Ex: abc@ultra.eng.br OU abc@gmail.com">
-                  </label>
+                  <div class="row mb-3">
+                    <div class="col-md-4">
+                      <label id="email">E-mail</label>
+                      <input id="email" name="email" class="form-control" type="email" placeholder="Ex: abc@ultra.eng.br OU abc@gmail.com">
+                    </div>
+                    <div class="col-md-4">
+                      <label id="telefone1">Telefone 1</label>
+                      <input id="telefone1" name="telefone1" class="form-control" type="text" placeholder="Ex: 3198765432" required>
+                    </div>
+                    <div class="col-md-4">
+                      <label id="telefone2">Telefone 2</label>
+                      <input id="telefone2" name="telefone2" class="form-control" type="text" placeholder="Ex: 31987654321">
+                    </div>
+                  </div>
 
-                  <label id="telefone1">
-                    Telefone 1
-                    <input id="telefone1" name="telefone1" class="form-control" type="text" placeholder="Ex: 3198765432" required>
-                  </label>
-
-                  <label id="telefone2">
-                    Telefone 2
-                    <input id="telefone2" name="telefone2" class="form-control" type="text" placeholder="Ex: 31987654321">
-                  </label>
-
-                  <label id="cargo">
-                    Cargo
-                    <input id="cargo" name="cargo" class="form-control" type="text" placeholder="Ex: Gerente Administrativo" required>
-                  </label>
-
-                  <label id="setor">
-                    Setor
-                    <input id="setor" name="setor" class="form-control" type="text" placeholder="Ex: Obras" required>
-                  </label>
-
-                  <label id="unidade">
-                    Unidade
-                    <input id="unidade" name="unidade" class="form-control" type="text" placeholder="Ex: Sede" required>
-                  </label>
-
-                  <label class="d-flex mt-3" id="enviar">
+                  <div class="col text-center">
+                    <a href="./visualizar-alojados.php" class="btn btn-danger">Voltar</a>
                     <input class="btn btn-laranja" type="submit" value="Cadastrar Pessoa">
-                  </label>
+                  </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row justify-content-end">
-      <div class="col-md-1 col-sm-12 mb-4">
-        <a href="./controle-locacao.php" class="btn btn-danger btn-modal w-auto">Voltar</a>
       </div>
     </div>
   </main>
