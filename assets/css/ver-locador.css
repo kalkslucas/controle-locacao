@@ -9,25 +9,3 @@
   flex-direction: column;
   padding: 10px;
 }
-
-/*LABEL SIZES AND BREAKPOINTS*/
-/*
-label#ftc{width: 22%;}
-label#gestor{width: 54.5%;}
-label#status{width: 22%;}
-label#endereco{width: 84%;}
-label#numero{width: 15%;}
-label#complemento{width: 73%;}
-label#cep{width: 27;}
-label#bairro{width: 46%;}
-label#cidade{width: 46%;}
-label#estado{width: 6.5%;}
-label#inicioLocacao{width: 33%;}
-label#fimLocacao{width: 33%;}
-label#valorAluguel{width: 32.5%;}
-
-@media (max-width: 576px) {
-  label#ftc, label#gestor, label#status, label#endereco, label#numero, label#complemento, label#cep, label#bairro, label#cidade, label#estado, label#inicioLocacao, label#fimLocacao, label#valorAluguel{
-    width: 100%;
-  }
-}

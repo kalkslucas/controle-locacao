@@ -26,7 +26,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $idLocador = filter_var($_GET['idlocador'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT nome, cpf_cnpj, email, banco, agencia, conta, tipo_conta, pix, telefone_1, telefone_2, rua, numero, complemento, bairro, cidade, estado, cep
+$sql = "SELECT nome, responsavel, forma_pagamento, cpf_cnpj, email, banco, agencia, conta, tipo_conta, pix, telefone_1, telefone_2, rua, numero, complemento, bairro, cidade, estado, cep
   from locador l
   inner join endereco e
   on l.id_endereco = e.idendereco
@@ -85,125 +85,96 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
                 <form method="get">
-                <table class="table table-borderless">
-                    <tr>
-                      <td>
-                        <label id="cpf_cnpj">
-                          CPF | CNPJ
-                          <input id="cpf_cnpj" class="form-control" type="text" value="<?= $linha['cpf_cnpj'] ?>" aria-label="<?= $linha['cpf_cnpj'] ?>" disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="nome">
-                          Nome
-                          <input id="nome" class="form-control" type="text" value="<?= $linha['nome'] ?>" aria-label="<?= $linha['nome'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="email">
-                          E-mail
-                          <input id="email" class="form-control" type="mail" value="<?= $linha['email'] ?>" aria-label="<?= $linha['email'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="banco">
-                          Banco
-                          <input id="banco" class="form-control" type="text" value="<?= $linha['banco'] ?>" aria-label="<?= $linha['banco'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="agencia">
-                          Agência
-                          <input id="agencia" class="form-control" type="text" value="<?= $linha['agencia'] ?>" aria-label="<?= $linha['agencia'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                    </tr>
-                    
-                    <tr>
-                      <td>
-                        <label id="conta">
-                          Conta
-                          <input id="conta" class="form-control" type="text" value="<?= $linha['conta'] ?>" aria-label="<?= $linha['conta'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="tipo_conta">
-                          Tipo de Conta
-                          <input id="tipo_conta" class="form-control" type="text" value="<?= $linha['tipo_conta'] ?>" aria-label="<?= $linha['tipo_conta'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="pix">
-                          PIX
-                          <input id="pix" class="form-control" type="text" value="<?= $linha['pix'] ?>" aria-label="<?= $linha['pix'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="telefone_1">
-                          Telefone
-                          <input id="telefone_1" class="form-control" type="text" value="<?= $linha['telefone_1'] ?>" aria-label="<?= $linha['telefone_1'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="telefone_2">
-                          Celular
-                          <input id="telefone_2" class="form-control" type="text" value="<?= $linha['telefone_2'] ?>" aria-label="<?= $linha['telefone_2'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                    </tr>
+                  <div class="row mb-3">
+                    <div class="col-md-3">
+                      <label id="cpf_cnpj">CPF | CNPJ</label>
+                        <input id="cpf_cnpj" name="cpf_cnpj" class="form-control" type="text" value="<?= $linha['cpf_cnpj'] ?>" aria-label="<?= $linha['cpf_cnpj'] ?>" disabled readonly> 
+                    </div>
+                    <div class="col-md-3">
+                      <label id="nome">Nome do Locador</label>
+                        <input id="nome" name="nome" class="form-control" type="text" value="<?= $linha['nome'] ?>" aria-label="<?= $linha['nome'] ?>"disabled readonly>
+                    </div>
+                    <div class="col-md-3">
+                      <label id="responsavel">Nome do Responsável</label>
+                        <input id="responsavel" name="responsavel" class="form-control" type="text" value="<?= $linha['responsavel'] ?>" aria-label="<?= $linha['responsavel'] ?>"disabled readonly>
+                    </div>
+                    <div class="col-md-3">
+                      <label id="email">E-mail</label>
+                        <input id="email" name="email" class="form-control" type="mail" value="<?= $linha['email'] ?>" aria-label="<?= $linha['email'] ?>"disabled readonly>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-2">
+                      <label id="banco">Banco</label>
+                      <input id="banco" name="banco" class="form-control" type="text" value="<?= $linha['banco'] ?>" aria-label="<?= $linha['banco'] ?>"disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label id="agencia">Agência</label>
+                      <input id="agencia" name="agencia" class="form-control" type="text" value="<?= $linha['agencia'] ?>" aria-label="<?= $linha['agencia'] ?>"disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label id="conta">Conta</label>
+                        <input id="conta" name="conta" class="form-control" type="text" value="<?= $linha['conta'] ?>" aria-label="<?= $linha['conta'] ?>"disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label id="tipo_conta">Tipo de Conta</label>
+                        <input id="tipo_conta" name="tipo_conta" class="form-control" type="text" value="<?= $linha['tipo_conta'] ?>" aria-label="<?= $linha['tipo_conta'] ?>"disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label id="pix">PIX</label>
+                        <input id="pix" name="pix" class="form-control" type="text" value="<?= $linha['pix'] ?>" aria-label="<?= $linha['pix'] ?>"disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label id="formaPagamento">Forma de Pagamento</label>
+                        <input type="text" name="formaPagamento" id="formaPagamento" class="form-control" value="<?=$linha['forma_pagamento']?>"disabled readonly>
+                    </div>
+                  </div>
 
-                    <tr>
-                      <td colspan="2">
-                        <label style="width:100%;" id="endereco" for="endereco">
-                          Endereço
-                          <input id="endereco" class="form-control" type="text" value="<?= $linha['rua'] ?>" aria-label="<?= $linha['rua'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="numero" for="numero">
-                          Numero
-                          <input id="numero" class="form-control" type="text" value="<?= $linha['numero'] ?>" aria-label="<?= $linha['numero'] ?>"disabled readonly>
-                        </label>
-                      </td>
+                  <div class="row mb-3">
+                    <div class="col-md-1">
+                      <label id="cep" for="cep">CEP</label>
+                        <input id="cep" name="cep"  class="form-control" type="text" value="<?= $linha['cep'] ?>" aria-label="<?= $linha['cep'] ?>"disabled readonly>
+                    </div>
+                    <div class="col-md-3">
+                      <label id="endereco" for="endereco">Endereço</label>
+                        <input  id="rua" name="rua" class="form-control" type="text" value="<?= $linha['rua'] ?>" aria-label="<?= $linha['rua'] ?>"disabled readonly>
+                    </div>
+                    <div class="col-md-1">
+                      <label id="numero" for="numero">Número</label>
+                        <input id="numero" name="numero" class="form-control" type="text" value="<?= $linha['numero'] ?>" aria-label="<?= $linha['numero'] ?>"disabled readonly>
+                    </div>
+                    <div class="col-md-1">
+                      <label id="complemento" for="complemento">Complemento</label>
+                        <input id="complemento" name="complemento" class="form-control" type="text" value="<?= $linha['complemento'] ?>" aria-label="<?= $linha['complemento'] ?>"disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label id="bairro" for="bairro">Bairro</label>
+                        <input id="bairro" name="bairro" class="form-control" type="text" value="<?= $linha['bairro'] ?>" aria-label="<?= $linha['bairro'] ?>"disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label id="cidade" for="cidade">Cidade</label>
+                      <input id="cidade" name="cidade" class="form-control" type="text" value="<?= $linha['cidade'] ?>" aria-label="<?= $linha['cidade'] ?>"disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label id="estado" for="estado">Estado</label>
+                        <input id="estado" name="estado" class="form-control" type="text" value="<?= $linha['estado'] ?>" aria-label="<?= $linha['estado'] ?>"disabled readonly>
+                    </div>
+                  </div>
 
-                      <td>
-                        <label id="complemento" for="complemento">
-                          Complemento
-                          <input id="complemento" class="form-control" type="text" value="<?= $linha['complemento'] ?>" aria-label="<?= $linha['complemento'] ?>"disabled readonly>
-                        </label>
-                      </td>
+                  <div class="row mb-3 d-flex justify-content-center">
+                    <div class="col-md-3">
+                      <label id="telefone_1">Telefone</label>
+                      <input id="telefone_1" name="telefone_1" class="form-control" type="text" value="<?= $linha['telefone_1'] ?>" aria-label="<?= $linha['telefone_1'] ?>"disabled readonly>
+                    </div>
+                    <div class="col-md-3">
+                      <label id="telefone_2">Celular</label>
+                      <input id="telefone_2" name="telefone_2" class="form-control" type="text" value="<?= $linha['telefone_2'] ?>" aria-label="<?= $linha['telefone_2'] ?>"disabled readonly>
+                    </div>
+                  </div>
 
-                      <td>
-                        <label id="cep" for="cep">
-                          CEP
-                          <input id="cep" class="form-control" type="text" value="<?= $linha['cep'] ?>" aria-label="<?= $linha['cep'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>
-                        <label id="bairro" for="bairro">
-                          Bairro
-                          <input id="bairro" class="form-control" type="text" value="<?= $linha['bairro'] ?>" aria-label="<?= $linha['bairro'] ?>"disabled readonly>
-                        </label>
-                      </td>
-                      
-                      <td>
-                        <label id="cidade" for="cidade">
-                          Cidade
-                          <input id="cidade" class="form-control" type="text" value="<?= $linha['cidade'] ?>" aria-label="<?= $linha['cidade'] ?>"disabled readonly>
-                        </label>
-                      </td>
-
-                      <td>
-                        <label id="estado" for="estado">
-                          Estado
-                          <input id="estado" class="form-control" type="text" value="<?= $linha['estado'] ?>" aria-label="<?= $linha['estado'] ?>"disabled readonly>
-                        </label>
-                      </td>  
-                    </tr>
-                  </table>
+                  <div class="col-sm-12 text-center">
+                    <a href="./visualizar-locadores.php" class="btn btn-danger">Voltar</a>
+                  </div>
                 </form>
 
               </div>
@@ -212,13 +183,6 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
         </div>
       </div>
     </div>
-
-    <div class="row justify-content-end">
-      <div class="col-md-1 col-sm-12 mb-4">
-        <a href="./visualizar-locadores.php" class="btn btn-danger btn-modal w-100">Voltar</a>
-      </div>
-    </div>
-
   </main>
 
 

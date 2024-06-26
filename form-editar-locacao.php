@@ -14,7 +14,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 
   <link rel="stylesheet" href="assets/css/padrao-paginas.css">
   <link rel="stylesheet" href="assets/css/btn-custom.css">
-  <link rel="stylesheet" href="assets/css/ver-locador.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <script src="https://kit.fontawesome.com/f8c979c0bf.js" crossorigin="anonymous"></script>
 </head>
@@ -312,18 +311,10 @@ function formatDate($date) {
                       />
                     </div>
                   </div>
-                  <div class="row mb-3">
-                    <div class="col-md-12">
-                      
-                      
-
-                    </div>
-                  </div>
                   <div class="col text-center">
                     <a href="visualizar-locacoes.php" class="btn btn-danger btn-custom">Voltar</a>
                     <input type="submit" class='btn btn-success' value="Editar"></input>
                   </div>
-                  </table>
                 </form>
               </div>
             </div>
