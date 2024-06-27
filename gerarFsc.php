@@ -24,7 +24,7 @@ try {
     $arquivos = $_FILES['anexoFsc'];
     $tudo_certo = true;
     foreach ($arquivos['name'] as $index => $arq) {
-      $deu_certo = enviarArquivos($arquivos['error'][$index], $arquivos['size'][$index], $arquivos['name'][$index], $arquivos['tmp_name'][$index], NULL, $idFsc);
+      $deu_certo = enviarArquivos($arquivos['error'][$index], $arquivos['size'][$index], $arquivos['name'][$index], $arquivos['tmp_name'][$index], NULL, $idFsc, NULL);
       if (!$deu_certo) {
         $tudo_certo = false;
       }

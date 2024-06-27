@@ -15,12 +15,12 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <link rel="stylesheet" href="assets/css/btn-custom.css">
   <link rel="stylesheet" href="assets/css/ver-locacao.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+  <script src="https://kit.fontawesome.com/f8c979c0bf.js" crossorigin="anonymous"></script>
 </head>
 <?php
 include_once "conexao.php";
 $idalojado = filter_var($_GET['idalojado'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT a.nome as alojado, a.email as email, a.cargo as cargo, a.setor as setor, a.unidade as unidade, a.telefone_1 as telefone_1, a.telefone_2 as telefone_2, id_locacao, ftc, rua, numero, bairro, cidade, estado, cep, g.nome as gestor 
+$sql = "SELECT idalojado, a.nome as alojado, a.email as email, a.cargo as cargo, a.setor as setor, a.unidade as unidade, a.telefone_1 as telefone_1, a.telefone_2 as telefone_2, id_locacao, ftc, rua, numero, bairro, cidade, estado, cep, g.nome as gestor 
 from alojado a 
 inner join locacao lc
 on a.id_locacao = lc.idlocacao
@@ -84,7 +84,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
             <div class="col-md-12">
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
-                <form action="editarAlojado.php?idalojado=<?=$idalojado?>" method="post">
+                <form action="editarAlojado.php?idalojado=<?=$idalojado?>" enctype="multipart/form-data" method="post">
                 <div class="row mb-3">
                     <div class="col-md-3">
                       <label id="nome">Nome</label>
@@ -141,6 +141,56 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                           }
                           echo "</select>";
                         ?>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-12">
+                      <h4>Anexos</h4>
+                      <div class="border p-2">
+                        <?php
+                        echo "<table id='tabelaAnexos' class='table table-borderless'>
+                                        <thead>
+                                          <tr class='text-center'>
+                                            <th>Visualização</th>
+                                            <th>Arquivo</th>
+                                            <th>Data de Envio</th>
+                                            <th>Visualizar Anexo</th>
+                                            <th>Deletar Anexo</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>";
+
+
+                          $sqlAnexo = "SELECT * FROM anexos WHERE id_alojado = :idalojado";
+                          $consulta = $conectar->prepare($sqlAnexo);
+                          $consulta->bindParam(":idalojado", $idalojado, PDO::PARAM_INT);
+                          $consulta->execute();
+                          if($consulta){
+                            while($linhaAnexo = $consulta->fetch(PDO::FETCH_ASSOC)){
+                              $dataUpload = date('d/m/Y H:i:s', strtotime($linhaAnexo['data_upload']));
+                                echo "<tr class='text-center'>
+                                        <td class='preview'><img width='100vw' src='$linhaAnexo[path]'</td>
+                                        <td>$linhaAnexo[nome_arquivo]</td>
+                                        <td>$dataUpload</td>
+                                        <td><a a target='_blank' class='btn btn-primary' href='$linhaAnexo[path]'><i class='fa-solid fa-eye'></i></a></td>
+                                        <td><a href='deletarArquivos.php?idanexo=$linhaAnexo[idanexo]&idalojado=$linha[idalojado]' class='btn btn-danger'><i class='fa-solid fa-xmark'></i></a></td>
+                                      </tr>";
+                              }
+                            } else {
+                              echo 'Erro ao executar a consulta de anexos!';
+                            }
+                            echo '</tbody>
+                                </table>';
+                          ?>
+                      </div>
+                      <input 
+                        id="anexo_foto_docs" 
+                        name="anexo_foto_docs[]" 
+                        class="form-control mt-2" 
+                        type="file" 
+                        multiple
+                      />
                     </div>
                   </div>
 

@@ -354,6 +354,7 @@ if($linha === false){
                       </div>
                     </div>
                   </div>
+                  
                   <div class="col text-center">
                     <a class='btn btn-laranja' href='./visualizar-despesas-locacao.php?idlocacao=<?=$linha["idlocacao"]?>'>Ver Despesas</a>
                     <a href="visualizar-locacoes.php" class="btn btn-danger btn-custom">Voltar</a>

@@ -16,7 +16,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <link rel="stylesheet" href="assets/css/btn-custom.css">
   <link rel="stylesheet" href="assets/css/ver-locacao.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+  <script src="https://kit.fontawesome.com/f8c979c0bf.js" crossorigin="anonymous"></script>
 </head>
 <?php
 include_once "conexao.php";
@@ -137,6 +137,53 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       <input id="telefone2" name="telefone2" class="form-control" value="<?= $gestor ?>" type="text" disabled readonly>
                     </div>
                   </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-12">
+                      <h4>Anexos</h4>
+                      <div class="border p-2">
+                        <?php
+                        echo "<table id='tabelaAnexos' class='table table-borderless table-responsive'>
+                                <thead>
+                                  <tr class='text-center'>
+                                    <th>Visualização</th>
+                                    <th>Arquivo</th>
+                                    <th>Data de Envio</th>
+                                    <th>Visualizar Anexo</th>
+                                  </tr>
+                                </thead>
+                                <tbody>";
+                          $sqlAnexo = "SELECT * FROM anexos WHERE id_alojado = :idalojado";
+                          $consulta = $conectar->prepare($sqlAnexo);
+                          $consulta->bindParam(":idalojado", $idalojado);
+                          $consulta->execute();
+                          if($consulta){
+                            if($linhaAnexo = $consulta->rowCount()>0){
+                              while($linhaAnexo = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                $dataUpload = date('d/m/Y H:i:s', strtotime($linhaAnexo['data_upload']));
+                                  echo "
+                                        <tr class='text-center'>
+                                          <td class='preview'><img width='100vw' src='$linhaAnexo[path]'</td>
+                                          <td>$linhaAnexo[nome_arquivo]</td>
+                                          <td>$dataUpload</td>
+                                          <td><a a target='_blank' class='btn btn-primary' href='$linhaAnexo[path]'><i class='fa-solid fa-eye'></i></a></td>
+                                        </tr>";
+                                }
+                              } else {
+                                echo "
+                                      <tr class='text-center'>
+                                        <td colspan='4' class='p-3'>Nenhum arquivo anexado!!</td>
+                                      </tr>";
+                              }
+                            } else {
+                              echo 'Erro ao executar a consulta de anexos!';
+                            }
+                            echo '</tbody>
+                                </table>';
+                          ?>
+                      </div>
+                    </div>
+                  </div>
               
                   <div class="col text-center">
                     <a href="./visualizar-alojados.php" class="btn btn-danger">Voltar</a>
@@ -153,6 +200,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="./assets/js/imageOrDocument.js"></script>
 </body>
 
 </html>

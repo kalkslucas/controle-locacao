@@ -1,8 +1,10 @@
 <?php
+include 'enviarArquivos.php';
 include_once 'conexao.php';
 try {
   $conectar->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $conectar->beginTransaction();
+  $transactionActive = true; // Flag to track transaction state
 
 
   $idalojado = filter_var($_GET['idalojado'], FILTER_SANITIZE_NUMBER_INT);
@@ -40,8 +42,28 @@ try {
 
   $conectar->commit();
 
+  $transactionActive = false; // Set flag to false as commit was successful
+
+
+  if (isset($_FILES['anexo_foto_docs']) && $_FILES['anexo_foto_docs']['error'][0] != UPLOAD_ERR_NO_FILE) {
+    $arquivos = $_FILES['anexo_foto_docs'];
+    $tudo_certo = true;
+    foreach ($arquivos['name'] as $index => $arq) {
+      $deu_certo = enviarArquivos($arquivos['error'][$index], $arquivos['size'][$index], $arquivos['name'][$index], $arquivos['tmp_name'][$index], NULL, NULL, $idalojado);
+      if (!$deu_certo) {
+        $tudo_certo = false;
+      }
+    }
+    if ($tudo_certo) {
+      echo '<p>Todos os arquivos foram enviados com sucesso!</p>';
+    } else {
+      echo '<p>Falha ao enviar um ou mais arquivos</p>';
+    }
+  }
   header('Location: visualizar-alojados.php');
 } catch (PDOException $e) {
-  $conectar->rollBack();
+  if (isset($transactionActive) && $transactionActive) {
+    $conectar->rollBack();
+  }
   echo 'Erro :' . $e->getMessage();
 }
