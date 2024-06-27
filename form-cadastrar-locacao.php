@@ -335,12 +335,16 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     </label>
                   </div>
 
-                  <label class="d-flex mt-3" id="enviarLocacao" for="enviarLocacao">
-                    <input 
-                      class="btn btn-laranja" 
-                      type="submit" 
-                      value="Cadastrar Locação"
-                    />
+                  <div class="row mb-3">
+                    <div class="col text-center">
+                      <input 
+                        class="btn btn-laranja" 
+                        type="submit" 
+                        value="Cadastrar Locação"
+                      />
+                    </div>
+                  </div>
+                    
                   </label>
                 </form>
               </div>

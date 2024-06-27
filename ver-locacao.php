@@ -232,7 +232,14 @@ if($linha === false){
                       <label for="listaAlojados"><h4>Alojados da locação</h4></label>
                       <div class="px-4 pt-2 border rounded">
                         <?php
-                          echo"<table class='table table-borderless'>";
+                          echo"<table class='table table-borderless'>
+                                      <thead>
+                                        <tr class='text-center disabledBgColor'>
+                                          <th>Nome</th>
+                                          <th>Cargo</th>
+                                          <th>Telefone</th>
+                                        </tr>
+                                      </thead>";
                           $sqlAlojados = "SELECT nome, cargo, telefone_1 FROM alojado WHERE id_locacao = :id_locacao";
                           $consulta = $conectar->prepare($sqlAlojados);
                           $consulta->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
@@ -241,14 +248,7 @@ if($linha === false){
                           if($consulta){
                             if($linhaAlojados = $consulta->rowCount()>0){
                               while($linhaAlojados = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                echo "<thead>
-                                        <tr class='text-center disabledBgColor'>
-                                          <th>Nome</th>
-                                          <th>Cargo</th>
-                                          <th>Telefone</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
+                                echo "<tbody>
                                         <tr class='text-center'>
                                           <td>$linhaAlojados[nome]</td>
                                           <td>$linhaAlojados[cargo]</td>
