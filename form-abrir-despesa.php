@@ -75,100 +75,52 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
                 <form enctype="multipart/form-data" action="deixarDespesaEmAberto.php?iddespesa=<?=$iddespesa?>" method="post">
-                <table class="table table-borderless">
-                    <tr>
-                      <td>
-                        <label id="tipo_despesa">
-                          Tipo da despesa
-                          <input id="tipo_despesa" name="tipo_despesa" class="form-control" type="text" value="<?= $linha['tipo_despesa'] ?>" aria-label="<?= $linha['tipo_despesa'] ?>" readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="empresa">
-                          Empresa
-                          <input id="empresa" name="empresa" class="form-control" type="text" value="<?= $linha['empresa'] ?>" aria-label="<?= $linha['empresa'] ?>" readonly>
-                        </label>
-                      </td>
-                      <td colspan="2">
-                        <label id="titular" style="width: 100%;">
-                          Titular
-                          <input id="titular" name="titular" class="form-control" type="text" value="<?= $linha['titular'] ?>" aria-label="<?= $linha['titular'] ?>" readonly>
-                        </label>
-                      </td>
-                    </tr>
-                    
-                    <tr>
-                    <?php
-                      if($linha['tipo_despesa'] == 'ÁGUA' || $linha['tipo_despesa'] == 'ENERGIA' || $linha['tipo_despesa'] == 'INTERNET') {
-                        echo "<td>
-                                <label id='num_instalacao'>
-                                  Número da Instalação
-                                  <input id='num_instalacao' name='num_instalacao' class='form-control' type='text' value='$linha[num_instalacao]' aria-label='$linha[num_instalacao]'>
-                                </label>
-                              </td>
-                              <td>
-                                <label id='consumo_velocidade'>
-                                  Consumo/Velocidade
-                                  <input id='consumo_velocidade' name='consumo_velocidade' class='form-control' type='text' value='$linha[consumo_velocidade]' aria-label='$linha[consumo_velocidade]'>
-                                </label>
-                              </td>";
-                      } else {
-                        echo "<td class='d-none'>
-                                <label id='num_instalacao'>
-                                  Número da Instalação
-                                  <input id='num_instalacao' name='num_instalacao' class='form-control' type='text' value='<?= $linha[num_instalacao] ?>' aria-label='<?= $linha[num_instalacao] ?>'>
-                                </label>
-                              </td>
-                              <td class='d-none'>
-                                <label id='consumo_velocidade'>
-                                  Consumo/Velocidade
-                                  <input id='consumo_velocidade' name='consumo_velocidade' class='form-control' type='text' value='<?= $linha[consumo_velocidade] ?>' aria-label='<?= $linha[consumo_velocidade] ?>'>
-                                </label>
-                              </td>";
-                      }
-                      ?>
-                      <td>
-                        <label id="valor_mes">
-                          Valor da conta
-                          <input id="valor_mes" name="valor_mes" class="form-control" type="text" value="<?= $linha['valor_mes'] ?>" aria-label="<?= $linha['valor_mes'] ?>" readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="vencimento">
-                          Data de Vencimento
-                          <input id="vencimento" name="vencimento" class="form-control" type="text" value="<?= $linha['vencimento'] ?>" aria-label="<?= $linha['vencimento'] ?>" readonly>
-                        </label>
-                      </td>
-                      <td>
-                        <label id="parcela">
-                          Parcela
-                          <input id="parcela" name="parcela" class="form-control" type="text" value="<?= $linha['parcela'] ?>" aria-label="<?= $linha['parcela'] ?>" readonly>
-                        </label>
-                      </td>
-                    </tr>
-
-                    <tr>
-
-                      
-                      <td colspan="2">
-                        <label id="anexo_contas">
-                          Visualizar Anexos
-                          <div id="anexo_contas" name="anexo_contas" class="form-control" type="file" value="<?=$linha['anexo_contas']?>" aria-label="<?=$linha['anexo_contas']?>" disabled readonly> 
-                            <a target="_blank" href="<?=$linha['anexo_contas']?>">Comprovante de Pagamento</a> 
-                          </div>
-                        </label>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td colspan="5" class="text-end">
-                        <br>
-                        <label style="width: 25%;" id="enviar">
-                          <input class="form-control btn btn-danger" type="submit" value="Confirmar reabertura da despesa">
-                        </label>
-                      </td>
-                    </tr>
-                  </table>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                      <label id="tipo_despesa">Tipo da despesa</label>
+                      <input id="tipo_despesa" name="tipo_despesa" class="form-control" type="text" value="<?= $linha['tipo_despesa'] ?>" aria-label="<?= $linha['tipo_despesa'] ?>" readonly>
+                    </div>
+                    <div class="col-md-4">
+                      <label id="empresa">Empresa</label>
+                      <input id="empresa" name="empresa" class="form-control" type="text" value="<?= $linha['empresa'] ?>" aria-label="<?= $linha['empresa'] ?>" readonly>
+                    </div>
+                    <div class="col-md-4">
+                      <label id="titular">Titular</label>
+                      <input id="titular" name="titular" class="form-control" type="text" value="<?= $linha['titular'] ?>" aria-label="<?= $linha['titular'] ?>" readonly>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <?php if($linha['tipo_despesa'] == 'ÁGUA' || $linha['tipo_despesa'] == 'ENERGIA' || $linha['tipo_despesa'] == 'INTERNET'): ?>
+                    <div class='col-md-2'>
+                      <label id='num_instalacao'>Número da Instalação</label>
+                      <input id='num_instalacao' name='num_instalacao' class='form-control' type='text' value='<?=$linha['num_instalacao']?>' aria-label='$linha[num_instalacao]' readonly>
+                    </div>
+                    <div class='col-md-2'>
+                      <label id='consumo_velocidade'>Consumo/Velocidade</label>
+                      <input id='consumo_velocidade' name='consumo_velocidade' class='form-control' type='text' value='<?= $linha['consumo_velocidade']?>' aria-label='$linha[consumo_velocidade]' readonly>
+                    </div>
+                    <?php endif; ?>
+                    <div class="col-md-2">
+                      <label id="valor_mes">Valor da conta</label>
+                      <input id="valor_mes" name="valor_mes" class="form-control" type="text" value="<?="R$ " . number_format($linha['valor_mes'], 2, ",",".") ?>" aria-label=<?="R$ " .  number_format($linha['valor_mes'], 2, ",",".") ?>" readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label id="vencimento">Data de Vencimento</label>
+                        <?php 
+                          $vencimento = DateTime::createFromFormat('d/m/Y', $linha['vencimento'])->format('Y-m-d');
+                        ?>
+                        <input type="date" id="vencimento" name="vencimento" class="form-control" value="<?= $vencimento ?>" readonly>
+                    </div>
+                    <div class="col-md-4" colspan="2">
+                      <label id="anexo_contas">Visualizar Anexo</label>
+                      <div id='anexo_contas' name='anexo_contas' aria-label='$linha[anexo_contas]'><a target='_blank' href='<?= $linha['anexo_contas']?>' class='w-100 btn btn-secondary text-decoration-none text-white'>Comprovante de Pagamento</a></div>
+                    </div>
+                  </div>
+                  
+                  <div class="col text-center">
+                    <a href="./visualizar-despesas.php" class="btn btn-danger">Voltar</a>
+                    <input class="btn btn-success" type="submit" value="Confirmar Edição">
+                  </div>
                 </form>
 
               </div>
@@ -177,13 +129,6 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
         </div>
       </div>
     </div>
-
-    <div class="row justify-content-end">
-      <div class="col-md-1 col-sm-12 mb-4">
-        <a href="./visualizar-despesas.php" class="btn btn-danger btn-modal w-100">Voltar</a>
-      </div>
-    </div>
-
   </main>
 
 

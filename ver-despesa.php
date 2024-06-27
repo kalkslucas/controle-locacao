@@ -86,7 +86,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       <input id="empresa" name="empresa" class="form-control" type="text" value="<?= $linha['empresa'] ?>" aria-label="<?= $linha['empresa'] ?>"disabled readonly>
                     </div>
                     <div class="col-md-4">
-                      <label id="titular" style="width: 100%;">Titular</label>
+                      <label id="titular">Titular</label>
                       <input id="titular" name="titular" class="form-control" type="text" value="<?= $linha['titular'] ?>" aria-label="<?= $linha['titular'] ?>"disabled readonly>
                     </div>
                   </div>
