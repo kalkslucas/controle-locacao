@@ -121,19 +121,20 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
           <div class="card-body d-flex flex-column justify-content-around align-items-center">
             <h5 class="card-title">Próximas contas a vencer</h5>
             <?php
-              echo "<table class='table table-borderless'>";
+              echo "<table class='table table-borderless'>
+                        <tr>
+                          <th>Tipo da Despesa</th>
+                          <th>Número da Locação</th>
+                          <th>Valor</th>
+                          <th>Data de vencimento</th>
+                        </tr>";
               $sql = "SELECT tipo_despesa, l.idlocacao, valor_mes, vencimento FROM despesas d inner join locacao l on d.id_locacao = l.idlocacao WHERE VENCIMENTO BETWEEN CURRENT_DATE and DATE_ADD(CURRENT_DATE, INTERVAL 5 day) and situacao_conta = 0";
               $consultaContaAVencer = $conectar->query($sql);
               if($linha = $consultaContaAVencer->rowCount() > 0) {
                 while($linha = $consultaContaAVencer->fetch(PDO::FETCH_ASSOC)){
                   $valorMes = number_format($linha['valor_mes'], 2, ',', '.');
                   $vencimento = DateTime::createFromFormat('Y-m-d', $linha['vencimento'])->format('d/m/Y');
-                  echo "<tr>
-                          <th>Tipo da Despesa</th>
-                          <th>Número da Locação</th>
-                          <th>Valor</th>
-                          <th>Data de vencimento</th>
-                        </tr>
+                  echo "
                         <tr>
                           <td>$linha[tipo_despesa]</td>
                           <td>$linha[idlocacao]</td>
