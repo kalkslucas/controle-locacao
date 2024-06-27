@@ -300,8 +300,8 @@ function formatDate($date) {
                     </div>
                   </div>
                   <div class="col text-center">
-                    <input type="submit" class='btn btn-success' value="Confirmar Edição"></input>
                     <a href="visualizar-locacoes.php" class="btn btn-danger btn-custom">Voltar</a>
+                    <input type="submit" class='btn btn-success' value="Confirmar Edição"></input>
                   </div>
                 </form>
               </div>

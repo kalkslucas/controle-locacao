@@ -320,12 +320,12 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 
                   <div class="row mb-3">
                     <div class="col text-center">
+                    <a href="./visualizar-locacoes.php" class="text-center btn btn-danger">Voltar</a>
                       <input 
                         class="btn btn-laranja" 
                         type="submit" 
                         value="Cadastrar Locação"
                       />
-                      <a href="./visualizar-locacoes.php" class="text-center btn btn-danger">Voltar</a>
                     </div>
                   </div>
                     

@@ -61,8 +61,8 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   </header>
 
   <div class="hstack gap-1 px-2 mb-3">
-    <a href='./form-cadastrar-locador.php' class='btn btn-warning'>Cadastrar Locador</a>
     <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
+    <a href='./form-cadastrar-locador.php' class='btn btn-warning'>Cadastrar Locador</a>
     <form action="" class="d-flex ms-auto">
       <input type="text" name="filtrar" id="filtrar" placeholder="Pesquisar" class="form-control me-2" aria-label="Pesquisar" value="<?php if(isset($_GET['filtrar'])) echo $_GET['filtrar']?>">
       <button class="btn btn-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>

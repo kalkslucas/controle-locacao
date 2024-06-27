@@ -238,8 +238,8 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                   </div>
 
                   <div class="col-sm-12 text-center">
-                    <input class="btn btn-success" type="submit" value="Confirmar Edição">
                     <a href="./visualizar-locadores.php" class="btn btn-danger">Voltar</a>
+                    <input class="btn btn-success" type="submit" value="Confirmar Edição">
                   </div>
                 </form>
 
