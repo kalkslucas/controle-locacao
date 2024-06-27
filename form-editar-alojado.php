@@ -20,8 +20,18 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $idalojado = filter_var($_GET['idalojado'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT nome, email, cargo, setor, unidade, telefone_1, telefone_2 from alojado where idalojado = '$idalojado'";
-$consulta = $conectar->query($sql);
+$sql = "SELECT a.nome as alojado, a.email as email, a.cargo as cargo, a.setor as setor, a.unidade as unidade, a.telefone_1 as telefone_1, a.telefone_2 as telefone_2, id_locacao, ftc, rua, numero, bairro, cidade, estado, cep, g.nome as gestor 
+from alojado a 
+inner join locacao lc
+on a.id_locacao = lc.idlocacao
+inner join endereco e
+on lc.id_endereco = e.idendereco
+inner join gestor g
+on a.id_gestor = g.idgestor
+where idalojado = :idalojado";
+$consulta = $conectar->prepare($sql);
+$consulta->bindParam(":idalojado", $idalojado, PDO::PARAM_INT);
+$consulta->execute();
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
 
@@ -78,7 +88,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                 <div class="row mb-3">
                     <div class="col-md-3">
                       <label id="nome">Nome</label>
-                      <input id="nome" name="nome" class="form-control" value="<?= $linha['nome']?>" type="text" placeholder="Digite o nome completo" required>
+                      <input id="nome" name="nome" class="form-control" value="<?= $linha['alojado']?>" type="text" placeholder="Digite o nome completo" required>
                     </div>
                     <div class="col-md-3">
                       <label id="cargo">Cargo</label>
@@ -112,24 +122,25 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                   <div class="row mb-3">
                     <div class="col md 12">
                       <label for="id_locacao">Vincular a Locação</label>
-                      <select class="form-select" name="id_locacao" id="id_locacao" required>
-                        <option value=""></option>
+                      
                         <?php
                           include_once 'conexao.php';
                           try {
                             $query = "SELECT idlocacao, ftc, rua, numero, bairro, cidade, estado, cep, nome FROM locacao l INNER JOIN endereco e ON l.id_endereco = e.idendereco INNER JOIN gestor g ON l.id_gestor = g.idgestor";
-
                             $consulta = $conectar->query($query);
-                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                              echo "<option value='$linha[idlocacao]'>$linha[ftc] | $linha[rua], $linha[numero], $linha[bairro], $linha[cidade] - $linha[estado] | $linha[nome]";
+                            echo "<select class='form-select' name='id_locacao' id='id_locacao' required>
+                                    <option value='$linha[id_locacao]'>$linha[ftc] | $linha[rua], $linha[numero], $linha[bairro], $linha[cidade] - $linha[estado] | $linha[gestor]</option>";
+                            
+                            while($linhaLocacao = $consulta->fetch(PDO::FETCH_ASSOC)){
+                              echo "<option value='$linhaLocacao[idlocacao]'>$linhaLocacao[ftc] | $linhaLocacao[rua], $linhaLocacao[numero], $linhaLocacao[bairro], $linhaLocacao[cidade] - $linhaLocacao[estado] | $linhaLocacao[nome]";
                             }
                           } catch (PDOException $e) {
                             echo 'Error: ' . $e->getMessage();
                             // Log the error
                             error_log('Error: ' . $e->getMessage(), 0);
                           }
+                          echo "</select>";
                         ?>
-                      </select>
                     </div>
                   </div>
 
