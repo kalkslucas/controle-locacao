@@ -174,23 +174,63 @@ if($linha === false){
                     </div>
                     <div class="col-md-2">
                       <label for="valorInternet">Valor da Internet</label>
-                      <input type="text" name="valorInternet" id="valorInternet" class="form-control" disabled readonly>
+                      <?php
+                        $sqlValor = "SELECT * FROM despesas WHERE id_locacao = :id_locacao AND tipo_despesa = 'INTERNET'";
+                        $consultaValor = $conectar->prepare($sqlValor);
+                        $consultaValor->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
+                        $consultaValor->execute();
+                        $linhaValor = $consultaValor->fetch(PDO::FETCH_ASSOC);
+                        $valorInternet = $linhaValor ? 'R$ ' . number_format($linhaValor['VALOR_MES'], 2, ',', '.') : 'Não encontrado';
+                      ?>
+                      <input type="text" name="valorInternet" id="valorInternet" class="form-control" value="<?= $valorInternet ?>" disabled readonly>
                     </div>
                     <div class="col-md-2">
                       <label for="valorEnergia">Valor da Energia</label>
-                      <input type="text" name="valorEnergia" id="valorEnergia" class="form-control" disabled readonly>
+                      <?php
+                        $sqlValor = "SELECT * FROM despesas WHERE id_locacao = :id_locacao AND tipo_despesa = 'ENERGIA'";
+                        $consultaValor = $conectar->prepare($sqlValor);
+                        $consultaValor->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
+                        $consultaValor->execute();
+                        $linhaValor = $consultaValor->fetch(PDO::FETCH_ASSOC);
+                        $valorEnergia = $linhaValor ? 'R$ ' . number_format($linhaValor['VALOR_MES'], 2, ',', '.') : 'Não encontrado';
+                      ?>
+                      <input type="text" name="valorEnergia" id="valorEnergia" class="form-control" value="<?= $valorEnergia ?>" disabled readonly>
                     </div>
                     <div class="col-md-2">
                       <label for="valorAgua">Valor da Água</label>
-                      <input type="text" name="valorAgua" id="valorAgua" class="form-control" disabled readonly>
+                      <?php
+                        $sqlValor = "SELECT * FROM despesas WHERE id_locacao = :id_locacao AND tipo_despesa = 'ÁGUA'";
+                        $consultaValor = $conectar->prepare($sqlValor);
+                        $consultaValor->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
+                        $consultaValor->execute();
+                        $linhaValor = $consultaValor->fetch(PDO::FETCH_ASSOC);
+                        $valorAgua = $linhaValor ? 'R$ ' . number_format($linhaValor['VALOR_MES'], 2, ',', '.') : 'Não encontrado';
+                      ?>
+                      <input type="text" name="valorAgua" id="valorAgua" class="form-control" value="<?= $valorAgua ?>" disabled readonly>
                     </div>
                     <div class="col-md-2">
                       <label for="valorCondominio">Valor do Condomínio</label>
-                      <input type="text" name="valorCondominio" id="valorCondominio" class="form-control" disabled readonly>
+                      <?php
+                        $sqlValor = "SELECT * FROM despesas WHERE id_locacao = :id_locacao AND tipo_despesa = 'CONDOMÍNIO'";
+                        $consultaValor = $conectar->prepare($sqlValor);
+                        $consultaValor->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
+                        $consultaValor->execute();
+                        $linhaValor = $consultaValor->fetch(PDO::FETCH_ASSOC);
+                        $valorCondominio = $linhaValor ? 'R$ ' . number_format($linhaValor['VALOR_MES'], 2, ',', '.') : 'Não encontrado';
+                      ?>
+                      <input type="text" name="valorCondominio" id="valorCondominio" class="form-control" value="<?= $valorCondominio ?>" disabled readonly>
                     </div>
                     <div class="col-md-2">
                       <label for="valorIPTU">Valor do IPTU</label>
-                      <input type="text" name="valorIPTU" id="valorIPTU" class="form-control" disabled readonly>
+                      <?php
+                        $sqlValor = "SELECT * FROM despesas WHERE id_locacao = :id_locacao AND tipo_despesa = 'IPTU'";
+                        $consultaValor = $conectar->prepare($sqlValor);
+                        $consultaValor->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
+                        $consultaValor->execute();
+                        $linhaValor = $consultaValor->fetch(PDO::FETCH_ASSOC);
+                        $valorIPTU = $linhaValor ? 'R$ ' . number_format($linhaValor['VALOR_MES'], 2, ',', '.') : 'Não encontrado';
+                      ?>
+                      <input type="text" name="valorIPTU" id="valorIPTU" class="form-control" value="<?= $valorIPTU ?>" disabled readonly>
                     </div>
                   </div>
 
