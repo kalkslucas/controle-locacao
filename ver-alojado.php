@@ -23,8 +23,10 @@ include_once "conexao.php";
 $idalojado = filter_var($_GET['idalojado'], FILTER_SANITIZE_NUMBER_INT);
 $sql = "SELECT nome as alojado, email, cargo, setor, unidade, telefone_1, telefone_2, id_locacao, id_gestor
 from alojado a
-where idalojado = '$idalojado'";
-$consulta = $conectar->query($sql);
+where idalojado = :idalojado";
+$consulta = $conectar->prepare($sql);
+$consulta->bindParam(":idalojado", $idalojado, PDO::PARAM_INT);
+$consulta->execute();
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
 
@@ -117,7 +119,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         $consulta->bindParam(":id_locacao", $linha['id_locacao']);
                         $consulta->execute();
                         $linhaLocacao = $consulta->fetch(PDO::FETCH_ASSOC);
-                        $locacao = $linhaLocacao ? true : 'Sem locação vinculada';
+                        $locacao = $linhaLocacao ? "$linhaLocacao[idlocacao]" : 'Sem locação vinculada';
                       ?>
                       <label id="telefone2">Vinculado a Locação</label>
                       <input id="telefone2" name="telefone2" class="form-control" value="<?= $locacao ?>" type="text" disabled readonly>
@@ -129,7 +131,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         $consulta->bindParam(":id_gestor", $linha['id_gestor']);
                         $consulta->execute();
                         $linhaGestor = $consulta->fetch(PDO::FETCH_ASSOC);
-                        $gestor = $linhaGestor ? true : 'Sem gestor responsável';
+                        $gestor = $linhaGestor ? "$linhaGestor[nome]" : 'Sem gestor responsável';
                       ?>
                       <label id="telefone2">Gestor Responsável</label>
                       <input id="telefone2" name="telefone2" class="form-control" value="<?= $gestor ?>" type="text" disabled readonly>

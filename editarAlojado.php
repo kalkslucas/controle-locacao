@@ -13,9 +13,18 @@ try {
   $unidade = filter_var($_POST['unidade']);
   $telefone_1 = filter_var($_POST['telefone_1']);
   $telefone_2 = filter_var($_POST['telefone_2']);
+  $vincularLocacao = filter_var($_POST['id_locacao']);
+
+  $sqlGestor = "SELECT id_gestor FROM locacao WHERE idlocacao = :id_locacao";
+  $consulta = $conectar->prepare($sqlGestor);
+  $consulta->bindParam(":id_locacao", $vincularLocacao, PDO::PARAM_INT);
+  $consulta->execute();
+  $idGestor = $consulta->fetch(PDO::FETCH_ASSOC);
+
+  $gestor = $idGestor['id_gestor'];
   
 
-  $update = $conectar->prepare("UPDATE alojado SET nome = :nome, email = :email, cargo = :cargo, setor = :setor, unidade = :unidade, telefone_1 = :telefone_1, telefone_2 = :telefone_2 WHERE idalojado = :idalojado");
+  $update = $conectar->prepare("UPDATE alojado SET nome = :nome, email = :email, cargo = :cargo, setor = :setor, unidade = :unidade, telefone_1 = :telefone_1, telefone_2 = :telefone_2, id_locacao = :id_locacao, id_gestor = :id_gestor WHERE idalojado = :idalojado");
 
   $update->bindParam(":idalojado", $idalojado, PDO::PARAM_INT);
   $update->bindParam(":nome", $nome, PDO::PARAM_STR);
@@ -25,6 +34,8 @@ try {
   $update->bindParam(":unidade", $unidade, PDO::PARAM_STR);
   $update->bindParam(":telefone_1", $telefone_1, PDO::PARAM_STR);
   $update->bindParam(":telefone_2", $telefone_2, PDO::PARAM_STR);
+  $update->bindParam(':id_locacao', $vincularLocacao, PDO::PARAM_INT);
+  $update->bindParam(':id_gestor', $gestor, PDO::PARAM_INT);
   $update->execute();
 
   $conectar->commit();
