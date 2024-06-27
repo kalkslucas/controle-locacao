@@ -14,6 +14,8 @@ $valorConta = filter_var($_POST["valorConta"]);
 $dataVencimento = filter_var($_POST["dataVencimento"]);
 $vincularLocacao = filter_var($_POST["vincularLocacao"]);
 
+$valorConta = str_replace(',','.', $valorConta);
+
 $query = "INSERT INTO despesas (tipo_despesa, empresa, parcela, titular, num_instalacao, consumo_velocidade, valor_mes, vencimento, id_locacao) VALUES (:tipoDespesa, :empresa, :parcela, :titular, :numInstalacao, :consumoVelocidade, :valorConta, :dataVencimento, :vincularLocacao)";
 
 $insert = $conectar->prepare($query);

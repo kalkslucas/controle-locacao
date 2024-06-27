@@ -187,24 +187,24 @@ if($linha === false){
                     <div class="col-md-2">
                       <label for="valorEnergia">Valor da Energia</label>
                       <?php
-                        $sqlValor = "SELECT * FROM despesas WHERE id_locacao = :id_locacao AND tipo_despesa = 'ENERGIA'";
+                        $sqlValor = "SELECT AVG(valor_mes) as valor_mes FROM despesas WHERE id_locacao = :id_locacao AND tipo_despesa = 'ENERGIA'";
                         $consultaValor = $conectar->prepare($sqlValor);
                         $consultaValor->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
                         $consultaValor->execute();
                         $linhaValor = $consultaValor->fetch(PDO::FETCH_ASSOC);
-                        $valorEnergia = $linhaValor ? 'R$ ' . number_format($linhaValor['VALOR_MES'], 2, ',', '.') : 'Não encontrado';
+                        $valorEnergia = $linhaValor ? 'R$ ' . number_format($linhaValor['valor_mes'], 2, ',', '.') : 'Não encontrado';
                       ?>
                       <input type="text" name="valorEnergia" id="valorEnergia" class="form-control" value="<?= $valorEnergia ?>" disabled readonly>
                     </div>
                     <div class="col-md-2">
                       <label for="valorAgua">Valor da Água</label>
                       <?php
-                        $sqlValor = "SELECT * FROM despesas WHERE id_locacao = :id_locacao AND tipo_despesa = 'ÁGUA'";
+                        $sqlValor = "SELECT AVG(valor_mes) as valor_mes FROM despesas WHERE id_locacao = :id_locacao AND tipo_despesa = 'ÁGUA'";
                         $consultaValor = $conectar->prepare($sqlValor);
                         $consultaValor->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
                         $consultaValor->execute();
                         $linhaValor = $consultaValor->fetch(PDO::FETCH_ASSOC);
-                        $valorAgua = $linhaValor ? 'R$ ' . number_format($linhaValor['VALOR_MES'], 2, ',', '.') : 'Não encontrado';
+                        $valorAgua = $linhaValor ? 'R$ ' . number_format($linhaValor['valor_mes'], 2, ',', '.') : 'Não encontrado';
                       ?>
                       <input type="text" name="valorAgua" id="valorAgua" class="form-control" value="<?= $valorAgua ?>" disabled readonly>
                     </div>
