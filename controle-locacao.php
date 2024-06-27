@@ -76,11 +76,8 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
               
               if($linha = $consulta->rowCount() > 0) {
                 while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-
-                  echo "
-                  <p class='display-5'>$linha[QUANT_LOCACOES]</p>
-                  <p class='card-text'>Locações</p>
-                  ";
+                  echo "<p class='display-3'>$linha[QUANT_LOCACOES]</p>
+                        <p class='card-text'>Locações</p>";
                 } 
               } else {
                 echo "<p class='display-5'>0</p>";
@@ -108,8 +105,8 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
                 }
               } else {
                 echo "<tr class='text-center'>
-                <td> Sem locações cadastradas </td>
-                ";  
+                        <td> Sem locações cadastradas </td>
+                      </tr>";  
               }
               echo "</table>";
             ?>
@@ -144,7 +141,7 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
                 }
               } else {
                 echo "<tr class='text-center'>
-                  <td>Sem contas a vencer nos próximos 5 dias</td>
+                  <td colspan='4'>Sem contas a vencer nos próximos 5 dias</td>
                 </tr>";
               }
               echo "</table>";
