@@ -10,7 +10,7 @@ try {
   $cargo = filter_var($_POST['cargo']);
   $setor = filter_var($_POST['setor']);
   $unidade = filter_var($_POST['unidade']);
-  $vincularLocacao = filter_var($_POST['id_locacao']);
+  $vincularLocacao = !empty(filter_var($_POST['id_locacao'])) ? filter_var($_POST['id_locacao']) : NULL;
 
   $sqlGestor = "SELECT id_gestor FROM locacao WHERE idlocacao = :id_locacao";
   $consulta = $conectar->prepare($sqlGestor);
@@ -38,7 +38,7 @@ try {
 
   $conectar->commit();
 
-  header('Location: visualizar-gestores.php');
+  header('Location: visualizar-alojados.php');
 
 } catch (PDOException $e) {
   $conectar->rollBack();

@@ -20,14 +20,8 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $idalojado = filter_var($_GET['idalojado'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT idalojado, a.nome as alojado, a.email as email, a.cargo as cargo, a.setor as setor, a.unidade as unidade, a.telefone_1 as telefone_1, a.telefone_2 as telefone_2, id_locacao, ftc, rua, numero, bairro, cidade, estado, cep, g.nome as gestor 
+$sql = "SELECT a.nome as alojado, a.email as email, a.cargo as cargo, a.setor as setor, a.unidade as unidade, a.telefone_1 as telefone_1, a.telefone_2 as telefone_2 
 from alojado a 
-inner join locacao lc
-on a.id_locacao = lc.idlocacao
-inner join endereco e
-on lc.id_endereco = e.idendereco
-inner join gestor g
-on a.id_gestor = g.idgestor
 where idalojado = :idalojado";
 $consulta = $conectar->prepare($sql);
 $consulta->bindParam(":idalojado", $idalojado, PDO::PARAM_INT);
@@ -122,23 +116,54 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                   <div class="row mb-3">
                     <div class="col md 12">
                       <label for="id_locacao">Vincular a Locação</label>
-                      
+                        <select class='form-select' name='id_locacao' id='id_locacao'>
                         <?php
                           include_once 'conexao.php';
                           try {
-                            $query = "SELECT idlocacao, ftc, rua, numero, bairro, cidade, estado, cep, nome FROM locacao l INNER JOIN endereco e ON l.id_endereco = e.idendereco INNER JOIN gestor g ON l.id_gestor = g.idgestor";
-                            $consulta = $conectar->query($query);
-                            echo "<select class='form-select' name='id_locacao' id='id_locacao' required>
-                                    <option value='$linha[id_locacao]'>$linha[ftc] | $linha[rua], $linha[numero], $linha[bairro], $linha[cidade] - $linha[estado] | $linha[gestor]</option>";
-                            
-                            while($linhaLocacao = $consulta->fetch(PDO::FETCH_ASSOC)){
-                              echo "<option value='$linhaLocacao[idlocacao]'>$linhaLocacao[ftc] | $linhaLocacao[rua], $linhaLocacao[numero], $linhaLocacao[bairro], $linhaLocacao[cidade] - $linhaLocacao[estado] | $linhaLocacao[nome]";
-                            }
+                            $queryLocacaoAtual = "SELECT lc.idlocacao, lc.ftc, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.cep, g.nome as gestor 
+                                                  from alojado a 
+                                                  inner join locacao lc
+                                                  on a.id_locacao = lc.idlocacao
+                                                  inner join endereco e
+                                                  on lc.id_endereco = e.idendereco
+                                                  inner join gestor g
+                                                  on a.id_gestor = g.idgestor
+                                                  where a.idalojado = :idalojado";
+                            $consultaLocacaoAtual = $conectar->prepare($queryLocacaoAtual);
+                            $consultaLocacaoAtual->bindParam(":idalojado", $idalojado, PDO::PARAM_INT);
+                            $consultaLocacaoAtual->execute();
+                            $linhaLocacaoAtual = $consultaLocacaoAtual->fetch(PDO::FETCH_ASSOC);
+
+                            echo "<option value=''>Nenhuma</option>";
+
+                            if($linhaLocacaoAtual){
+                              echo "<option value='$linhaLocacaoAtual[idlocacao]' selected>$linhaLocacaoAtual[ftc] | $linhaLocacaoAtual[rua], $linhaLocacaoAtual[numero], $linhaLocacaoAtual[bairro], $linhaLocacaoAtual[cidade] - $linhaLocacaoAtual[estado] | $linhaLocacaoAtual[gestor]";
+                              $idLocacaoAtual = $linhaLocacaoAtual["idlocacao"];
+                            } else {
+                              $idLocacaoAtual = null;
+                            } 
+                              $queryLista = "SELECT lc.idlocacao, lc.ftc, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.cep, g.nome as gestor 
+                                                FROM locacao lc 
+                                                INNER JOIN endereco e ON lc.id_endereco = e.idendereco 
+                                                INNER JOIN gestor g ON lc.id_gestor = g.idgestor";
+                              if($idLocacaoAtual){
+                                $queryLista .= " WHERE lc.idlocacao != :idLocacaoAtual";
+                              }
+                              $consulta = $conectar->prepare($queryLista);
+
+                              if($idLocacaoAtual){
+                                $consulta->bindParam(":idLocacaoAtual",$idLocacaoAtual, PDO::PARAM_INT);
+                              }
+                              
+                              $consulta->execute();
+
+                              while($linhaLocacao = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                echo "<option value='$linhaLocacao[idlocacao]'>$linhaLocacao[ftc] | $linhaLocacao[rua], $linhaLocacao[numero], $linhaLocacao[bairro], $linhaLocacao[cidade] - $linhaLocacao[estado] | $linhaLocacao[gestor]";
+                              }                         
                           } catch (PDOException $e) {
                             echo 'Error: ' . $e->getMessage();
-                            // Log the error
-                            error_log('Error: ' . $e->getMessage(), 0);
                           }
+
                           echo "</select>";
                         ?>
                     </div>
@@ -174,7 +199,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                                         <td>$linhaAnexo[nome_arquivo]</td>
                                         <td>$dataUpload</td>
                                         <td><a a target='_blank' class='btn btn-primary' href='$linhaAnexo[path]'><i class='fa-solid fa-eye'></i></a></td>
-                                        <td><a href='deletarArquivos.php?idanexo=$linhaAnexo[idanexo]&idalojado=$linha[idalojado]' class='btn btn-danger'><i class='fa-solid fa-xmark'></i></a></td>
+                                        <td><a href='deletarArquivos.php?idanexo=$linhaAnexo[idanexo]&idalojado=$idalojado' class='btn btn-danger'><i class='fa-solid fa-xmark'></i></a></td>
                                       </tr>";
                               }
                             } else {

@@ -15,7 +15,7 @@ try {
   $unidade = filter_var($_POST['unidade']);
   $telefone_1 = filter_var($_POST['telefone_1']);
   $telefone_2 = filter_var($_POST['telefone_2']);
-  $vincularLocacao = filter_var($_POST['id_locacao']);
+  $vincularLocacao = !empty(filter_var($_POST['id_locacao'])) ? filter_var($_POST['id_locacao']) : NULL;
 
   $sqlGestor = "SELECT id_gestor FROM locacao WHERE idlocacao = :id_locacao";
   $consulta = $conectar->prepare($sqlGestor);

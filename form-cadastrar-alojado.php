@@ -103,7 +103,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                   <div class="row mb-3">
                     <div class="col md 12">
                       <label for="id_locacao">Vincular a Locação</label>
-                      <select class="form-select" name="id_locacao" id="id_locacao" required>
+                      <select class="form-select" name="id_locacao" id="id_locacao">
                         <option value="">---</option>
                         <?php
                           include_once 'conexao.php';
