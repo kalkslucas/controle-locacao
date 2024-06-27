@@ -131,7 +131,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       <td>
                         <label id="valor_mes">
                           Valor da conta
-                          <input id="valor_mes" name="valor_mes" class="form-control" type="text" value="<?= $linha['valor_mes'] ?>" aria-label="<?= $linha['valor_mes'] ?>"disabled readonly>
+                          <input id="valor_mes" name="valor_mes" class="form-control" type="text" value="<?= "R$ " . number_format($linha['valor_mes'], 2, ",",".") ?>" aria-label="<?= $linha['valor_mes'] ?>"disabled readonly>
                         </label>
                       </td>
                       <td>

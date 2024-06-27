@@ -79,13 +79,13 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     <thead>
                       <tr class='text-center'>
                         <th>Tipo da Despesa</th>
-                        <th>Número da Locação</th>
+                        <th>Titular</th>
                         <th>Parcela</th>
                         <th>Valor</th>
                         <th>Data de Vencimento</th>
                         <th>Visualizar</th>
                         <th>Editar</th>
-                        <th>Status</th>
+                        <th>Abrir Conta</th>
                       </tr>
                     </thead>
                     <tbody>";
@@ -100,16 +100,17 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
               //execução da instrução sql
               $consulta = $conectar->query($sql);
               while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                $valor_mes = number_format($linha['valor_mes'], 2, ",", ".");
                 echo "  
                         <tr class='text-center'>
                           <td>$linha[tipo_despesa]</td>
-                          <td>$linha[id_locacao]</td>
+                          <td>$linha[titular]</td>
                           <td>$linha[parcela]</td>
-                          <td>$linha[valor_mes]</td>
+                          <td>R$ $valor_mes</td>
                           <td>$linha[vencimento]</td>
-                          <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Ver detalhes da despesa</a></td>
-                          <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Editar despesa</a></td>
-                          <td><a href='./form-abrir-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-danger'>Retomar conta em aberto</a></td>
+                          <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-primary p-2'><i class='fa-solid fa-eye fa-xl'></i></a></td>
+                          <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja p-2'><i class='fa-solid fa-pencil fa-xl'></i></a></td>
+                          <td><a href='./form-abrir-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-danger p-2'><i class='fa-solid fa-hand-holding-dollar fa-xl'></i></a></td>
                         </tr>
                 ";
               }
@@ -125,16 +126,17 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
               $consulta->bindParam(":filtrar", $filtrar, PDO::PARAM_STR);
               $consulta->execute();
               while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                $valor_mes = number_format($linha['valor_mes'], 2, ",", ".");
                 echo "  
                         <tr class='text-center'>
                           <td>$linha[tipo_despesa]</td>
-                          <td>$linha[id_locacao]</td>
+                          <td>$linha[titular]</td>
                           <td>$linha[parcela]</td>
-                          <td>$linha[valor_mes]</td>
+                          <td>R$ $valor_mes</td>
                           <td>$linha[vencimento]</td>
-                          <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Ver detalhes da despesa</a></td>
-                          <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Editar despesa</a></td>
-                          <td><a href='./form-abrir-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-danger'>Retomar conta em aberto</a></td>
+                          <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-primary p-2'><i class='fa-solid fa-eye fa-xl'></i></a></td>
+                          <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja p-2'><i class='fa-solid fa-pencil fa-xl'></i></a></td>
+                          <td><a href='./form-abrir-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-danger p-2'><i class='fa-solid fa-hand-holding-dollar fa-xl'></i></a></td>
                         </tr>
                 ";
               }
@@ -164,7 +166,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     <thead>
                       <tr class='text-center'>
                         <th>Tipo da Despesa</th>
-                        <th>Número da Locação</th>
+                        <th>Titular</th>
                         <th>Parcela</th>
                         <th>Valor</th>
                         <th>Data de Vencimento</th>
@@ -185,15 +187,16 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
               //execução da instrução sql
               $consulta = $conectar->query($sql);
               while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                $valor_mes = number_format($linha['valor_mes'], 2, ",", ".");
                 echo "  <tr class='text-center'>
                           <td>$linha[tipo_despesa]</td>
-                          <td>$linha[id_locacao]</td>
+                          <td>$linha[titular]</td>
                           <td>$linha[parcela]</td>
-                          <td>$linha[valor_mes]</td>
+                          <td>R$ $valor_mes</td>
                           <td>$linha[vencimento]</td>
-                          <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Ver detalhes da despesa</a></td>
-                          <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Editar despesa</a></td>
-                          <td><a href='./form-pagar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-success'>Registrar Pagamento</a></td>
+                          <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-primary p-2'><i class='fa-solid fa-eye fa-xl'></i></a></td>
+                          <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja p-2'><i class='fa-solid fa-pencil fa-xl'></i></a></td>
+                          <td><a href='./form-pagar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-success p-2'><i class='fa-solid fa-money-bill-transfer fa-xl'></i></a></td>
                         </tr>
                 ";
               }
@@ -209,16 +212,17 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
               $consulta->bindParam(":filtrar", $filtrar, PDO::PARAM_STR);
               $consulta->execute();
               while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                $valor_mes = number_format($linha['valor_mes'], 2, ",", ".");
                 echo "  
                         <tr class='text-center'>
                           <td>$linha[tipo_despesa]</td>
-                          <td>$linha[id_locacao]</td>
+                          <td>$linha[titular]</td>
                           <td>$linha[parcela]</td>
-                          <td>$linha[valor_mes]</td>
+                          <td>R$ $valor_mes</td>
                           <td>$linha[vencimento]</td>
-                          <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Ver detalhes da despesa</a></td>
-                          <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja'>Editar despesa</a></td>
-                          <td><a href='./form-pagar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-success'>Registrar Pagamento</a></td>
+                          <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-primary p-2'><i class='fa-solid fa-eye fa-xl'></i></a></td>
+                          <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja p-2'><i class='fa-solid fa-pencil fa-xl'></i></a></td>
+                          <td><a href='./form-pagar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-success p-2'><i class='fa-solid fa-money-bill-transfer fa-xl'></i></a></td>
                         </tr>
                 ";
               }

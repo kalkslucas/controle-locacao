@@ -36,7 +36,7 @@ try {
   //locacao's variables
   $ftc = filter_var($_POST['ftc']);
   $gestor = filter_var($_POST['gestor']);
-  $locador = filter_var($_POST['locador']);
+  $locador = filter_var($_POST['locador'], FILTER_SANITIZE_NUMBER_INT);
   $situacao = filter_var($_POST['situacao']);
   $centroCusto = filter_var($_POST['centroCusto']);
   $cep = filter_var($_POST['cep']);
@@ -52,6 +52,8 @@ try {
   $vistoriaSaida = !empty(filter_input(INPUT_POST, 'vistoriaSaida')) ? filter_input(INPUT_POST, 'vistoriaSaida') : NULL;
   $valorAluguel = filter_var($_POST['valorAluguel']);
   $observacoes = filter_var($_POST['observacoes']);
+
+  $valorAluguel = str_replace(',','.', $valorAluguel);
 
   $queryEndereco = "INSERT INTO endereco (tipo_endereco, rua, numero, complemento, bairro, cidade, estado, cep) VALUES ('LOCACAO', :rua, :numero, :complemento, :bairro, :cidade, :estado, :cep)";
   $insertEndereco = $conectar->prepare($queryEndereco);
@@ -91,7 +93,7 @@ try {
     $arquivos = $_FILES['anexo_foto_docs'];
     $tudo_certo = true;
     foreach ($arquivos['name'] as $index => $arq) {
-      $deu_certo = enviarArquivos($arquivos['error'][$index], $arquivos['size'][$index], $arquivos['name'][$index], $arquivos['tmp_name'][$index], $idLocacao, NULL);
+      $deu_certo = enviarArquivos($arquivos['error'][$index], $arquivos['size'][$index], $arquivos['name'][$index], $arquivos['tmp_name'][$index], $idLocacao, NULL, NULL);
       if (!$deu_certo) {
         $tudo_certo = false;
       }
@@ -103,8 +105,16 @@ try {
     }
   }
 
+  $queryNomeLocador = "SELECT nome FROM locador WHERE idlocador = :idlocador";
+  $consultaNomeLocador = $conectar->prepare($queryNomeLocador);
+  $consultaNomeLocador->bindParam(":idlocador",$locador, PDO::PARAM_INT);
+  $consultaNomeLocador->execute();
+  $linhaNomeLocador = $consultaNomeLocador->fetch(PDO::FETCH_ASSOC);
+  $nomeLocador = $linhaNomeLocador["nome"];
+
+
   if(isset($_POST['valorAluguel'])) {
-    gerarAluguel($inicioLocacao, $fimLocacao, $locador, $valorAluguel, $idLocacao);
+    gerarAluguel($inicioLocacao, $fimLocacao, $nomeLocador, $valorAluguel, $idLocacao);
   }
   
   header('Location: visualizar-locacoes.php');
