@@ -79,6 +79,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     <thead>
                       <tr class='text-center'>
                         <th>Tipo da Despesa</th>
+                        <th>Número da Locação</th>
                         <th>Titular</th>
                         <th>Parcela</th>
                         <th>Valor</th>
@@ -104,6 +105,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                 echo "  
                         <tr class='text-center'>
                           <td>$linha[tipo_despesa]</td>
+                          <td>$linha[id_locacao]</td>
                           <td>$linha[titular]</td>
                           <td>$linha[parcela]</td>
                           <td>R$ $valor_mes</td>
@@ -130,6 +132,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                 echo "  
                         <tr class='text-center'>
                           <td>$linha[tipo_despesa]</td>
+                          <td>$linha[id_locacao]</td>
                           <td>$linha[titular]</td>
                           <td>$linha[parcela]</td>
                           <td>R$ $valor_mes</td>
@@ -166,6 +169,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     <thead>
                       <tr class='text-center'>
                         <th>Tipo da Despesa</th>
+                        <th>Número da Locação</th>
                         <th>Titular</th>
                         <th>Parcela</th>
                         <th>Valor</th>
@@ -190,6 +194,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                 $valor_mes = number_format($linha['valor_mes'], 2, ",", ".");
                 echo "  <tr class='text-center'>
                           <td>$linha[tipo_despesa]</td>
+                          <td>$linha[id_locacao]</td>
                           <td>$linha[titular]</td>
                           <td>$linha[parcela]</td>
                           <td>R$ $valor_mes</td>
@@ -216,6 +221,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                 echo "  
                         <tr class='text-center'>
                           <td>$linha[tipo_despesa]</td>
+                          <td>$linha[id_locacao]</td>
                           <td>$linha[titular]</td>
                           <td>$linha[parcela]</td>
                           <td>R$ $valor_mes</td>
