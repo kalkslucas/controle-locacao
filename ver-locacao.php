@@ -21,7 +21,7 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
 <?php
 include_once "conexao.php";
 $idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, lc.situacao, inicio_locacao, termino_locacao, vistoria_entrada, vistoria_saida, observacoes, lc.id_locador as locador, cc.nome as centro_custo, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep
+$sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, lc.situacao, inicio_locacao, termino_locacao, vistoria_entrada, vistoria_saida, observacoes, qtd_quartos, qtd_banheiros, qtd_vagas_garagem, lc.id_locador as locador, cc.nome as centro_custo, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep
   from locacao lc
   inner join endereco e
   on lc.id_endereco = e.idendereco
@@ -264,6 +264,21 @@ if($linha === false){
                         $linhaLocador = $consultaLocador->fetch(PDO::FETCH_ASSOC);
                       ?>
                       <input type="text" id="locador" name="locador" class="form-control" value="<?= $linhaLocador['nome'] ?>" disabled readonly>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-4">
+                      <label for="qtd_quartos" class="d-inline">Quantidade de Quartos</label>
+                      <input type="number" name="qtd_quartos" id="qtd_quartos" value="<?= $linha['qtd_quartos'] ?>" class="form-control" disabled readonly>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="qtd_banheiros" class="d-inline">Quantidade de Banheiros</label>
+                      <input type="number" name="qtd_banheiros" id="qtd_banheiros" value="<?= $linha['qtd_banheiros'] ?>" class="form-control" disabled readonly>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="qtd_vagas_garagem" class="d-inline">Vagas de Garagem</label>
+                      <input type="number" name="qtd_vagas_garagem" id="qtd_vagas_garagem" value="<?= $linha['qtd_vagas_garagem'] ?>" class="form-control" disabled readonly>
                     </div>
                   </div>
 

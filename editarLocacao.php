@@ -17,6 +17,9 @@ try {
   $vistoriaEntrada = !empty(filter_input(INPUT_POST, 'vistoriaEntrada')) ? filter_input(INPUT_POST, 'vistoriaEntrada') : NULL;
   $vistoriaSaida = !empty(filter_input(INPUT_POST, 'vistoriaSaida')) ? filter_input(INPUT_POST, 'vistoriaSaida') : NULL;
   $observacoes = filter_input(INPUT_POST, 'observacoes');
+  $qtdQuartos = filter_var($_POST['qtd_quartos'], FILTER_SANITIZE_NUMBER_INT);
+  $qtdBanheiros = filter_var($_POST['qtd_banheiros'], FILTER_SANITIZE_NUMBER_INT);
+  $qtdVagasGaragem = filter_var($_POST['qtd_vagas_garagem'], FILTER_SANITIZE_NUMBER_INT);
   $locador = filter_input(INPUT_POST, 'locador', FILTER_SANITIZE_NUMBER_INT);
   $rua = filter_input(INPUT_POST, 'rua');
   $numero = filter_input(INPUT_POST, 'numero');
@@ -26,7 +29,7 @@ try {
   $estado = filter_input(INPUT_POST, 'estado');
   $cep = filter_input(INPUT_POST, 'cep');
 
-  $update = $conectar->prepare("UPDATE locacao SET ftc = :ftc, id_gestor = :gestor, situacao = :situacao, id_centro_custo = :centroCusto, inicio_locacao = :inicioLocacao, termino_locacao = :fimLocacao, vistoria_entrada = :vistoriaEntrada, vistoria_saida = :vistoriaSaida, observacoes = :observacoes, id_locador = :locador WHERE idlocacao = :idlocacao");
+  $update = $conectar->prepare("UPDATE locacao SET ftc = :ftc, id_gestor = :gestor, situacao = :situacao, id_centro_custo = :centroCusto, inicio_locacao = :inicioLocacao, termino_locacao = :fimLocacao, vistoria_entrada = :vistoriaEntrada, vistoria_saida = :vistoriaSaida, observacoes = :observacoes, qtd_quartos = :qtd_quartos, qtd_banheiros = :qtd_banheiros, qtd_vagas_garagem = :qtd_vagas_garagem, id_locador = :locador WHERE idlocacao = :idlocacao");
 
   $update->bindParam(":idlocacao", $idLocacao, PDO::PARAM_INT);
   $update->bindParam(":ftc", $ftc, PDO::PARAM_STR);
@@ -38,6 +41,9 @@ try {
   $update->bindParam(":vistoriaEntrada", $vistoriaEntrada, PDO::PARAM_STR);
   $update->bindParam(":vistoriaSaida", $vistoriaSaida, PDO::PARAM_STR);
   $update->bindParam(":observacoes", $observacoes, PDO::PARAM_STR);
+  $update->bindParam(':qtd_quartos', $qtdQuartos, PDO::PARAM_INT);
+  $update->bindParam(':qtd_banheiros', $qtdBanheiros, PDO::PARAM_INT);
+  $update->bindParam(':qtd_vagas_garagem', $qtdVagasGaragem, PDO::PARAM_INT);
   $update->bindParam(":locador", $locador, PDO::PARAM_INT);
   $update->execute();
 

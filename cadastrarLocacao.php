@@ -52,6 +52,9 @@ try {
   $vistoriaSaida = !empty(filter_input(INPUT_POST, 'vistoriaSaida')) ? filter_input(INPUT_POST, 'vistoriaSaida') : NULL;
   $valorAluguel = filter_var($_POST['valorAluguel']);
   $observacoes = filter_var($_POST['observacoes']);
+  $qtdQuartos = filter_var($_POST['qtd_quartos']);
+  $qtdBanheiros = filter_var($_POST['qtd_banheiros']);
+  $qtdVagasGaragem = filter_var($_POST['qtd_vagas_garagem']);
 
   $valorAluguel = str_replace(',','.', $valorAluguel);
 
@@ -71,7 +74,7 @@ try {
 
   $conectar->beginTransaction();
 
-  $queryLocacao = "INSERT INTO locacao (ftc, situacao, id_centro_custo, inicio_locacao, termino_locacao, vistoria_entrada, vistoria_saida, observacoes, id_gestor, id_locador, id_endereco) VALUES (:ftc, :situacao, :centroCusto, :inicio_locacao, :termino_locacao, :vistoriaEntrada, :vistoriaSaida, :observacoes, :gestor, :locador, :idEndereco)";
+  $queryLocacao = "INSERT INTO locacao (ftc, situacao, id_centro_custo, inicio_locacao, termino_locacao, vistoria_entrada, vistoria_saida, observacoes, qtd_quartos, qtd_banheiros, qtd_vagas_garagem, id_gestor, id_locador, id_endereco) VALUES (:ftc, :situacao, :centroCusto, :inicio_locacao, :termino_locacao, :vistoriaEntrada, :vistoriaSaida, :observacoes, :qtd_quartos, :qtd_banheiros, :qtd_vagas_garagem, :gestor, :locador, :idEndereco)";
   $insertLocacao = $conectar->prepare($queryLocacao);
   $insertLocacao->bindParam(':ftc', $ftc, PDO::PARAM_STR);
   $insertLocacao->bindParam(':situacao', $situacao, PDO::PARAM_STR);
@@ -81,6 +84,9 @@ try {
   $insertLocacao->bindParam(':vistoriaEntrada', $vistoriaEntrada, PDO::PARAM_STR);
   $insertLocacao->bindParam(':vistoriaSaida', $vistoriaSaida, PDO::PARAM_STR);
   $insertLocacao->bindParam(':observacoes', $observacoes, PDO::PARAM_STR);
+  $insertLocacao->bindParam(':qtd_quartos', $qtdQuartos, PDO::PARAM_INT);
+  $insertLocacao->bindParam(':qtd_banheiros', $qtdBanheiros, PDO::PARAM_INT);
+  $insertLocacao->bindParam(':qtd_vagas_garagem', $qtdVagasGaragem, PDO::PARAM_INT);
   $insertLocacao->bindParam(':gestor', $gestor, PDO::PARAM_INT);
   $insertLocacao->bindParam(':locador', $locador, PDO::PARAM_INT);
   $insertLocacao->bindParam(':idEndereco', $idEndereco, PDO::PARAM_INT);

@@ -292,6 +292,18 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     </div>
 
                     <div class="row mb-3">
+                      <div class="col-md-1">
+                        <label for="qtd_quartos" class="d-inline">Quantidade de Quartos</label>
+                        <input type="number" name="qtd_quartos" id="qtd_quartos" class="form-control" required>
+                      </div>
+                      <div class="col-md-1">
+                        <label for="qtd_banheiros" class="d-inline">Quantidade de Banheiros</label>
+                        <input type="number" name="qtd_banheiros" id="qtd_banheiros" class="form-control" required>
+                      </div>
+                      <div class="col-md-1">
+                        <label for="qtd_vagas_garagem" class="d-inline">Vagas de Garagem</label>
+                        <input type="number" name="qtd_vagas_garagem" id="qtd_vagas_garagem" class="form-control" required>
+                      </div>
                       <div class="col-md-6">
                         <label id="valorAluguel">Valor do Aluguel</label>
                         <div class="input-group">
@@ -306,8 +318,8 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           />
                         </div>
                       </div>
-                      <div class="col-md-6">
-                        <label id="imagensLocacao">Adicionar Fotos e Documentos</label>
+                      <div class="col-md-3">
+                        <label id="imagensLocacao" class="d-inline">Adicionar Fotos e Documentos</label>
                         <input 
                           id="anexo_foto_docs" 
                           name="anexo_foto_docs[]" 
