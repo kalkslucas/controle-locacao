@@ -100,17 +100,41 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       <input id="email" name="email" class="form-control" value="<?= $linha['email']?>" type="email" placeholder="Ex: abc@ultra.eng.br OU abc@gmail.com">
                     </div>
                     <div class="col-md-4">
-                      <label id="telefone1">Telefone 1</label>
-                      <input id="telefone1" name="telefone1" class="form-control" value="<?= $linha['telefone_1']?>" type="text" placeholder="Ex: 3198765432" required>
+                      <label id="telefone_1">Telefone 1</label>
+                      <input id="telefone_1" name="telefone_1" class="form-control" value="<?= $linha['telefone_1']?>" type="text" placeholder="Ex: 3198765432" required>
                     </div>
                     <div class="col-md-4">
-                      <label id="telefone2">Telefone 2</label>
-                      <input id="telefone2" name="telefone2" class="form-control" value="<?= $linha['telefone_2']?>" type="text" placeholder="Ex: 31987654321">
+                      <label id="telefone_2">Telefone 2</label>
+                      <input id="telefone_2" name="telefone_2" class="form-control" value="<?= $linha['telefone_2']?>" type="text" placeholder="Ex: 31987654321">
                     </div>
                   </div>
               
+                  <div class="row mb-3">
+                    <div class="col md 12">
+                      <label for="id_locacao">Vincular a Locação</label>
+                      <select class="form-select" name="id_locacao" id="id_locacao" required>
+                        <option value=""></option>
+                        <?php
+                          include_once 'conexao.php';
+                          try {
+                            $query = "SELECT idlocacao, ftc, rua, numero, bairro, cidade, estado, cep, nome FROM locacao l INNER JOIN endereco e ON l.id_endereco = e.idendereco INNER JOIN gestor g ON l.id_gestor = g.idgestor";
+
+                            $consulta = $conectar->query($query);
+                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                              echo "<option value='$linha[idlocacao]'>$linha[ftc] | $linha[rua], $linha[numero], $linha[bairro], $linha[cidade] - $linha[estado] | $linha[nome]";
+                            }
+                          } catch (PDOException $e) {
+                            echo 'Error: ' . $e->getMessage();
+                            // Log the error
+                            error_log('Error: ' . $e->getMessage(), 0);
+                          }
+                        ?>
+                      </select>
+                    </div>
+                  </div>
+
                   <div class="col text-center">
-                    <a href="./visualizar-gestores.php" class="btn btn-danger">Voltar</a>
+                    <a href="./visualizar-alojados.php" class="btn btn-danger">Voltar</a>
                     <input class="btn btn-success" type="submit" value="Confirmar Edição">
                   </div>
                 </form>
@@ -121,13 +145,6 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
         </div>
       </div>
     </div>
-
-    <div class="row justify-content-end">
-      <div class="col-md-1 col-sm-12 mb-4">
-        <a href="./visualizar-alojados.php" class="btn btn-danger btn-modal w-100">Voltar</a>
-      </div>
-    </div>
-
   </main>
 
 

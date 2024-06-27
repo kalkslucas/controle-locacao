@@ -61,7 +61,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
     </div>
   </header>
 
-    <main class="container">
+    <main class="container-fluid">
       <div class="row justify-content-center">
         <div class="col">
           <div class="card shadow-lg mt-3 mb-3">
@@ -72,110 +72,104 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     Cadastro de Locador
                   </h3>
                   <form action="cadastrarLocador.php" method="post">
-                    <div class="pb-1">
-                      <label id="nomeLocador">
-                        Nome do Locador
-                        <input
-                          id="nome"
-                          name="nome"
-                          class="form-control"
-                          type="text"
-                          placeholder="Digite o nome completo"
-                          required
-                        />
-                      </label>
-
-                      <label id="cpfCnpj">
-                        CPF/CNPJ
-                        <input
-                          id="cpfCnpj"
-                          name="cpfCnpj"
-                          class="form-control"
-                          type="text"
-                          placeholder="Digite somente os números"
-                          required
-                        />
-                      </label>
-
-                      <label id="email">
-                        E-mail
-                        <input
-                          id="email"
-                          name="email"
-                          class="form-control"
-                          type="email"
-                          placeholder="Ex: abc@ultra.eng.br OU abc@gmail.com"
-                          required
-                        />
-                      </label>
-
-                      <label for="responsavel">
-                        Nome do Responsável
+                    <div class="row mb-3">
+                      <div class="col-md-2">
+                        <label id="nomeLocador" class="d-inline">Nome do Locador</label>
+                          <input
+                            id="nome"
+                            name="nome"
+                            class="form-control"
+                            type="text"
+                            placeholder="Digite o nome completo"
+                            required
+                          />
+                      </div>
+                      <div class="col-md-2">
+                        <label id="cpfCnpj" class="d-inline">CPF/CNPJ</label>
+                          <input
+                            id="cpfCnpj"
+                            name="cpfCnpj"
+                            class="form-control"
+                            type="text"
+                            placeholder="Digite somente os números"
+                            required
+                          />
+                      </div>
+                      <div class="col-md-2">
+                        <label id="email" class="d-inline">E-mail</label>
+                          <input
+                            id="email"
+                            name="email"
+                            class="form-control"
+                            type="email"
+                            placeholder="Ex: abc@ultra.eng.br OU abc@gmail.com"
+                            required
+                          />
+                      </div>
+                      <div class="col-md-2">
+                        <label for="responsavel" class="d-inline">Nome do Responsável</label>
                         <input type="text" name="responsavel" id="responsavel" placeholder="Digite o nome do responsável" class="form-control">
-                      </label>
-
-                      <label id="telefone1">
-                        Telefone Fixo
-                        <input
-                          id="telefone1"
-                          name="telefone1"
-                          class="form-control"
-                          type="text"
-                          placeholder="Ex: 3198765432"
-                          required
-                        />
-                      </label>
-
-                      <label id="telefone2">
-                        Telefone Celular
-                        <input
-                          id="telefone2"
-                          name="telefone2"
-                          class="form-control"
-                          type="text"
-                          placeholder="Ex: 31987654321"
-                          required
-                        />
-                      </label>
-
-                      <label id="cepLocador">
-                        CEP
-                        <input
-                          id="cep"
-                          name="cep"
-                          class="form-control"
-                          type="text"
-                          placeholder="Digite o CEP do Endereço"
-                          required
-                        />
-                      </label>
-
-                      <label id="enderecoLocador">
-                        Endereço
-                        <input
-                          id="rua"
-                          name="rua"
-                          class="form-control"
-                          type="text"
-                          placeholder="Nome da Rua, Avenida, Travessa..."
-                          required
-                        />
-                      </label>
-
-                      <label id="numEndLocador">
-                        Numero
-                        <input
-                          id="numero"
-                          name="numero"
-                          class="form-control"
-                          type="text"
-                          placeholder="Ex: 00 ou S/N"
-                          required
-                        />
-                      </label>
-
-                      <label id="compEndLocador">
-                        Complemento
+                      </div>
+                      <div class="col-md-2">
+                        <label id="telefone1" class="d-inline">Telefone Fixo</label>
+                          <input
+                            id="telefone1"
+                            name="telefone1"
+                            class="form-control"
+                            type="text"
+                            placeholder="Ex: 3198765432"
+                            required
+                          />
+                      </div>
+                      <div class="col-md-2">
+                        <label id="telefone2" class="d-inline">Telefone Celular</label>
+                          <input
+                            id="telefone2"
+                            name="telefone2"
+                            class="form-control"
+                            type="text"
+                            placeholder="Ex: 31987654321"
+                            required
+                          />
+                      </div>
+                    </div>
+                      
+                    <div class="row mb-3">
+                      <div class="col-md-2">
+                        <label id="cepLocador" class="d-inline">CEP</label>
+                          <input
+                            id="cep"
+                            name="cep"
+                            class="form-control"
+                            type="text"
+                            placeholder="Digite o CEP do Endereço"
+                            required
+                          />
+                      </div>
+                      <div class="col-md-3">
+                        <label id="enderecoLocador" class="d-inline">Endereço</label>
+                          <input
+                            id="rua"
+                            name="rua"
+                            class="form-control"
+                            type="text"
+                            placeholder="Nome da Rua, Avenida, Travessa..."
+                            required
+                          />
+                      </div>
+                      <div class="col-md-1">
+                        <label id="numEndLocador" class="d-inline">Numero</label>
+                          <input
+                            id="numero"
+                            name="numero"
+                            class="form-control"
+                            type="text"
+                            placeholder="Ex: 00 ou S/N"
+                            required
+                          />
+                      </div>
+                      <div class="col-md-1">
+                      <label id="compEndLocador" class="d-inline">Complemento</label>
                         <input
                           id="complemento"
                           name="complemento"
@@ -184,149 +178,127 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           placeholder="Casa, Bloco, Apto, Quadra, Lote..."
                           required
                         />
-                      </label>
-
-                      <label id="bairroLocador">
-                        Bairro
-                        <input
-                          id="bairro"
-                          name="bairro"
-                          class="form-control"
-                          type="text"
-                          required
-                        />
-                      </label>
-
-                      <label id="cidadeLocador">
-                        Cidade
-                        <input
-                          id="cidade"
-                          name="cidade"
-                          class="form-control"
-                          type="text"
-                          required
-                        />
-                      </label>
-
-                      <label id="estadoLocador">
-                        Estado
-                        <select class="form-select" id="uf" name="uf" required>
-                          <option value="">--</option>
-                          <option value="AC">AC</option>
-                          <option value="AL">AL</option>
-                          <option value="AP">AP</option>
-                          <option value="AM">AM</option>
-                          <option value="BA">BA</option>
-                          <option value="CE">CE</option>
-                          <option value="DF">DF</option>
-                          <option value="ES">ES</option>
-                          <option value="GO">GO</option>
-                          <option value="MA">MA</option>
-                          <option value="MG">MG</option>
-                          <option value="MS">MS</option>
-                          <option value="MT">MT</option>
-                          <option value="PA">PA</option>
-                          <option value="PB">PB</option>
-                          <option value="PE">PE</option>
-                          <option value="PI">PI</option>
-                          <option value="PR">PR</option>
-                          <option value="RJ">RJ</option>
-                          <option value="RN">RN</option>
-                          <option value="RO">RO</option>
-                          <option value="RR">RR</option>
-                          <option value="RS">RS</option>
-                          <option value="SC">SC</option>
-                          <option value="SP">SP</option>
-                          <option value="SE">SE</option>
-                          <option value="TO">TO</option>
-                        </select>
-                      </label>
-                     
-                      <label id="formaPagamento">
-                        Forma de Pagamento
-                        <select name="formaPagamento" id="formaPagamento" class="form-select">
-                          <option value="">Selecione a forma de pagamento</option>
-                          <option value="BOLETO">BOLETO</option>
-                          <option value="PIX">PIX</option>
-                          <option value="TED">TED</option>
-                        </select>
-                      </label>
-
-                      <label id="bancoLocador">
-                        Banco
-                        <input
-                          id="banco"
-                          name="banco"
-                          class="form-control"
-                          type="text"
-                        />
-                      </label>
-                      <label id="numAgenciaLocador">
-                        Agência
-                        <input
-                          id="agencia"
-                          name="agencia"
-                          class="form-control"
-                          type="text"
-                        />
-                      </label>
-                      <label id="numContaBancoLocador">
-                        Conta
-                        <input
-                          id="conta"
-                          name="conta"
-                          class="form-control"
-                          type="text"
-                        />
-                      </label>
-                      <label id="tipoContaBancoLocador">
-                        Tipo da Conta
-                        <select
-                          class="form-select"
-                          name="tipoConta"
-                          id="tipoConta"
-                        >
-                          <option value="">Selecione o tipo de conta</option>
-                          <option value="CONTA CORRENTE">Conta Corrente</option>
-                          <option value="CONTA POUPANÇA">Conta Poupança</option>
-                          <option value="CONTA DE PAGAMENTOS">
-                            Conta de Pagamento
-                          </option>
-                        </select>
-                      </label>
-                      <label id="pixContaBancoLocador">
-                        PIX
-                        <input
-                          id="pix"
-                          name="pix"
-                          class="form-control"
-                          type="text"
-                        />
-                      </label>
+                      </div>
+                      <div class="col-md-2">
+                        <label id="bairroLocador" class="d-inline">Bairro</label>
+                          <input
+                            id="bairro"
+                            name="bairro"
+                            class="form-control"
+                            type="text"
+                            required
+                          />
+                      </div>
+                      <div class="col-md-2">
+                        <label id="cidadeLocador" class="d-inline">Cidade</label>
+                          <input
+                            id="cidade"
+                            name="cidade"
+                            class="form-control"
+                            type="text"
+                            required
+                          />
+                      </div>
+                      <div class="col-md-1">
+                        <label id="estadoLocador" class="d-inline">Estado</label>
+                          <select class="form-select" id="uf" name="uf" required>
+                            <option value="">--</option>
+                            <option value="AC">AC</option>
+                            <option value="AL">AL</option>
+                            <option value="AP">AP</option>
+                            <option value="AM">AM</option>
+                            <option value="BA">BA</option>
+                            <option value="CE">CE</option>
+                            <option value="DF">DF</option>
+                            <option value="ES">ES</option>
+                            <option value="GO">GO</option>
+                            <option value="MA">MA</option>
+                            <option value="MG">MG</option>
+                            <option value="MS">MS</option>
+                            <option value="MT">MT</option>
+                            <option value="PA">PA</option>
+                            <option value="PB">PB</option>
+                            <option value="PE">PE</option>
+                            <option value="PI">PI</option>
+                            <option value="PR">PR</option>
+                            <option value="RJ">RJ</option>
+                            <option value="RN">RN</option>
+                            <option value="RO">RO</option>
+                            <option value="RR">RR</option>
+                            <option value="RS">RS</option>
+                            <option value="SC">SC</option>
+                            <option value="SP">SP</option>
+                            <option value="SE">SE</option>
+                            <option value="TO">TO</option>
+                          </select>
+                      </div>
                     </div>
 
-                    <label class="d-flex mt-3" id="enviarLocacao">
-                      <input
-                        class="btn btn-laranja"
-                        type="submit"
-                        value="Cadastrar Locador"
-                      />
-                    </label>
+                    <div class="row mb-3">
+                      <div class="col-md-2">
+                        <label id="formaPagamento" class="d-inline">Forma de Pagamento</label>
+                          <select name="formaPagamento" id="formaPagamento" class="form-select">
+                            <option value="">Selecione a forma de pagamento</option>
+                            <option value="BOLETO">BOLETO</option>
+                            <option value="PIX">PIX</option>
+                            <option value="TED">TED</option>
+                          </select>
+                      </div>
+                      <div class="col-md-2">
+                        <label id="bancoLocador" class="d-inline">Banco</label>
+                          <input
+                            id="banco"
+                            name="banco"
+                            class="form-control"
+                            type="text"
+                          />
+                      </div>
+                      <div class="col-md-2">
+                        <label id="numAgenciaLocador" class="d-inline">Agência</label>
+                          <input
+                            id="agencia"
+                            name="agencia"
+                            class="form-control"
+                            type="text"
+                          />
+                      </div>
+                      <div class="col-md-2">
+                        <label id="numContaBancoLocador" class="d-inline">Conta</label>
+                          <input
+                            id="conta"
+                            name="conta"
+                            class="form-control"
+                            type="text"
+                          />
+                      </div>
+                      <div class="col-md-2">
+                        <label id="tipoContaBancoLocador" class="d-inline">Tipo da Conta</label>
+                          <select class="form-select" name="tipoConta" id="tipoConta">
+                            <option value="">Selecione o tipo de conta</option>
+                            <option value="CONTA CORRENTE">Conta Corrente</option>
+                            <option value="CONTA POUPANÇA">Conta Poupança</option>
+                            <option value="CONTA DE PAGAMENTOS">
+                              Conta de Pagamento
+                            </option>
+                          </select>
+                      </div>
+                      <div class="col-md-2">
+                        <label id="pixContaBancoLocador" class="d-inline">PIX</label>
+                          <input id="pix" name="pix" class="form-control" type="text"/>
+                      </div>
+                    </div>                    
+
+                    <div class="row mb-3">
+                      <div class="col text-center">
+                        <input class="btn btn-laranja" type="submit" value="Cadastrar Locador"/>
+                        <a href="./visualizar-locadores.php" class="text-center btn btn-danger">Voltar</a>
+                      </div>
+                    </div>
                   </form>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="row justify-content-end">
-        <div class="col-lg-1 col-md-2 col-sm-12 mb-4">
-          <a
-            href="./visualizar-locadores.php"
-            class="text-center btn btn-danger btn-modal w-100"
-            >Voltar</a
-          >
         </div>
       </div>
     </main>

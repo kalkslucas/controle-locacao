@@ -272,7 +272,7 @@ if($linha === false){
                       <label for="listaAlojados"><h4>Alojados da locação</h4></label>
                       <div class="px-4 pt-2 border rounded">
                         <?php
-                          echo"<table class='table table-borderless'>
+                          echo"<table class='table table-borderless table-responsive'>
                                       <thead>
                                         <tr class='text-center disabledBgColor'>
                                           <th>Nome</th>
@@ -297,7 +297,7 @@ if($linha === false){
                               }
                             } else {
                               echo "<tr class='text-center'>
-                                      <td>Sem alojados para esse imóvel</td>
+                                      <td colspan='3'>Sem alojados para esse imóvel</td>
                                     </tr>";
                             }
                           } else {
@@ -315,7 +315,7 @@ if($linha === false){
                       <h4>Anexos</h4>
                       <div class="border p-2">
                         <?php
-                        echo "<table id='tabelaAnexos' class='table table-borderless'>
+                        echo "<table id='tabelaAnexos' class='table table-borderless table-responsive'>
                                 <thead>
                                   <tr class='text-center'>
                                     <th>Visualização</th>

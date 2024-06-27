@@ -21,10 +21,8 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $idalojado = filter_var($_GET['idalojado'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT a.nome as alojado, a.email as email, a.cargo as cargo, a.setor as setor, a.unidade as unidade, a.telefone_1 as telefone_1, a.telefone_2 as telefone_2, a.id_locacao as id_locacao, g.nome as gestor
+$sql = "SELECT nome as alojado, email, cargo, setor, unidade, telefone_1, telefone_2, id_locacao, id_gestor
 from alojado a
-inner join gestor g
-on a.id_gestor = g.idgestor
 where idalojado = '$idalojado'";
 $consulta = $conectar->query($sql);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
@@ -113,12 +111,28 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                       <input id="telefone2" name="telefone2" class="form-control" value="<?= $linha['telefone_2']?>" type="text" disabled readonly>
                     </div>
                     <div class="col-md-2">
+                      <?php
+                        $sqlLocacao = "SELECT idlocacao FROM locacao WHERE idlocacao = :id_locacao";
+                        $consulta = $conectar->prepare($sqlLocacao);
+                        $consulta->bindParam(":id_locacao", $linha['id_locacao']);
+                        $consulta->execute();
+                        $linhaLocacao = $consulta->fetch(PDO::FETCH_ASSOC);
+                        $locacao = $linhaLocacao ? true : 'Sem locação vinculada';
+                      ?>
                       <label id="telefone2">Vinculado a Locação</label>
-                      <input id="telefone2" name="telefone2" class="form-control" value="<?= $linha['id_locacao']?>" type="text" disabled readonly>
+                      <input id="telefone2" name="telefone2" class="form-control" value="<?= $locacao ?>" type="text" disabled readonly>
                     </div>
                     <div class="col-md-2">
+                    <?php
+                        $sqlGestor = "SELECT nome FROM gestor WHERE idgestor = :id_gestor";
+                        $consulta = $conectar->prepare($sqlGestor);
+                        $consulta->bindParam(":id_gestor", $linha['id_gestor']);
+                        $consulta->execute();
+                        $linhaGestor = $consulta->fetch(PDO::FETCH_ASSOC);
+                        $gestor = $linhaGestor ? true : 'Sem gestor responsável';
+                      ?>
                       <label id="telefone2">Gestor Responsável</label>
-                      <input id="telefone2" name="telefone2" class="form-control" value="<?= $linha['gestor']?>" type="text" disabled readonly>
+                      <input id="telefone2" name="telefone2" class="form-control" value="<?= $gestor ?>" type="text" disabled readonly>
                     </div>
                   </div>
               
@@ -133,13 +147,6 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
         </div>
       </div>
     </div>
-
-    <div class="row justify-content-end">
-      <div class="col-md-1 col-sm-12 mb-4">
-        <a href="./visualizar-alojados.php" class="btn btn-danger btn-modal w-100">Voltar</a>
-      </div>
-    </div>
-
   </main>
 
 
