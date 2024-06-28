@@ -52,7 +52,7 @@ try {
   $update->bindParam(":empresa", $empresa, PDO::PARAM_STR);
   $update->bindParam(":titular", $titular, PDO::PARAM_STR);
   $update->bindParam(":num_instalacao", $num_instalacao, PDO::PARAM_STR);
-  $update->bindParam(":consumo_velocidade", $consumo_velocidade, PDO::PARAM_STR);
+  $update->bindParam(":consumo_velocidade", $consumo_velocidade, PDO::PARAM_INT);
   $update->bindParam(":valor_mes", $valor_mes, PDO::PARAM_STR);
   $update->bindParam(":vencimento", $vencimento, PDO::PARAM_STR);
   $update->execute();

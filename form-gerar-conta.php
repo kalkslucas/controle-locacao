@@ -67,80 +67,84 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                 <h3 class="card-title text-center display-4">Cadastro de Conta</h3>
                 <form action="gerarConta.php" method="post">
                   <div class="mt-1">
-                    <label id="tipoDespesa">
-                      Tipo de conta
-                      <select class="form-select" name="tipoDespesa" id="tipoDespesa" required>
-                        <option value="">---</option>
-                        <option value="ENERGIA">Energia</option>
-                        <option value="ÁGUA">Água</option>
-                        <option value="INTERNET">Internet</option>
-                        <option value="CONDOMÍNIO">Condomínio</option>
-                        <option value="IPTU">IPTU</option>
-                        <option value="IMPOSTO DE RENDA">Imposto de Renda</option>
-                      </select>
-                    </label>
-  
-                    <label id="empresa">
-                      Empresa
-                      <input id="empresa" name="empresa" class="form-control" type="text" placeholder="Digite o nome da empresa" required>
-                    </label>
+                    <div class="row mb-3">
+                      <div class="col-md-3">
+                        <label id="tipoDespesa" class="d-inline">Tipo de conta</label>
+                          <select class="form-select" name="tipoDespesa" id="tipoDespesa" required>
+                            <option value="">---</option>
+                            <option value="ENERGIA">Energia</option>
+                            <option value="ÁGUA">Água</option>
+                            <option value="INTERNET">Internet</option>
+                            <option value="CONDOMÍNIO">Condomínio</option>
+                            <option value="IPTU">IPTU</option>
+                            <option value="IMPOSTO DE RENDA">Imposto de Renda</option>
+                          </select>
+                      </div>
+                      <div class="col-md-3">
+                        <label id="empresa" class="d-inline">Empresa</label>
+                        <input id="empresa" name="empresa" class="form-control" type="text" placeholder="Digite o nome da empresa" required>
+                      </div>
+                      <div class="col-md-3">
+                        <label id="titular" class="d-inline">Titular</label>
+                          <input id="titular" name="titular" class="form-control" type="text" placeholder="Digite o nome do titular da conta" required>
+                      </div>
+                      <div class="col-md-3">
+                        <label id="parcela" class="d-inline">Parcela</label>
+                        <input id="parcela" name="parcela" class="form-control" type="number" placeholder="Digite qual o número da parcela" required>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-3">
+                        <label id="numInstalacao" class="d-inline">Número da Instalação</label>
+                        <input id="numInstalacao" name="numInstalacao" class="form-control" type="text" placeholder="Digite o n° da instalação">
+                      </div>
+                      <div class="col-md-3">
+                        <label id="consumoVelocidade" class="d-inline">Consumo/Velocidade</label>
+                          <input id="consumoVelocidade" name="consumoVelocidade" class="form-control" type="number" placeholder="36m³, 40kWh, 500MB">
+                      </div>
+                      <div class="col-md-3">
+                        <label id="valorConta" class="d-inline">Valor da Conta</label>
+                          <input id="valorConta" name="valorConta" class="form-control" type="text" placeholder="Ex: 9999.99" required>
+                      </div>
+                      <div class="col-md-3">
+                        <label id="dataVencimento" class="d-inline">Data de Vencimento</label>
+                          <input id="dataVencimento" name="dataVencimento" class="form-control" type="date" required>
+                      </div>
+                    </div>
 
-                    <label id="parcela">
-                      Parcela
-                      <input id="parcela" name="parcela" class="form-control" type="number" placeholder="Digite qual o número da parcela" required>
-                    </label>
-  
-                    <label id="titular">
-                      Titular
-                      <input id="titular" name="titular" class="form-control" type="text" placeholder="Digite o nome do titular da conta" required>
-                    </label>
-                    
-                    <label id="numInstalacao">
-                      Número da Instalação
-                      <input id="numInstalacao" name="numInstalacao" class="form-control" type="text" placeholder="Digite o n° da instalação">
-                    </label>
-                    
-                    <label id="consumoVelocidade">
-                      Consumo/Velocidade
-                      <input id="consumoVelocidade" name="consumoVelocidade" class="form-control" type="text" placeholder="36m³, 40kWh, 500MB">
-                    </label>
+                    <div class="row mb-3">
+                      <div class="col-md-12">
+                        <label id="vincularLocacao" class="d-inline">Vincular a Locação</label>
+                        <select class="form-select" name="vincularLocacao" id="vincularLocacao" required>
+                          <option value="">---</option>
+                          <?php
+                            include_once 'conexao.php';
+                            try {
+                              $query = "SELECT idlocacao, ftc, rua, numero, bairro, cidade, estado, cep, nome FROM locacao l INNER JOIN endereco e ON l.id_endereco = e.idendereco INNER JOIN gestor g ON l.id_gestor = g.idgestor order by idlocacao asc";
 
-                    <label id="valorConta">
-                      Valor da Conta
-                      <input id="valorConta" name="valorConta" class="form-control" type="text" placeholder="Ex: 9999.99" required>
-                    </label>
-
-                    <label id="dataVencimento">
-                      Data de Vencimento
-                      <input id="dataVencimento" name="dataVencimento" class="form-control" type="date" required>
-                    </label>
-
-                    <label id="vincularLocacao">
-                      Vincular a Locação
-                      <select class="form-select" name="vincularLocacao" id="vincularLocacao" required>
-                        <option value="">---</option>
-                        <?php
-                          include_once 'conexao.php';
-                          try {
-                            $query = "SELECT idlocacao, ftc, rua, numero, bairro, cidade, estado, cep, nome FROM locacao l INNER JOIN endereco e ON l.id_endereco = e.idendereco INNER JOIN gestor g ON l.id_gestor = g.idgestor order by idlocacao asc";
-
-                            $consulta = $conectar->query($query);
-                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                              echo "<option value='$linha[idlocacao]'>$linha[ftc] | $linha[rua], $linha[numero], $linha[bairro], $linha[cidade] - $linha[estado] | $linha[nome]";
+                              $consulta = $conectar->query($query);
+                              while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                echo "<option value='$linha[idlocacao]'>$linha[ftc] | $linha[rua], $linha[numero], $linha[bairro], $linha[cidade] - $linha[estado] | $linha[nome]";
+                              }
+                            } catch (PDOException $e) {
+                              echo 'Error: ' . $e->getMessage();
+                              // Log the error
+                              error_log('Error: ' . $e->getMessage(), 0);
                             }
-                          } catch (PDOException $e) {
-                            echo 'Error: ' . $e->getMessage();
-                            // Log the error
-                            error_log('Error: ' . $e->getMessage(), 0);
-                          }
-                        ?>
-                      </select>
-                    </label>
+                          ?>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col text-center">
+                    <a href="./visualizar-despesas.php" class="text-center btn btn-danger">Voltar</a>
+                    <input class="btn btn-laranja" type="submit" value="Cadastrar Conta">
                   </div>
                   
 
                   <label class="d-flex mt-3" id="enviarLocacao">
-                    <input class="btn btn-laranja" type="submit" value="Cadastrar Conta">
+                    
                   </label>
                 </form>
               </div>
@@ -152,7 +156,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 
     <div class="row justify-content-end">
       <div class="col-lg-1 col-md-2 col-sm-12 mb-4">
-        <a href="./visualizar-despesas.php" class="text-center btn btn-danger btn-modal w-100">Voltar</a>
+        
       </div>
     </div>
     

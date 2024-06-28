@@ -24,7 +24,7 @@ $insert->bindParam(":empresa", $empresa, PDO::PARAM_STR);
 $insert->bindParam(":parcela", $parcela, PDO::PARAM_STR);
 $insert->bindParam(":titular", $titular, PDO::PARAM_STR);
 $insert->bindParam(":numInstalacao", $numInstalacao, PDO::PARAM_STR);
-$insert->bindParam(":consumoVelocidade", $consumoVelocidade, PDO::PARAM_STR);
+$insert->bindParam(":consumoVelocidade", $consumoVelocidade, PDO::PARAM_INT);
 $insert->bindParam(":valorConta", $valorConta, PDO::PARAM_STR);
 $insert->bindParam(":dataVencimento", $dataVencimento, PDO::PARAM_STR);
 $insert->bindParam(":vincularLocacao", $vincularLocacao, PDO::PARAM_INT);

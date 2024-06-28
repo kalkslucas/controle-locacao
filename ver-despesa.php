@@ -94,14 +94,35 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                   <div class="row mb-3">
                     <?php
                       if($linha['tipo_despesa'] == 'ÁGUA' || $linha['tipo_despesa'] == 'ENERGIA' || $linha['tipo_despesa'] == 'INTERNET') {
+                        
+                        
+                        
+                        
+
                         echo "<div class='col-md-2'>
                                 <label id='num_instalacao'>Número da Instalação</label>
                                   <input id='num_instalacao' name='num_instalacao' class='form-control' type='text' value='$linha[num_instalacao]' aria-label='$linha[num_instalacao]' disabled readonly>
-                              </div>
-                              <div class='col-md-2'>
-                                <label id='consumo_velocidade'>Consumo/Velocidade</label>
-                                  <input id='consumo_velocidade' name='consumo_velocidade' class='form-control' type='text' value='$linha[consumo_velocidade]' aria-label='$linha[consumo_velocidade]' disabled readonly>
                               </div>";
+                             
+                        if($linha['tipo_despesa'] == 'ÁGUA'){
+                          $consumoAgua = $linha['consumo_velocidade'] . "m³";
+                          echo "<div class='col-md-2'>
+                                  <label id='consumo_velocidade'>Consumo/Velocidade</label>
+                                    <input id='consumo_velocidade' name='consumo_velocidade' class='form-control' type='text' value='$consumoAgua' aria-label='$consumoAgua' disabled readonly>
+                                </div>";
+                        } else if ($linha['tipo_despesa'] == 'ENERGIA') {
+                          $consumoEnergia = $linha['consumo_velocidade'] . "kWh";
+                          echo "<div class='col-md-2'>
+                                  <label id='consumo_velocidade'>Consumo/Velocidade</label>
+                                    <input id='consumo_velocidade' name='consumo_velocidade' class='form-control' type='text' value='$consumoEnergia' aria-label='$consumoEnergia' disabled readonly>
+                                </div>";
+                        } else {
+                          $velocidadeInternet = $linha['consumo_velocidade'] . "MB";
+                          echo "<div class='col-md-2'>
+                                  <label id='consumo_velocidade'>Consumo/Velocidade</label>
+                                    <input id='consumo_velocidade' name='consumo_velocidade' class='form-control' type='text' value='$velocidadeInternet' aria-label='$velocidadeInternet' disabled readonly>
+                                </div>";
+                        }    
                       } /* else {
                         echo "<div class='d-none'>
                                 <label id='num_instalacao'>Número da Instalação</label>
