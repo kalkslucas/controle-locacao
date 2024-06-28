@@ -305,18 +305,20 @@ if($linha === false){
                           if($consultaAditivo){
                             if($linhaAditivo = $consultaAditivo->rowCount() > 0){
                               while($linhaAditivo = $consultaAditivo->fetch(PDO::FETCH_ASSOC)){
-                                if($linhaAditivo['aluguel'] === 0){
+                                if($linhaAditivo['aluguel'] === 1){
                                   $aluguel = "SIM";
                                 } else {
                                   $aluguel = "NÃO";
                                 }
+                                $data_inicio = formatDate($linhaAditivo['data_inicio']);
+                                $data_fim = formatDate($linhaAditivo['data_fim']);
                                 echo "<tbody>
                                         <tr class='text-center'>
                                           <td>$linhaAditivo[data_criacao]</td>
                                           <td>$linhaAditivo[descricao]</td>
                                           <td>$aluguel</td>
-                                          <td>$linhaAditivo[data_inicio]</td>
-                                          <td>$linhaAditivo[data_fim]</td>
+                                          <td>$data_inicio</td>
+                                          <td>$data_fim</td>
                                         </tr>";
                               }
                             } else {
