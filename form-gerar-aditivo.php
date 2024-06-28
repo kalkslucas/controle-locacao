@@ -71,7 +71,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     <div class="row mb-3">
                       <div class="col-md-3">
                         <label id="aluguel" class="d-inline">Aumento do período do Aluguel?</label>
-                        <select id="aluguel" name="aluguel" class="form-select">
+                        <select id="aluguel" name="aluguel" class="form-select" required>
                           <option value="">Selecione uma opção</option>
                           <option value="0">Não</option>
                           <option value="1">Sim</option>
@@ -84,7 +84,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           name="data_inicio" 
                           class="form-control" 
                           type="date" 
-                          required
                         />
                       </div>
                       <div class="col-md-3">
@@ -94,7 +93,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           name="data_fim" 
                           class="form-control" 
                           type="date" 
-                          required
                         />
                       </div>
                       <div class="col-md-3">
@@ -126,7 +124,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     <div class="row mb-3">
                       <div class="col md 12">
                         <label for="id_locacao">Vincular a Locação</label>
-                        <select class="form-select" name="id_locacao" id="id_locacao">
+                        <select class="form-select" name="id_locacao" id="id_locacao" required>
                           <option value="">---</option>
                           <?php
                             include_once 'conexao.php';
