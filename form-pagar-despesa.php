@@ -113,7 +113,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                     </div>
                       <div class="col-md-4" colspan="2">
                         <label id="anexo_contas" style="width: 100%;">Inserir anexo</label>
-                        <input id="anexo_contas" name="anexo_contas" class="form-control" type="file">
+                        <input id="anexo_contas" name="anexo_contas" class="form-control" type="file" required>
                       </div>
                   </div>
                   
