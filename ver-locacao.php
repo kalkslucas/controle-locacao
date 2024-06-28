@@ -103,15 +103,25 @@ if($linha === false){
                     </div>
                     <div class="col-md-4">
                       <label for="fsc">FSC</label>
-                      <?php
-                        $sqlFsc = "SELECT numero_fsc FROM fsc WHERE id_locacao = :id_locacao";
-                        $consultaFsc = $conectar->prepare($sqlFsc);
-                        $consultaFsc->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
-                        $consultaFsc->execute();
-                        $linhaFsc = $consultaFsc->fetch(PDO::FETCH_ASSOC);
-                        $fscValue = $linhaFsc ? $linhaFsc['numero_fsc'] . '' : 'FSC não encontrada';
-                      ?>
-                      <input type="text" id="fsc" name="fsc" class="form-control" value="<?= $fscValue ?>" disabled readonly>
+                      <div class="border rounded" style="padding:6px 12px; background-color: #e8ecef;" aria-readonly="true">
+                        <?php
+                          $sqlFsc = "SELECT numero_fsc FROM fsc WHERE id_locacao = :id_locacao";
+                          $consultaFsc = $conectar->prepare($sqlFsc);
+                          $consultaFsc->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
+                          $consultaFsc->execute();
+                          if($consultaFsc){
+                            if($linhaFsc = $consultaFsc->rowCount()>0){
+                              while($linhaFsc = $consultaFsc->fetch(PDO::FETCH_ASSOC)){
+                                echo "<p class='mb-1'>$linhaFsc[numero_fsc]</p>";
+                              }
+                            } else {
+                                echo "FSC não encontrada";
+                            }
+                          } else {
+                            echo "Erro ao realizar a consulta de FSCs";
+                          }
+                        ?>
+                      </div>
                     </div>
                     <div class="col-md-4">
                       <label for="gestor">Gestor</label>
@@ -153,9 +163,9 @@ if($linha === false){
                   <div class="row mb-3">
                     <div class="col-md-12">
                       <label for="observacoes">Observações</label>
-                      <textarea id="observacoes" name="observacoes" class="form-control" value="<?= $linha['observacoes'] ?>" disabled readonly rows="5">
-                        <?= $linha['observacoes'] ?>
-                      </textarea>
+                      <div id="observacoes" name="observacoes" class="border rounded" style="padding:6px 12px; background-color: #e8ecef;" aria-readonly="true">
+                        <p><?= $linha['observacoes'] ?></p>
+                      </div>
                     </div>
                   </div>
 
@@ -263,7 +273,7 @@ if($linha === false){
                         $consultaLocador->execute();
                         $linhaLocador = $consultaLocador->fetch(PDO::FETCH_ASSOC);
                       ?>
-                      <input type="text" id="locador" name="locador" class="form-control" value="<?= $linhaLocador['nome'] ?>" disabled readonly>
+                      <a href="ver-locador.php?idlocador=<?=$linha['locador'] ?>" class="form-control btn btn-laranja">Ver locador</a>
                     </div>
                   </div>
 
