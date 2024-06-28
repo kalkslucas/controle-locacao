@@ -9,21 +9,14 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Controle de Locação - Editar Gestor</title>
+  <title>Controle de Locação - FSC</title>
 
   <link rel="stylesheet" href="assets/css/padrao-paginas.css">
   <link rel="stylesheet" href="assets/css/btn-custom.css">
-  <link rel="stylesheet" href="assets/css/ver-locacao.css">
+  <link rel="stylesheet" href="assets/css/visualizar-locadores.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+  <script src="https://kit.fontawesome.com/f8c979c0bf.js" crossorigin="anonymous"></script>
 </head>
-<?php
-include_once "conexao.php";
-$idGestor = filter_var($_GET['idgestor'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT nome, email, cargo, setor, unidade, telefone_1, telefone_2 from gestor where idgestor = '$idGestor'";
-$consulta = $conectar->query($sql);
-$linha = $consulta->fetch(PDO::FETCH_ASSOC);
-?>
 
 <body class="page">
 <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
@@ -67,64 +60,80 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
     </div>
   </header>
 
+  <div class="hstack gap-1 px-2 mb-3">
+    <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
+    <a href='./form-gerar-ftc.php' class='btn btn-warning'>Cadastrar FTC</a>
+    <form action="" class="d-flex ms-auto">
+      <input type="text" name="filtrar" id="filtrar" placeholder="Pesquisar" class="form-control me-2" aria-label="Pesquisar" value="<?php if(isset($_GET['filtrar'])) echo $_GET['filtrar']?>">
+      <button class="btn btn-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+  </div>
+
   <main class="container-fluid">
-    <div class="row justify-content-center">
-      <div class="col">
-        <div class="card mt-3 mb-3">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card-body m-4 rounded shadow-lg">
-                <h3 class="card-title text-center">Ficha da Locação</h3>
-                <form action="editarGestor.php?idgestor=<?=$idGestor?>" method="post">
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                      <label id="nome">Nome</label>
-                      <input id="nome" name="nome" class="form-control" value="<?= $linha['nome']?>" type="text" placeholder="Digite o nome completo" required>
-                    </div>
-                    <div class="col-md-3">
-                      <label id="cargo">Cargo</label>
-                      <input id="cargo" name="cargo" class="form-control" value="<?= $linha['cargo']?>" type="text" placeholder="Ex: Gerente Administrativo" required>
-                    </div>
-                    <div class="col-md-3">
-                      <label id="setor">Setor</label>
-                      <input id="setor" name="setor" class="form-control" value="<?= $linha['setor']?>" type="text" placeholder="Ex: Obras" required>
-                    </div>
-                    <div class="col-md-3">
-                      <label id="unidade">Unidade</label>
-                      <input id="unidade" name="unidade" class="form-control" value="<?= $linha['unidade']?>" type="text" placeholder="Ex: Sede" required>
-                    </div>
-                  </div>
+    <div class="row p-3 justify-content-center">
+      <div class="col-12">
+        <?php
+        echo "
+                  <table class='table table-borderless table-responsive'>
+                    <thead>
+                      <tr class='text-center'>
+                        <th>Número FTC</th>
+                        <th>Data de Criação</th>
+                        <th>Descrição</th>
+                        <th>Visualizar Locação Vinculada</th>
+                      </tr>
+                    </thead>
+                    <tbody>";
+        ?>
 
-                  <div class="row mb-3">
-                    <div class="col-md-4">
-                      <label id="email">E-mail</label>
-                      <input id="email" name="email" class="form-control" value="<?= $linha['email']?>" type="email" placeholder="Ex: abc@ultra.eng.br OU abc@gmail.com">
-                    </div>
-                    <div class="col-md-4">
-                      <label id="telefone1">Telefone 1</label>
-                      <input id="telefone1" name="telefone1" class="form-control" value="<?= $linha['telefone_1']?>" type="text" placeholder="Ex: 3198765432" required>
-                    </div>
-                    <div class="col-md-4">
-                      <label id="telefone2">Telefone 2</label>
-                      <input id="telefone2" name="telefone2" class="form-control" value="<?= $linha['telefone_2']?>" type="text" placeholder="Ex: 31987654321">
-                    </div>
-                  </div>
-              
-                  <div class="col text-center">
-                    <a href="./visualizar-gestores.php" class="btn btn-danger">Voltar</a>
-                    <input class="btn btn-success" type="submit" value="Confirmar Edição">
-                  </div>
-                </form>
+        <?php
+          include_once "conexao.php";
+          try {
+            if(!isset($_GET['filtrar'])){
+              //query sql de consulta
+              $sql = 'SELECT idftc, numero_ftc, descricao, DATE_FORMAT(data_criacao, "%d/%m/%Y") as data_criacao, id_locacao FROM ftc inner join locacao on ftc.id_locacao = locacao.idlocacao ORDER BY data_criacao asc';
+              //execução da instrução sql
+              $consulta = $conectar->query($sql);
+              while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                echo "  <tr class='text-center'>
+                          <td>$linha[numero_ftc]</td>
+                          <td>$linha[data_criacao]</td>
+                          <td>$linha[descricao]</td>
+                          <td><a href='./ver-locacao.php?idlocacao=$linha[id_locacao]' class='btn btn-primary p-2'><i class='fa-solid fa-eye fa-xl'></i></a></td>
+                        </tr>
+                ";
+              }
+            } else {
+              $filtrar = filter_var($_GET['filtrar']);
+              $sql = "SELECT idftc, numero_ftc, DATE_FORMAT(data_criacao, '%d/%m/%Y') as data_criacao, id_locacao FROM ftc 
+              where numero_ftc like CONCAT('%',:filtrar,'%')
+              or data_criacao like CONCAT('%',:filtrar,'%')";
+              $consulta = $conectar->prepare($sql);
+              $consulta->bindParam(":filtrar", $filtrar, PDO::PARAM_STR);
+              $consulta->execute();
+              while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                echo "  <tr class='text-center'>
+                          <td>$linha[numero_fsc]</td>
+                          <td>$linha[validade]</td>
+                          <td><a href='./ver-locacao.php?idlocacao=$linha[id_locacao]' class='btn btn-laranja'>Ver locação vinculada</a></td>
+                        </tr>
+                ";
+              }
+            }
+            
+          } catch (PDOException $e) {
+            echo $e->getMessage();
+          }
+        ?>
 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        <?php
+          echo"
+                    </tbody>  
+                  </table>";
+        ?>
+      </div> 
     </div>
   </main>
-
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 

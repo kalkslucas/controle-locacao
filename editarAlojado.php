@@ -49,7 +49,7 @@ try {
     $arquivos = $_FILES['anexo_foto_docs'];
     $tudo_certo = true;
     foreach ($arquivos['name'] as $index => $arq) {
-      $deu_certo = enviarArquivos($arquivos['error'][$index], $arquivos['size'][$index], $arquivos['name'][$index], $arquivos['tmp_name'][$index], NULL, NULL, $idalojado);
+      $deu_certo = enviarArquivos($arquivos['error'][$index], $arquivos['size'][$index], $arquivos['name'][$index], $arquivos['tmp_name'][$index], NULL, $idalojado);
       if (!$deu_certo) {
         $tudo_certo = false;
       }

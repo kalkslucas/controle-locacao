@@ -5,26 +5,17 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Controle de Locação - Editar Gestor</title>
+  <title>Controle de Locação - Gerar FSC</title>
 
   <link rel="stylesheet" href="assets/css/padrao-paginas.css">
   <link rel="stylesheet" href="assets/css/btn-custom.css">
-  <link rel="stylesheet" href="assets/css/ver-locacao.css">
+  <link rel="stylesheet" href="./assets/css/gerar-fsc.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 </head>
-<?php
-include_once "conexao.php";
-$idGestor = filter_var($_GET['idgestor'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT nome, email, cargo, setor, unidade, telefone_1, telefone_2 from gestor where idgestor = '$idGestor'";
-$consulta = $conectar->query($sql);
-$linha = $consulta->fetch(PDO::FETCH_ASSOC);
-?>
-
 <body class="page">
 <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container-fluid">
@@ -67,55 +58,67 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
     </div>
   </header>
 
-  <main class="container-fluid">
+  <main class="container">
     <div class="row justify-content-center">
       <div class="col">
-        <div class="card mt-3 mb-3">
+        <div class="card shadow-lg mt-3 mb-3">
           <div class="row">
             <div class="col-md-12">
-              <div class="card-body m-4 rounded shadow-lg">
-                <h3 class="card-title text-center">Ficha da Locação</h3>
-                <form action="editarGestor.php?idgestor=<?=$idGestor?>" method="post">
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                      <label id="nome">Nome</label>
-                      <input id="nome" name="nome" class="form-control" value="<?= $linha['nome']?>" type="text" placeholder="Digite o nome completo" required>
+              <div class="card-body">
+                <h3 class="card-title text-center display-4">Cadastro de FTC</h3>
+                <form action="gerarFtc.php" enctype="multipart/form-data" method="post">
+                  <div class="mt-1">
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label id="numero_ftc" class="d-inline">Número FTC</label>
+                        <input id="numero_ftc" name="numero_ftc" class="form-control" type="text" placeholder="Digite o número da FTC" required>
+                      </div>
+                      <div class="col-md-6">
+                        <label id="anexoFsc" class="d-inline">Anexo de Contratos</label>
+                        <input type="file" class="form-control" name="anexoFtc[]" id="anexoFtc" multiple required>
+                      </div>
                     </div>
-                    <div class="col-md-3">
-                      <label id="cargo">Cargo</label>
-                      <input id="cargo" name="cargo" class="form-control" value="<?= $linha['cargo']?>" type="text" placeholder="Ex: Gerente Administrativo" required>
+                    
+                    <div class="row mb-3">
+                      <div class="col-md-12">
+                        <div class="form-floating">
+                          <textarea class="form-control" name="descricao" id="descricao" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                          <label for="floatingTextarea" class="ps-3">Descrição</label>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-md-3">
-                      <label id="setor">Setor</label>
-                      <input id="setor" name="setor" class="form-control" value="<?= $linha['setor']?>" type="text" placeholder="Ex: Obras" required>
-                    </div>
-                    <div class="col-md-3">
-                      <label id="unidade">Unidade</label>
-                      <input id="unidade" name="unidade" class="form-control" value="<?= $linha['unidade']?>" type="text" placeholder="Ex: Sede" required>
-                    </div>
-                  </div>
+                    
+                    <div class="row mb-3">
+                      <div class="col-md-12">    
+                        <label id="vincularLocacao">Vincular a Locação</label>
+                          <select class="form-select" name="vincularLocacao" id="vincularLocacao" required>
+                            <option value="">---</option>
+                            <?php
+                              include_once 'conexao.php';
+                              try {
+                                $query = "SELECT idlocacao, ftc, rua, numero, bairro, cidade, estado, cep, nome FROM locacao l INNER JOIN endereco e ON l.id_endereco = e.idendereco INNER JOIN gestor g ON l.id_gestor = g.idgestor";
 
-                  <div class="row mb-3">
-                    <div class="col-md-4">
-                      <label id="email">E-mail</label>
-                      <input id="email" name="email" class="form-control" value="<?= $linha['email']?>" type="email" placeholder="Ex: abc@ultra.eng.br OU abc@gmail.com">
-                    </div>
-                    <div class="col-md-4">
-                      <label id="telefone1">Telefone 1</label>
-                      <input id="telefone1" name="telefone1" class="form-control" value="<?= $linha['telefone_1']?>" type="text" placeholder="Ex: 3198765432" required>
-                    </div>
-                    <div class="col-md-4">
-                      <label id="telefone2">Telefone 2</label>
-                      <input id="telefone2" name="telefone2" class="form-control" value="<?= $linha['telefone_2']?>" type="text" placeholder="Ex: 31987654321">
+                                $consulta = $conectar->query($query);
+                                while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                  echo "<option value='$linha[idlocacao]'>$linha[ftc] | $linha[rua], $linha[numero], $linha[bairro], $linha[cidade] - $linha[estado] | $linha[nome]";
+                                }
+                              } catch (PDOException $e) {
+                                echo 'Error: ' . $e->getMessage();
+                                // Log the error
+                                error_log('Error: ' . $e->getMessage(), 0);
+                              }
+                            ?>
+                        </select>
+                      </div>
                     </div>
                   </div>
-              
-                  <div class="col text-center">
-                    <a href="./visualizar-gestores.php" class="btn btn-danger">Voltar</a>
-                    <input class="btn btn-success" type="submit" value="Confirmar Edição">
-                  </div>
+                    
+                    
+                    <div class="col text-center">
+                      <a href="./visualizar-fsc.php" class="text-center btn btn-danger">Voltar</a>
+                      <input class="btn btn-laranja" type="submit" value="Cadastrar FTC">
+                    </div>                
                 </form>
-
               </div>
             </div>
           </div>
@@ -123,11 +126,12 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
       </div>
     </div>
   </main>
+  
+                  
 
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>   
 </body>
-
 </html>
 
 <?php else: header('Location: login.php');endif;?>

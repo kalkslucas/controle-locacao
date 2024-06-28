@@ -1,5 +1,5 @@
 <?php
-function enviarArquivos($error, $size, $name, $tmp_name, $idLocacao, $idFsc, $idAlojado){
+function enviarArquivos($error, $size, $name, $tmp_name, $idLocacao, $idAlojado){
   include 'conexao.php';
 
   if ($error) {

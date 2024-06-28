@@ -5,27 +5,24 @@ try {
   $conectar->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $conectar->beginTransaction();
 
-  $numeroFsc = filter_var($_POST['numeroFsc']);
-  $validadeFsc = filter_var($_POST['validadeFsc']);
+  $numero_ftc = filter_var($_POST['numero_ftc']);
   $descricao = filter_var($_POST['descricao']);
   $data_criacao = date('Y-m-d H:i:s', time());
   $vincularLocacao = filter_var($_POST['vincularLocacao']);
 
-  $query = "INSERT INTO fsc (numero_fsc, validade, descricao, data_criacao, id_locacao) VALUES (:numeroFsc, :validade, :descricao, :data_criacao, :vincularLocacao)";
+  $query = "INSERT INTO ftc (numero_ftc, data_criacao, descricao, id_locacao) VALUES (:numero_ftc, :data_criacao, :descricao, :vincularLocacao)";
 
   $insert = $conectar->prepare($query);
-  $insert->bindParam(":numeroFsc", $numeroFsc, PDO::PARAM_STR);
-  $insert->bindParam(":validade", $validadeFsc, PDO::PARAM_STR);
-  $insert->bindParam(":descricao", $descricao, PDO::PARAM_STR);
+  $insert->bindParam(":numero_ftc", $numero_ftc, PDO::PARAM_STR);
   $insert->bindParam(":data_criacao", $data_criacao, PDO::PARAM_STR);
+  $insert->bindParam(":descricao", $descricao, PDO::PARAM_STR);
   $insert->bindParam(":vincularLocacao", $vincularLocacao, PDO::PARAM_INT);
   $insert->execute();
 
-  $idFsc = $conectar->lastInsertId();
   $conectar->commit();
   
-  if (isset($_FILES['anexoFsc']) && $_FILES['anexoFsc']['error'][0] != UPLOAD_ERR_NO_FILE) {
-    $arquivos = $_FILES['anexoFsc'];
+  if (isset($_FILES['anexoFtc']) && $_FILES['anexoFtc']['error'][0] != UPLOAD_ERR_NO_FILE) {
+    $arquivos = $_FILES['anexoFtc'];
     $tudo_certo = true;
     foreach ($arquivos['name'] as $index => $arq) {
       $deu_certo = enviarArquivos($arquivos['error'][$index], $arquivos['size'][$index], $arquivos['name'][$index], $arquivos['tmp_name'][$index], $vincularLocacao, NULL);
@@ -39,7 +36,7 @@ try {
       echo '<p>Falha ao enviar um ou mais arquivos</p>';
     }
   }
-  header('Location: visualizar-fsc.php');
+  header('Location: visualizar-ftc.php');
   
 
 } catch (PDOException $e) {
