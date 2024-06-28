@@ -101,8 +101,8 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           <td>$linha[nome]</td>
                           <td>$linha[email]</td>
                           <td>$linha[telefone_1]</td>
-                          <td><a href='./ver-locador.php?idlocador=$linha[idlocador]' class='btn btn-laranja'>Ver locador</a></td>
-                          <td><a href='./form-editar-locador.php?idlocador=$linha[idlocador]' class='btn btn-laranja'>Editar locador</a></td>
+                          <td><a href='./ver-locador.php?idlocador=$linha[idlocador]' class='btn btn-primary p-2'><i class='fa-solid fa-eye fa-xl'></i></a></td>
+                          <td><a href='./form-editar-locador.php?idlocador=$linha[idlocador]' class='btn btn-laranja p-2'><i class='fa-solid fa-pencil fa-xl'></i></a></td>
                         </tr>
                 ";
               }
@@ -120,8 +120,8 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           <td>$linha[nome]</td>
                           <td>$linha[email]</td>
                           <td>$linha[telefone_1]</td>
-                          <td><a href='./ver-locador.php?idlocador=$linha[idlocador]' class='btn btn-laranja'>Ver locador</a></td>
-                          <td><a href='./form-editar-locador.php?idlocador=$linha[idlocador]' class='btn btn-laranja'>Editar locador</a></td>
+                          <td><a href='./ver-locador.php?idlocador=$linha[idlocador]' class='btn btn-primary p-2'><i class='fa-solid fa-eye fa-xl'></i></a></td>
+                          <td><a href='./form-editar-locador.php?idlocador=$linha[idlocador]' class='btn btn-laranja p-2'><i class='fa-solid fa-pencil fa-xl'></i></a></td>
                         </tr>
                 ";
                 }

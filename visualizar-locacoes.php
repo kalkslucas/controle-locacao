@@ -108,8 +108,8 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     $linha[bairro] - $linha[cidade] - $linha[estado]
                   </p>
                   <div class='card-btns'>
-                    <a href='./ver-locacao.php?idlocacao=$linha[idlocacao]' class='btn btn-laranja'>Ver locação</a>
-                    <a href='./form-editar-locacao.php?idlocacao=$linha[idlocacao]' class='btn btn-laranja'>Editar locação</a>
+                    <a href='./ver-locacao.php?idlocacao=$linha[idlocacao]' class='btn btn-laranja'>Ver Locação</a>
+                    <a href='./form-editar-locacao.php?idlocacao=$linha[idlocacao]' class='btn btn-laranja'>Editar Locação</a>
                   </div>
                 </div>
               </div>
@@ -125,7 +125,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
           on lc.id_endereco = e.idendereco
           inner join locador l
           on lc.id_locador = l.idlocador
-          where ftc like CONCAT('%', :filtrar, '%')
+          where idlocacao like CONCAT('%', :filtrar, '%')
           or situacao like CONCAT('%', :filtrar, '%')
           or g.nome like CONCAT('%', :filtrar, '%')
           or l.nome like CONCAT('%', :filtrar, '%')
@@ -157,8 +157,8 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     $linha[bairro] - $linha[cidade] - $linha[estado]
                   </p>
                   <div class='card-btns'>
-                    <a href='./ver-locacao.php?idlocacao=$linha[idlocacao]' class='btn btn-laranja'>Ver locação</a>
-                    <a href='./form-editar-locacao.php?idlocacao=$linha[idlocacao]' class='btn btn-laranja'>Editar locação</a>
+                    <a href='./ver-locacao.php?idlocacao=$linha[idlocacao]' class='btn btn-laranja'>Ver Locação</a>
+                    <a href='./form-editar-locacao.php?idlocacao=$linha[idlocacao]' class='btn btn-laranja'>Editar Locação</a>
                   </div>
                 </div>
               </div>
