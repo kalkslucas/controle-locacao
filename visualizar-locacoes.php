@@ -86,7 +86,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
           on lc.id_endereco = e.idendereco
           inner join locador l
           on lc.id_locador = l.idlocador
-          order by gestor asc";
+          order by idlocacao asc";
           //execução da instrução sql
           $consulta = $conectar->query($sql);
           while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
@@ -135,7 +135,8 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
           or bairro like CONCAT('%', :filtrar, '%')
           or cidade like CONCAT('%', :filtrar, '%')
           or estado like CONCAT('%', :filtrar, '%')
-          or cep like CONCAT('%', :filtrar, '%')";
+          or cep like CONCAT('%', :filtrar, '%')
+          order by idlocacao asc";
           //execução da instrução sql
           $consulta = $conectar->prepare($sql);
           $consulta->bindParam(":filtrar", $filtrar, PDO::PARAM_STR);
