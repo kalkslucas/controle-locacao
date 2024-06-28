@@ -273,7 +273,7 @@ if($linha === false){
                         $consultaLocador->execute();
                         $linhaLocador = $consultaLocador->fetch(PDO::FETCH_ASSOC);
                       ?>
-                      <a href="ver-locador.php?idlocador=<?=$linha['locador'] ?>" class="form-control btn btn-laranja">Ver locador</a>
+                      <a href="ver-locador-da-locacao.php?idlocador=<?=$linha['locador']?>&idlocacao=<?=$idLocacao?>" class="form-control btn btn-laranja">Ver locador</a>
                     </div>
                   </div>
 
