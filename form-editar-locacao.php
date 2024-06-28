@@ -20,7 +20,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <?php
 include_once "conexao.php";
 $idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, l.nome as locador, lc.situacao, inicio_locacao, termino_locacao, vistoria_entrada,vistoria_saida, qtd_quartos, qtd_banheiros, qtd_vagas_garagem, observacoes, cc.nome as centro_custo, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep, lc.id_gestor, lc.id_locador, lc.id_centro_custo
+$sql = "SELECT lc.idlocacao, g.nome as gestor, l.nome as locador, lc.situacao, inicio_locacao, termino_locacao, vistoria_entrada,vistoria_saida, qtd_quartos, qtd_banheiros, qtd_vagas_garagem, observacoes, cc.nome as centro_custo, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep, lc.id_gestor, lc.id_locador, lc.id_centro_custo
   from locacao lc
   inner join endereco e
   on lc.id_endereco = e.idendereco
@@ -93,11 +93,7 @@ function formatDate($date) {
               <div class="card-body m-4 rounded shadow-lg">
                 <h3 class="card-title text-center">Ficha da Locação</h3>
                 <form action="editarLocacao.php?idlocacao=<?= $idLocacao?>" enctype="multipart/form-data" method="post">
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                      <label for="ftc">FTC</label>
-                      <input type="text" id="ftc" name="ftc" class="form-control" value="<?= $linha['ftc'] ?>">
-                    </div>
+                  <div class="row mb-3 d-flex justify-content-center">
                     <div class="col-md-4">
                       <label for="gestor">Gestor</label>
                       <select class="form-select" name="gestor" id="gestor" required>
@@ -270,7 +266,7 @@ function formatDate($date) {
                   <div class="row mb-3">
                     <div class="col-md-12">
                       <h4>Anexos</h4>
-                      <div class="border p-2">
+                      <div class="border p-2 table-responsive">
                         <?php
                         echo "<table id='tabelaAnexos' class='table table-borderless'>
                                         <thead>

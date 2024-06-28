@@ -72,6 +72,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <main class="container-fluid">
     <div class="row p-3 justify-content-center">
       <div class="col-12">
+        <div class="p-2 table-responsive">
         <?php
         echo "
                   <table class='table table-borderless table-responsive'>
@@ -132,6 +133,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     </tbody>  
                   </table>";
         ?>
+        </div>
       </div> 
     </div>
   </main>

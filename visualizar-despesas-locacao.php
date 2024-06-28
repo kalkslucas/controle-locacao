@@ -78,6 +78,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <main class="container-fluid">
     <div class="row p-3 justify-content-center">
       <div class="col-12">
+        <div class="p-2 table-responsive">
         <?php
         echo "
               <h3>Contas pagas</h3>
@@ -163,6 +164,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     </tbody>  
                   </table>";
         ?>
+        </div>
       </div> 
     </div>
 
@@ -170,6 +172,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 
     <div class="row p-3 justify-content-center">
       <div class="col-12">
+        <div class="p-2 table-responsive">
         <?php
         echo "
               <h3>Contas em aberto</h3>
@@ -254,6 +257,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     </tbody>  
                   </table>";
         ?>
+        </div>
       </div> 
     </div>
 

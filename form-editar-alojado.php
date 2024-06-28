@@ -174,7 +174,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                   <div class="row mb-3">
                     <div class="col-md-12">
                       <h4>Anexos</h4>
-                      <div class="border p-2">
+                      <div class="border p-2 table-responsive">
                         <?php
                         echo "<table id='tabelaAnexos' class='table table-borderless'>
                                         <thead>

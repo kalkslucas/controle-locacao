@@ -93,6 +93,7 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
         <div class="card">
           <div class="card-body d-flex flex-column justify-content-around align-items-center">
             <h5 class="card-title">Situações das Locações</h5>
+            <div class="table-responsive">
             <?php
               echo "<table class='table table-borderless w-75 m-2'>";
               $sql = "SELECT situacao, count(situacao) as quantidade from locacao group by situacao";
@@ -111,6 +112,7 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
               }
               echo "</table>";
             ?>
+            </div>
           </div>
         </div>
       </div>
@@ -118,6 +120,7 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
         <div class="card">
           <div class="card-body d-flex flex-column justify-content-around align-items-center">
             <h5 class="card-title">Próximas contas a vencer</h5>
+            <div class="table-responsive">
             <?php
               echo "<table class='table table-borderless'>
                         <tr>
@@ -147,6 +150,7 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
               }
               echo "</table>";
             ?>
+            </div>
           </div>
         </div>
       </div>

@@ -123,7 +123,6 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                     <input class="btn btn-success" type="submit" value="Confirmar Pagamento">
                   </div>
                 </form>
-
               </div>
             </div>
           </div>

@@ -314,9 +314,9 @@ if($linha === false){
                   <div class="row mb-3">
                     <div class="col-md-12">
                       <label for="listaAditivo"><h4>Aditivos</h4></label>
-                      <div class="px-4 pt-2 border rounded">
+                      <div class="px-4 pt-2 border rounded table-responsive">
                         <?php
-                          echo"<table class='table table-borderless table-responsive'>
+                          echo"<table class='table table-borderless'>
                                 <thead>
                                   <tr class='text-center'>
                                     <th>Data de Criação</th>
@@ -368,9 +368,9 @@ if($linha === false){
                   <div class="row mb-3">
                     <div class="col-md-12">
                       <label for="listaAlojados"><h4>Alojados da locação</h4></label>
-                      <div class="px-4 pt-2 border rounded">
+                      <div class="px-4 pt-2 border rounded table-responsive">
                         <?php
-                          echo"<table class='table table-borderless table-responsive'>
+                          echo"<table class='table table-borderless'>
                                       <thead>
                                         <tr class='text-center disabledBgColor'>
                                           <th>Nome</th>
@@ -411,9 +411,9 @@ if($linha === false){
                   <div class="row mb-3">
                     <div class="col-md-12">
                       <h4>Anexos</h4>
-                      <div class="border p-2">
+                      <div class="border p-2 table-responsive">
                         <?php
-                        echo "<table id='tabelaAnexos' class='table table-borderless table-responsive'>
+                        echo "<table id='tabelaAnexos' class='table table-borderless'>
                                 <thead>
                                   <tr class='text-center'>
                                     <th>Visualização</th>
