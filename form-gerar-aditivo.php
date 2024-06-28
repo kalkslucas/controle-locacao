@@ -66,260 +66,39 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
           <div class="row">
             <div class="col-md-12">
               <div class="card-body">
-                <h3 class="card-title text-center display-4">Cadastro de Locação</h3>
-                <form action="cadastrarLocacao.php" enctype="multipart/form-data" method="post">
-                    <div class="row mb-3">
-                      <div class="col-md-1">
-                        <label id="ftc" class="d-inline">FTC</label>
-                        <input id="ftc" name="ftc" class="form-control" type="text" placeholder="Ex: 00-00"/>
-                      </div>
-                      <div class="col-md-3">
-                        <label id="gestor" class="d-inline">Gestor</label>
-                        <select class="form-select" name="gestor" id="gestor" required>
-                          <option value="">Selecione o gestor</option>
-                          <?php
-                          include_once 'conexao.php';
-                          try {
-                            $query = "SELECT idgestor, nome FROM gestor";
-                            $consulta = $conectar->query($query);
-                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                              echo "<option value='$linha[idgestor]'>$linha[nome]</option>";
-                            }
-                          } catch (PDOException $e) {
-                            echo 'Error: ' . $e->getMessage();
-                          }
-                          ?>
-                        </select>
-                      </div>
-                      <div class="col-md-3">
-                        <label id="locador" class="d-inline">Locador</label>
-                        <select class="form-select" name="locador" id="locador" required>
-                          <option value="">Selecione o locador</option>
-                          <?php
-                          include_once 'conexao.php';
-                          try {
-                            $query = "SELECT idlocador, nome FROM locador";
-                            $consulta = $conectar->query($query);
-
-                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                              echo "<option value='$linha[idlocador]'>$linha[nome]</option>";
-                            }
-                          } catch (PDOException $e) {
-                            echo 'Error: ' . $e->getMessage();
-                          }
-                          ?>
-                        </select>
-                      </div>
-                      <div class="col-md-2">
-                        <label id="status" class="d-inline">Status</label>
-                        <select class="form-select" name="situacao" id="situacao" required>
-                          <option value="">Selecione o status</option>
-                          <option value="ATIVO">ATIVO</option>
-                          <option value="ADITIVO">ADITIVO</option>
-                          <option value="PENDENTE">PENDENTE</option>
-                          <option value="EM TRAMITAÇÃO">EM TRAMITAÇÃO</option>
-                          <option value="INATIVO">INATIVO</option>
-                        </select>
-                      </div>
-                      <div class="col-md-3">
-                        <label id="centroCusto" class="d-inline">Centro de Custo</label>
-                        <select id="centroCusto" name="centroCusto" class="form-select" required>
-                          <option value="">Selecione um centro de custo</option>
-                          <?php
-                            $queryCC = "SELECT idcentrocusto, nome FROM centro_custo";
-                            $consultaCC = $conectar->query($queryCC);
-                            while($linhaCC = $consultaCC->fetch(PDO::FETCH_ASSOC)){
-                              echo "<option value='$linhaCC[idcentrocusto]'>$linhaCC[nome]</option>";
-                            }
-                          ?>
-                        </select>
-                      </div>
-                    </div>
-                    
+                <h3 class="card-title text-center display-4 pb-2">Gerador de Aditivos</h3>
+                <form action="gerarAditivo.php" enctype="multipart/form-data" method="post">
                     <div class="row mb-3">
                       <div class="col-md-3">
-                        <label id="vistoriaEntrada" class="d-inline">Vistoria de Entrada</label>
-                        <input 
-                          id="vistoriaEntrada" 
-                          name="vistoriaEntrada" 
-                          class="form-control" 
-                          type="date" 
-                        />
+                        <label id="aluguel" class="d-inline">Aumento do período do Aluguel?</label>
+                        <select id="aluguel" name="aluguel" class="form-select">
+                          <option value="">Selecione uma opção</option>
+                          <option value="0">Não</option>
+                          <option value="1">Sim</option>
+                        </select>
                       </div>
                       <div class="col-md-3">
-                        <label id="vistoriaSaida" class="d-inline">Vistoria de Saída</label>
+                        <label id="data_inicio" class="d-inline">Início do Novo Aluguel</label>
                         <input 
-                          id="vistoriaSaida" 
-                          name="vistoriaSaida" 
-                          class="form-control" 
-                          type="date" 
-                        />
-                      </div>
-                      <div class="col-md-3">
-                        <label id="inicioLocacao" class="d-inline">Início da Locação</label>
-                        <input 
-                          id="inicioLocacao" 
-                          name="inicioLocacao" 
+                          id="data_inicio" 
+                          name="data_inicio" 
                           class="form-control" 
                           type="date" 
                           required
                         />
                       </div>
                       <div class="col-md-3">
-                        <label id="fimLocacao" class="d-inline">Término da Locação</label>
+                        <label id="data_fim" class="d-inline">Término do Novo Aluguel</label>
                         <input 
-                          id="fimLocacao" 
-                          name="fimLocacao" 
+                          id="data_fim" 
+                          name="data_fim" 
                           class="form-control" 
                           type="date" 
                           required
                         />
                       </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <div class="col-md-2">
-                        <label id="cepLocacao">CEP</label>
-                        <input 
-                          id="cep" 
-                          name="cep" 
-                          class="form-control" 
-                          type="text" 
-                          placeholder="Digite o CEP do Endereço"
-                          required
-                        />
-                      </div>
                       <div class="col-md-3">
-                        <label id="enderecoLocacao">Endereço</label>
-                        <input 
-                          id="rua" 
-                          name="rua" 
-                          class="form-control" 
-                          type="text" 
-                          placeholder="Nome da Rua, Avenida, Travessa..."
-                          required
-                        />
-                      </div>
-                      <div class="col-md-1">
-                        <label id="numEndLocacao" class="d-inline">Numero</label>
-                        <input 
-                          id="numero" 
-                          name="numero" 
-                          class="form-control" 
-                          type="text" 
-                          placeholder="Ex: 00 ou S/N"
-                          required
-                        />
-                      </div>
-                      <div class="col-md-1">
-                        <label id="compEndLocacao" class="d-inline">Complemento</label>
-                        <input 
-                          id="complemento" 
-                          name="complemento" 
-                          class="form-control" 
-                          type="text" 
-                          placeholder="Casa, Bloco, Apto, Quadra, Lote..."
-                          required
-                        />
-                      </div>
-                      <div class="col-md-2">
-                        <label id="bairroLocacao">Bairro</label>
-                        <input 
-                          id="bairro" 
-                          name="bairro" 
-                          class="form-control" 
-                          type="text"
-                          required
-                        />
-                      </div>
-                      <div class="col-md-2">
-                        <label id="cidadeLocacao">Cidade</label>
-                        <input
-                          id="cidade"
-                          name="cidade"
-                          class="form-control"
-                          type="text"
-                          required
-                        />
-                      </div>
-                      <div class="col-md-1">
-                        <label id="estadoLocacao" class="d-inline">Estado</label>
-                        <select class="form-select" id="uf" name="uf" required>
-                          <option value="">--</option>
-                          <option value="AC">AC</option>
-                          <option value="AL">AL</option>
-                          <option value="AP">AP</option>
-                          <option value="AM">AM</option>
-                          <option value="BA">BA</option>
-                          <option value="CE">CE</option>
-                          <option value="DF">DF</option>
-                          <option value="ES">ES</option>
-                          <option value="GO">GO</option>
-                          <option value="MA">MA</option>
-                          <option value="MG">MG</option>
-                          <option value="MS">MS</option>
-                          <option value="MT">MT</option>
-                          <option value="PA">PA</option>
-                          <option value="PB">PB</option>
-                          <option value="PE">PE</option>
-                          <option value="PI">PI</option>
-                          <option value="PR">PR</option>
-                          <option value="RJ">RJ</option>
-                          <option value="RN">RN</option>
-                          <option value="RO">RO</option>
-                          <option value="RR">RR</option>
-                          <option value="RS">RS</option>
-                          <option value="SC">SC</option>
-                          <option value="SP">SP</option>
-                          <option value="SE">SE</option>
-                          <option value="TO">TO</option>
-                        </select>
-                      </div>
-                    </div>
-                    
-                    <div class="row mb-3">
-                      <div class="col">
-                        <label id="observacoes" class="d-inline mt-1">Observações</label>
-                        <textarea
-                          id="observacoes" 
-                          name="observacoes" 
-                          class="mt-2 form-control"
-                          rows="5"
-                          required 
-                          >
-                        </textarea>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <div class="col-md-1">
-                        <label for="qtd_quartos" class="d-inline">Quantidade de Quartos</label>
-                        <input type="number" name="qtd_quartos" id="qtd_quartos" class="form-control" required>
-                      </div>
-                      <div class="col-md-1">
-                        <label for="qtd_banheiros" class="d-inline">Quantidade de Banheiros</label>
-                        <input type="number" name="qtd_banheiros" id="qtd_banheiros" class="form-control" required>
-                      </div>
-                      <div class="col-md-1">
-                        <label for="qtd_vagas_garagem" class="d-inline">Vagas de Garagem</label>
-                        <input type="number" name="qtd_vagas_garagem" id="qtd_vagas_garagem" class="form-control" required>
-                      </div>
-                      <div class="col-md-6">
-                        <label id="valorAluguel">Valor do Aluguel</label>
-                        <div class="input-group">
-                          <span class="input-group-text">R$</span>
-                          <input 
-                            id="valorAluguel" 
-                            name="valorAluguel" 
-                            class="form-control" 
-                            type="text" 
-                            aria-label="Valor do Aluguel"
-                            required
-                          />
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <label id="imagensLocacao" class="d-inline">Adicionar Fotos e Documentos</label>
+                        <label id="anexo_foto_docs" class="d-inline">Adicionar Fotos e Documentos</label>
                         <input 
                           id="anexo_foto_docs" 
                           name="anexo_foto_docs[]" 
@@ -329,6 +108,44 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         />
                       </div>
                     </div>
+                    
+                    <div class="row mb-3">
+                      <div class="col">
+                        <label id="descricao" class="d-inline mt-1">Descrição do Aditivo</label>
+                        <textarea
+                          id="descricao" 
+                          name="descricao" 
+                          class="mt-2 form-control"
+                          rows="5"
+                          required 
+                          >
+                        </textarea>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col md 12">
+                        <label for="id_locacao">Vincular a Locação</label>
+                        <select class="form-select" name="id_locacao" id="id_locacao">
+                          <option value="">---</option>
+                          <?php
+                            include_once 'conexao.php';
+                            try {
+                              $query = "SELECT idlocacao, ftc, rua, numero, bairro, cidade, estado, cep, nome FROM locacao l INNER JOIN endereco e ON l.id_endereco = e.idendereco INNER JOIN gestor g ON l.id_gestor = g.idgestor";
+
+                              $consulta = $conectar->query($query);
+                              while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                echo "<option value='$linha[idlocacao]'>$linha[ftc] | $linha[rua], $linha[numero], $linha[bairro], $linha[cidade] - $linha[estado] | $linha[nome]";
+                              }
+                            } catch (PDOException $e) {
+                              echo 'Error: ' . $e->getMessage();
+                              // Log the error
+                              error_log('Error: ' . $e->getMessage(), 0);
+                            }
+                          ?>
+                        </select>
+                      </div>
+                    </div>
 
                   <div class="row mb-3">
                     <div class="col text-center">
@@ -336,11 +153,10 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                       <input 
                         class="btn btn-laranja" 
                         type="submit" 
-                        value="Cadastrar Locação"
+                        value="Gerar Aditivo"
                       />
                     </div>
                   </div>
-                    
                 </form>
               </div>
             </div>
