@@ -66,49 +66,61 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
               <div class="card-body">
                 <h3 class="card-title text-center display-4">Cadastro de FSC</h3>
                 <form action="gerarFsc.php" enctype="multipart/form-data" method="post">
-                  <div class="mt-1">  
-                    <label id="numeroFsc">
-                      Número FSC
-                      <input id="numeroFsc" name="numeroFsc" class="form-control" type="text" placeholder="Digite o número da FSC" required>
-                    </label>
-  
-                    <label id="validadeFsc">
-                      Validade
-                      <input id="validadeFsc" name="validadeFsc" class="form-control" type="date" placeholder="Digite a data final de validade" required>
-                    </label>
+                  <div class="mt-1">
+                    <div class="row mb-3">
+                      <div class="col-md-4">
+                        <label id="numeroFsc" class="d-inline">Número FSC</label>
+                        <input id="numeroFsc" name="numeroFsc" class="form-control" type="text" placeholder="Digite o número da FSC" required>
+                      </div>
+                      <div class="col-md-4">
+                        <label id="validadeFsc" class="d-inline">Validade</label>
+                        <input id="validadeFsc" name="validadeFsc" class="form-control" type="date" placeholder="Digite a data final de validade" required>
+                      </div>
+                      <div class="col-md-4">
+                        <label id="anexoFsc" class="d-inline">Anexo de Contratos</label>
+                        <input type="file" class="form-control" name="anexoFsc[]" id="anexoFsc" multiple required>
+                      </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                      <div class="col-md-12">
+                        <div class="form-floating">
+                          <textarea class="form-control" name="descricao" id="descricao" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                          <label for="floatingTextarea" class="ps-3">Descrição</label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                      <div class="col-md-12">    
+                        <label id="vincularLocacao">Vincular a Locação</label>
+                          <select class="form-select" name="vincularLocacao" id="vincularLocacao" required>
+                            <option value="">---</option>
+                            <?php
+                              include_once 'conexao.php';
+                              try {
+                                $query = "SELECT idlocacao, ftc, rua, numero, bairro, cidade, estado, cep, nome FROM locacao l INNER JOIN endereco e ON l.id_endereco = e.idendereco INNER JOIN gestor g ON l.id_gestor = g.idgestor";
 
-                    <label id="anexoFsc">
-                      Anexo de Contratos
-                      <input type="file" class="form-control" name="anexoFsc[]" id="anexoFsc" multiple required>
-                    </label>
-
-                    <label id="vincularLocacao">
-                      Vincular a Locação
-                      <select class="form-select" name="vincularLocacao" id="vincularLocacao" required>
-                        <option value="">---</option>
-                        <?php
-                          include_once 'conexao.php';
-                          try {
-                            $query = "SELECT idlocacao, ftc, rua, numero, bairro, cidade, estado, cep, nome FROM locacao l INNER JOIN endereco e ON l.id_endereco = e.idendereco INNER JOIN gestor g ON l.id_gestor = g.idgestor";
-
-                            $consulta = $conectar->query($query);
-                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                              echo "<option value='$linha[idlocacao]'>$linha[ftc] | $linha[rua], $linha[numero], $linha[bairro], $linha[cidade] - $linha[estado] | $linha[nome]";
-                            }
-                          } catch (PDOException $e) {
-                            echo 'Error: ' . $e->getMessage();
-                            // Log the error
-                            error_log('Error: ' . $e->getMessage(), 0);
-                          }
-                        ?>
-                      </select>
-                    </label>
+                                $consulta = $conectar->query($query);
+                                while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                  echo "<option value='$linha[idlocacao]'>$linha[ftc] | $linha[rua], $linha[numero], $linha[bairro], $linha[cidade] - $linha[estado] | $linha[nome]";
+                                }
+                              } catch (PDOException $e) {
+                                echo 'Error: ' . $e->getMessage();
+                                // Log the error
+                                error_log('Error: ' . $e->getMessage(), 0);
+                              }
+                            ?>
+                        </select>
+                      </div>
+                    </div>
                   </div>
-                  
-
-                  <label class="d-flex mt-3" id="enviarLocacao">
-                    <input class="btn btn-laranja" type="submit" value="Cadastrar FSC">
-                  </label>
+                    
+                    
+                    <div class="col text-center">
+                      <a href="./visualizar-fsc.php" class="text-center btn btn-danger">Voltar</a>
+                      <input class="btn btn-laranja" type="submit" value="Cadastrar FSC">
+                    </div>                
                 </form>
               </div>
             </div>
@@ -116,43 +128,12 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
         </div>
       </div>
     </div>
-
-    
-
-
-    <div class="row justify-content-end">
-      <div class="col-lg-1 col-md-2 col-sm-12 mb-4">
-        <a href="./visualizar-fsc.php" class="text-center btn btn-danger w-100">Voltar</a>
-      </div>
-    </div>
-    
   </main>
   
                   
 
 
-  <script src="./assets/js/bootstrap.bundle.min.js" defer></script>
-
-  <!--Modal de Confirmação-->
-  <div class="modal fade" id="msgCadastroRealizado" tabindex="-1" aria-labelledby="msgCadastroRealizadoLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="msgCadastroRealizadoLabel">Cadastro Concluído!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            O cadastro foi realizado com sucesso.
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-            <a href="visualizar-locacoes.php" class="btn btn-primary">Ver Locações</a>
-          </div>
-        </div>
-      </div>
-    </div>    
-    
-    
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>   
 </body>
 </html>
 
