@@ -102,14 +102,14 @@ if($linha === false){
                       <label for="ftc">FTC</label>
                       <div class="border rounded" style="padding:6px 12px; background-color: #e8ecef;" aria-readonly="true">
                         <?php
-                          $sqlFtc = "SELECT numero_ftc FROM ftc WHERE id_locacao = :id_locacao";
+                          $sqlFtc = "SELECT numero_ftc, descricao FROM ftc WHERE id_locacao = :id_locacao";
                           $consultaFtc = $conectar->prepare($sqlFtc);
                           $consultaFtc->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
                           $consultaFtc->execute();
                           if($consultaFtc){
                             if($linhaFtc = $consultaFtc->rowCount()>0){
                               while($linhaFtc = $consultaFtc->fetch(PDO::FETCH_ASSOC)){
-                                echo "<p class='mb-1'>$linhaFtc[numero_ftc]</p>";
+                                echo "<p class='mb-1'>$linhaFtc[numero_ftc] -> $linhaFtc[descricao]</p>";
                               }
                             } else {
                                 echo "FTC não encontrada";
