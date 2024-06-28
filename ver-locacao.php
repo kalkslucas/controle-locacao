@@ -284,6 +284,58 @@ if($linha === false){
 
                   <div class="row mb-3">
                     <div class="col-md-12">
+                      <label for="listaAditivo"><h4>Aditivos</h4></label>
+                      <div class="px-4 pt-2 border rounded">
+                        <?php
+                          echo"<table class='table table-borderless table-responsive'>
+                                <thead>
+                                  <tr class='text-center'>
+                                    <th>Data de Criação</th>
+                                    <th>Descrição</th>
+                                    <th>Duração Ampliada</th>
+                                    <th>Data Inicial</th>
+                                    <th>Data Final</th>
+                                  </tr>
+                                </thead>";
+                          $sqlAditivo = "SELECT descricao, aluguel, data_inicio, data_fim, data_criacao FROM aditivo WHERE id_locacao = :idlocacao";
+                          $consultaAditivo = $conectar->prepare($sqlAditivo);
+                          $consultaAditivo->bindParam(":idlocacao", $idLocacao, PDO::PARAM_INT);
+                          $consultaAditivo->execute();
+
+                          if($consultaAditivo){
+                            if($linhaAditivo = $consultaAditivo->rowCount() > 0){
+                              while($linhaAditivo = $consultaAditivo->fetch(PDO::FETCH_ASSOC)){
+                                if($linhaAditivo['aluguel'] === 0){
+                                  $aluguel = "SIM";
+                                } else {
+                                  $aluguel = "NÃO";
+                                }
+                                echo "<tbody>
+                                        <tr class='text-center'>
+                                          <td>$linhaAditivo[data_criacao]</td>
+                                          <td>$linhaAditivo[descricao]</td>
+                                          <td>$aluguel</td>
+                                          <td>$linhaAditivo[data_inicio]</td>
+                                          <td>$linhaAditivo[data_fim]</td>
+                                        </tr>";
+                              }
+                            } else {
+                              echo "<tr class='text-center'>
+                                      <td colspan='5'>Sem aditivos para esse imóvel</td>
+                                    </tr>";
+                            }
+                          } else {
+                            echo 'Erro ao executar a consulta de aditivos!';
+                          }
+                          echo "</tbody>
+                              </table>";
+                        ?>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-12">
                       <label for="listaAlojados"><h4>Alojados da locação</h4></label>
                       <div class="px-4 pt-2 border rounded">
                         <?php
