@@ -78,7 +78,9 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                       <tr class='text-center'>
                         <th>Número FSC</th>
                         <th>Validade</th>
-                        <th></th>
+                        <th>Descrição</th>
+                        <th>Data de Criação</th>
+                        <th>Visualizar Locação Vinculada</th>
                       </tr>
                     </thead>
                     <tbody>";
@@ -89,14 +91,16 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
           try {
             if(!isset($_GET['filtrar'])){
               //query sql de consulta
-              $sql = 'SELECT idfsc, numero_fsc, DATE_FORMAT(validade, "%d/%m/%Y") as validade, id_locacao FROM fsc inner join locacao on fsc.id_locacao = locacao.idlocacao ORDER BY validade asc';
+              $sql = 'SELECT idfsc, numero_fsc, descricao, DATE_FORMAT(validade, "%d/%m/%Y") as validade, DATE_FORMAT(data_criacao, "%d/%m/%Y") as data_criacao,id_locacao FROM fsc inner join locacao on fsc.id_locacao = locacao.idlocacao ORDER BY validade asc';
               //execução da instrução sql
               $consulta = $conectar->query($sql);
               while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                 echo "  <tr class='text-center'>
                           <td>$linha[numero_fsc]</td>
                           <td>$linha[validade]</td>
-                          <td><a href='./ver-locacao.php?idlocacao=$linha[id_locacao]' class='btn btn-laranja'>Ver locação vinculada</a></td>
+                          <td>$linha[descricao]</td>
+                          <td>$linha[data_criacao]</td>
+                          <td><a href='./ver-locacao.php?idlocacao=$linha[id_locacao]' class='btn btn-primary p-2'><i class='fa-solid fa-eye fa-xl'></i></a></td>
                         </tr>
                 ";
               }
