@@ -126,7 +126,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 
                   <div class="col text-center">
                     <a href="./visualizar-alojados.php" class="btn btn-danger">Voltar</a>
-                    <input class="btn btn-laranja" type="submit" value="Cadastrar Pessoa">
+                    <input class="btn btn-laranja" type="submit" value="Cadastrar Alojado">
                   </div>
 
                 </form>
