@@ -8,7 +8,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Controle de Locação - Gerar FSC</title>
+  <title>Controle de Locação - Gerar FTC</title>
 
   <link rel="stylesheet" href="assets/css/padrao-paginas.css">
   <link rel="stylesheet" href="assets/css/btn-custom.css">
@@ -115,7 +115,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     
                     
                     <div class="col text-center">
-                      <a href="./visualizar-fsc.php" class="text-center btn btn-danger">Voltar</a>
+                      <a href="./visualizar-ftc.php" class="text-center btn btn-danger">Voltar</a>
                       <input class="btn btn-laranja" type="submit" value="Cadastrar FTC">
                     </div>                
                 </form>

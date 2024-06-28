@@ -49,6 +49,7 @@ try {
   $data_inicio = !empty(filter_input(INPUT_POST, 'data_inicio')) ? filter_input(INPUT_POST, 'data_inicio') : NULL;
   $data_fim = !empty(filter_input(INPUT_POST, 'data_fim')) ? filter_input(INPUT_POST, 'data_fim') : NULL;
   $descricao = filter_var($_POST['descricao']);
+  date_default_timezone_set('America/Sao_Paulo');
   $data_criacao = date('Y-m-d H:i:s', time());
   $id_locacao = filter_var($_POST['id_locacao']);
 

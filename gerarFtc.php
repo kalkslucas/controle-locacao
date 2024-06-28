@@ -7,6 +7,7 @@ try {
 
   $numero_ftc = filter_var($_POST['numero_ftc']);
   $descricao = filter_var($_POST['descricao']);
+  date_default_timezone_set('America/Sao_Paulo');
   $data_criacao = date('Y-m-d H:i:s', time());
   $vincularLocacao = filter_var($_POST['vincularLocacao']);
 

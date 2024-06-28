@@ -23,11 +23,10 @@ function enviarArquivos($error, $size, $name, $tmp_name, $idLocacao, $idAlojado)
   $deu_certo = move_uploaded_file($tmp_name, $path);
   if ($deu_certo) {
     global $conectar;
-    $inserirArquivo = $conectar->prepare("INSERT INTO anexos (nome_arquivo, path, id_locacao, id_fsc, id_alojado) VALUES (:nome_arquivo, :path, :idlocacao, :idfsc, :idalojado)");
+    $inserirArquivo = $conectar->prepare("INSERT INTO anexos (nome_arquivo, path, id_locacao, id_alojado) VALUES (:nome_arquivo, :path, :idlocacao, :idalojado)");
     $inserirArquivo->bindParam(":nome_arquivo", $nomeDoArquivo, PDO::PARAM_STR);
     $inserirArquivo->bindParam(":path", $path, PDO::PARAM_STR);
     $inserirArquivo->bindParam(":idlocacao", $idLocacao, PDO::PARAM_INT);
-    $inserirArquivo->bindParam(":idfsc", $idFsc, PDO::PARAM_INT);
     $inserirArquivo->bindParam(":idalojado", $idAlojado, PDO::PARAM_INT);
     $inserirArquivo->execute();
     return true;

@@ -8,6 +8,7 @@ try {
   $numeroFsc = filter_var($_POST['numeroFsc']);
   $validadeFsc = filter_var($_POST['validadeFsc']);
   $descricao = filter_var($_POST['descricao']);
+  date_default_timezone_set('America/Sao_Paulo');
   $data_criacao = date('Y-m-d H:i:s', time());
   $vincularLocacao = filter_var($_POST['vincularLocacao']);
 
