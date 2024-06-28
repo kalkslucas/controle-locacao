@@ -95,11 +95,6 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                   <div class="row mb-3">
                     <?php
                       if($linha['tipo_despesa'] == 'ÁGUA' || $linha['tipo_despesa'] == 'ENERGIA' || $linha['tipo_despesa'] == 'INTERNET') {
-                        
-                        
-                        
-                        
-
                         echo "<div class='col-md-2'>
                                 <label id='num_instalacao'>Número da Instalação</label>
                                   <input id='num_instalacao' name='num_instalacao' class='form-control' type='text' value='$linha[num_instalacao]' aria-label='$linha[num_instalacao]' disabled readonly>
@@ -124,18 +119,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                                     <input id='consumo_velocidade' name='consumo_velocidade' class='form-control' type='text' value='$velocidadeInternet' aria-label='$velocidadeInternet' disabled readonly>
                                 </div>";
                         }    
-                      } /* else {
-                        echo "<div class='d-none'>
-                                <label id='num_instalacao'>Número da Instalação</label>
-                                  <input id='num_instalacao' name='num_instalacao' class='form-control' type='text' value='<?= $linha[num_instalacao] ?>' aria-label='<?= $linha[num_instalacao] ?>'>
-                              </div>
-                              <td class='d-none'>
-                                <label id='consumo_velocidade'>
-                                  Consumo/Velocidade
-                                  <input id='consumo_velocidade' name='consumo_velocidade' class='form-control' type='text' value='<?= $linha[consumo_velocidade] ?>' aria-label='<?= $linha[consumo_velocidade] ?>'>
-                                </label>
-                              </td>";
-                      }*/
+                      }
                     ?>
                     <div class="col-md-2">
                       <label id="valor_mes">Valor da conta</label>
@@ -176,13 +160,6 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
         </div>
       </div>
     </div>
-
-    <div class="row justify-content-end">
-      <div class="col-md-1 col-sm-12 mb-4">
-        
-      </div>
-    </div>
-
   </main>
 
 

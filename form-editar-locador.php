@@ -243,7 +243,6 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                     <input class="btn btn-success" type="submit" value="Confirmar Edição">
                   </div>
                 </form>
-
               </div>
             </div>
           </div>

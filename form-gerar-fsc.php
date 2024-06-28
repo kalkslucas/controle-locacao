@@ -100,11 +100,11 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                             <?php
                               include_once 'conexao.php';
                               try {
-                                $query = "SELECT idlocacao, ftc, rua, numero, bairro, cidade, estado, cep, nome FROM locacao l INNER JOIN endereco e ON l.id_endereco = e.idendereco INNER JOIN gestor g ON l.id_gestor = g.idgestor";
+                                $query = "SELECT idlocacao, rua, numero, bairro, cidade, estado, cep, nome FROM locacao l INNER JOIN endereco e ON l.id_endereco = e.idendereco INNER JOIN gestor g ON l.id_gestor = g.idgestor order by idlocacao asc";
 
                                 $consulta = $conectar->query($query);
                                 while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                  echo "<option value='$linha[idlocacao]'>$linha[ftc] | $linha[rua], $linha[numero], $linha[bairro], $linha[cidade] - $linha[estado] | $linha[nome]";
+                                  echo "<option value='$linha[idlocacao]'>$linha[idlocacao] | $linha[rua], $linha[numero], $linha[bairro], $linha[cidade] - $linha[estado] | $linha[nome]";
                                 }
                               } catch (PDOException $e) {
                                 echo 'Error: ' . $e->getMessage();

@@ -8,7 +8,6 @@ try {
 
 
   $idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
-  $ftc = filter_input(INPUT_POST, 'ftc');
   $gestor = filter_input(INPUT_POST, 'gestor', FILTER_SANITIZE_NUMBER_INT);
   $situacao = filter_input(INPUT_POST, 'situacao');
   $centroCusto = filter_input(INPUT_POST,'centroCusto');
@@ -29,10 +28,9 @@ try {
   $estado = filter_input(INPUT_POST, 'estado');
   $cep = filter_input(INPUT_POST, 'cep');
 
-  $update = $conectar->prepare("UPDATE locacao SET ftc = :ftc, id_gestor = :gestor, situacao = :situacao, id_centro_custo = :centroCusto, inicio_locacao = :inicioLocacao, termino_locacao = :fimLocacao, vistoria_entrada = :vistoriaEntrada, vistoria_saida = :vistoriaSaida, observacoes = :observacoes, qtd_quartos = :qtd_quartos, qtd_banheiros = :qtd_banheiros, qtd_vagas_garagem = :qtd_vagas_garagem, id_locador = :locador WHERE idlocacao = :idlocacao");
+  $update = $conectar->prepare("UPDATE locacao SET id_gestor = :gestor, situacao = :situacao, id_centro_custo = :centroCusto, inicio_locacao = :inicioLocacao, termino_locacao = :fimLocacao, vistoria_entrada = :vistoriaEntrada, vistoria_saida = :vistoriaSaida, observacoes = :observacoes, qtd_quartos = :qtd_quartos, qtd_banheiros = :qtd_banheiros, qtd_vagas_garagem = :qtd_vagas_garagem, id_locador = :locador WHERE idlocacao = :idlocacao");
 
   $update->bindParam(":idlocacao", $idLocacao, PDO::PARAM_INT);
-  $update->bindParam(":ftc", $ftc, PDO::PARAM_STR);
   $update->bindParam(":gestor", $gestor, PDO::PARAM_INT);
   $update->bindParam(":situacao", $situacao, PDO::PARAM_STR);
   $update->bindParam(":centroCusto", $centroCusto, PDO::PARAM_INT);

@@ -121,7 +121,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                         <?php
                           include_once 'conexao.php';
                           try {
-                            $queryLocacaoAtual = "SELECT lc.idlocacao, lc.ftc, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.cep, g.nome as gestor 
+                            $queryLocacaoAtual = "SELECT lc.idlocacao, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.cep, g.nome as gestor 
                                                   from alojado a 
                                                   inner join locacao lc
                                                   on a.id_locacao = lc.idlocacao
@@ -138,15 +138,16 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                             echo "<option value=''>Nenhuma</option>";
 
                             if($linhaLocacaoAtual){
-                              echo "<option value='$linhaLocacaoAtual[idlocacao]' selected>$linhaLocacaoAtual[ftc] | $linhaLocacaoAtual[rua], $linhaLocacaoAtual[numero], $linhaLocacaoAtual[bairro], $linhaLocacaoAtual[cidade] - $linhaLocacaoAtual[estado] | $linhaLocacaoAtual[gestor]";
+                              echo "<option value='$linhaLocacaoAtual[idlocacao]' selected>$linhaLocacaoAtual[idlocacao] | $linhaLocacaoAtual[rua], $linhaLocacaoAtual[numero], $linhaLocacaoAtual[bairro], $linhaLocacaoAtual[cidade] - $linhaLocacaoAtual[estado] | $linhaLocacaoAtual[gestor]";
                               $idLocacaoAtual = $linhaLocacaoAtual["idlocacao"];
                             } else {
                               $idLocacaoAtual = null;
                             } 
-                              $queryLista = "SELECT lc.idlocacao, lc.ftc, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.cep, g.nome as gestor 
+                              $queryLista = "SELECT lc.idlocacao, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.cep, g.nome as gestor 
                                                 FROM locacao lc 
                                                 INNER JOIN endereco e ON lc.id_endereco = e.idendereco 
-                                                INNER JOIN gestor g ON lc.id_gestor = g.idgestor";
+                                                INNER JOIN gestor g ON lc.id_gestor = g.idgestor
+                                                order by lc.idlocacao asc";
                               if($idLocacaoAtual){
                                 $queryLista .= " WHERE lc.idlocacao != :idLocacaoAtual";
                               }
@@ -159,7 +160,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                               $consulta->execute();
 
                               while($linhaLocacao = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                echo "<option value='$linhaLocacao[idlocacao]'>$linhaLocacao[ftc] | $linhaLocacao[rua], $linhaLocacao[numero], $linhaLocacao[bairro], $linhaLocacao[cidade] - $linhaLocacao[estado] | $linhaLocacao[gestor]";
+                                echo "<option value='$linhaLocacao[idlocacao]'>$linhaLocacao[idlocacao] | $linhaLocacao[rua], $linhaLocacao[numero], $linhaLocacao[bairro], $linhaLocacao[cidade] - $linhaLocacao[estado] | $linhaLocacao[gestor]";
                               }                         
                           } catch (PDOException $e) {
                             echo 'Error: ' . $e->getMessage();

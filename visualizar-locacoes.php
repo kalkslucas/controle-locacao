@@ -78,7 +78,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
       try {
         //query sql de consulta
         if(!isset($_GET['filtrar'])) {
-          $sql = "SELECT ftc, situacao, idlocacao, g.nome as gestor, l.nome as locador, responsavel, rua, numero, complemento, bairro, cidade, estado, cep 
+          $sql = "SELECT situacao, idlocacao, g.nome as gestor, l.nome as locador, responsavel, rua, numero, complemento, bairro, cidade, estado, cep 
           FROM locacao lc 
           inner join gestor g 
           on lc.id_gestor = g.idgestor 
@@ -117,7 +117,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
           }
         } else {
           $filtrar = filter_var($_GET['filtrar']);
-          $sql = "SELECT ftc, situacao, idlocacao, g.nome as gestor, l.nome as locador, rua, numero, complemento, bairro, cidade, estado, cep 
+          $sql = "SELECT situacao, idlocacao, g.nome as gestor, l.nome as locador, rua, numero, complemento, bairro, cidade, estado, cep 
           FROM locacao lc 
           inner join gestor g 
           on lc.id_gestor = g.idgestor 

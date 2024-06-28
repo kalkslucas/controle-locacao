@@ -21,7 +21,7 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
 <?php
 include_once "conexao.php";
 $idLocacao = filter_var($_GET['idlocacao'], FILTER_SANITIZE_NUMBER_INT);
-$sql = "SELECT lc.idlocacao, lc.ftc, g.nome as gestor, lc.situacao, inicio_locacao, termino_locacao, vistoria_entrada, vistoria_saida, observacoes, qtd_quartos, qtd_banheiros, qtd_vagas_garagem, lc.id_locador as locador, cc.nome as centro_custo, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep
+$sql = "SELECT lc.idlocacao, g.nome as gestor, lc.situacao, inicio_locacao, termino_locacao, vistoria_entrada, vistoria_saida, observacoes, qtd_quartos, qtd_banheiros, qtd_vagas_garagem, lc.id_locador as locador, cc.nome as centro_custo, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep
   from locacao lc
   inner join endereco e
   on lc.id_endereco = e.idendereco
@@ -100,7 +100,25 @@ if($linha === false){
                   <div class="row mb-3">
                     <div class="col-md-4">
                       <label for="ftc">FTC</label>
-                      <input type="text" id="ftc" name="ftc" class="form-control" value="<?= $linha['ftc'] ?>" disabled readonly>
+                      <div class="border rounded" style="padding:6px 12px; background-color: #e8ecef;" aria-readonly="true">
+                        <?php
+                          $sqlFtc = "SELECT numero_ftc FROM ftc WHERE id_locacao = :id_locacao";
+                          $consultaFtc = $conectar->prepare($sqlFtc);
+                          $consultaFtc->bindParam(":id_locacao", $idLocacao, PDO::PARAM_INT);
+                          $consultaFtc->execute();
+                          if($consultaFtc){
+                            if($linhaFtc = $consultaFtc->rowCount()>0){
+                              while($linhaFtc = $consultaFtc->fetch(PDO::FETCH_ASSOC)){
+                                echo "<p class='mb-1'>$linhaFtc[numero_ftc]</p>";
+                              }
+                            } else {
+                                echo "FTC não encontrada";
+                            }
+                          } else {
+                            echo "Erro ao realizar a consulta de FTCs";
+                          }
+                        ?>
+                      </div>
                     </div>
                     <div class="col-md-4">
                       <label for="fsc">FSC</label>

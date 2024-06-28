@@ -70,11 +70,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                 <h3 class="card-title text-center display-4">Cadastro de Locação</h3>
                 <form action="cadastrarLocacao.php" enctype="multipart/form-data" method="post">
                     <div class="row mb-3">
-                      <div class="col-md-1">
-                        <label id="ftc" class="d-inline">FTC</label>
-                        <input id="ftc" name="ftc" class="form-control" type="text" placeholder="Ex: 00-00"/>
-                      </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <label id="gestor" class="d-inline">Gestor</label>
                         <select class="form-select" name="gestor" id="gestor" required>
                           <option value="">Selecione o gestor</option>
@@ -341,7 +337,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                       />
                     </div>
                   </div>
-                    
                 </form>
               </div>
             </div>
