@@ -181,7 +181,6 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           class="form-control"
                           type="text"
                           placeholder="Casa, Bloco, Apto, Quadra, Lote..."
-                          required
                         />
                       </div>
                       <div class="col-md-2">
