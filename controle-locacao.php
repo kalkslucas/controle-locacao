@@ -67,9 +67,8 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
 
   <main class="container-fluid">
     <div class="info-cards row py-3">
-      <div class="col text-center">
-        <div class="card-group">
-          <div class="card">
+      <div class="col d-flex text-center">
+          <div class="card w-100">
             <div class="card-body d-flex flex-column justify-content-around align-items-center">
               <h5 class="card-title">Quantidade de Locações Realizadas</h5>
               <?php
@@ -91,7 +90,7 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
           </div>
 
 
-          <div class="card">
+          <div class="card w-100">
             <div class="card-body d-flex flex-column justify-content-around align-items-center">
               <h5 class="card-title">Situações das Locações</h5>
               <div class="table-responsive">
@@ -116,7 +115,6 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
 
