@@ -214,6 +214,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
               FROM despesas 
               WHERE situacao_conta = 0
               and tipo_despesa like CONCAT('%',:filtrar,'%')
+              or iddespesa like CONCAT('%', :filtrar, '%')
               or titular like CONCAT('%',:filtrar,'%')
               or vencimento like CONCAT('%',:filtrar,'%')";
               $consulta = $conectar->prepare($sql);
