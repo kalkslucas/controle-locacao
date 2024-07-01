@@ -153,14 +153,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="row justify-content-end">
-      <div class="col-lg-1 col-md-2 col-sm-12 mb-4">
-        
-      </div>
-    </div>
-    
+    </div>    
   </main>
   
 
