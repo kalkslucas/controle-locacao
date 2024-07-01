@@ -57,14 +57,13 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
         <div class="col"><a href="visualizar-locadores.php" class="text-bg-secondary mt-auto text-decoration-none text-center d-block p-2">Locadores</a></div>
         <div class="col"><a href="visualizar-gestores.php" class="text-bg-secondary mt-auto text-decoration-none text-center d-block p-2">Gestores</a></div>
         <div class="col"><a href="visualizar-alojados.php" class="text-bg-secondary mt-auto text-decoration-none text-center d-block p-2">Alojados</a></div>
-        <div class="col"><a href="visualizar-fsc.php" class="text-bg-secondary mt-auto text-decoration-none text-center d-block p-2">FSCs</a></div>
+        <div class="col"><a href="visualizar-fsc.php" class="text-bg-secondary mt-auto text-decoration-none text-center d-block p-2">Cotações</a></div>
         <div class="col"><a href="visualizar-ftc.php" class="text-bg-secondary mt-auto text-decoration-none text-center d-block p-2">FTCs</a></div>
       </div>
     </div>
   </header>
 
   <div class="menu hstack gap-1 px-2 mb-3">
-    <a href='./form-gerar-conta.php' class='btn btn-warning'>Cadastrar Despesa</a>
     <form action="" class="d-flex ms-auto">
       <input type="hidden" name="idlocacao" value="<?=$idLocacao?>">
       <a href="./visualizar-despesas-locacao.php?idlocacao=<?=$idLocacao?>" class="btn btn-primary me-2"><i class="fa-solid fa-trash"></i></a>

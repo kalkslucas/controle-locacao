@@ -51,7 +51,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
         <div class="col"><a href="visualizar-locadores.php" class="text-bg-secondary mt-auto text-decoration-none text-center d-block p-2">Locadores</a></div>
         <div class="col"><a href="visualizar-gestores.php" class="text-bg-secondary mt-auto text-decoration-none text-center d-block p-2">Gestores</a></div>
         <div class="col"><a href="visualizar-alojados.php" class="text-bg-secondary mt-auto text-decoration-none text-center d-block p-2">Alojados</a></div>
-        <div class="col"><a href="visualizar-fsc.php" class="text-bg-secondary mt-auto text-decoration-none text-center d-block p-2">FSCs</a></div>
+        <div class="col"><a href="visualizar-fsc.php" class="text-bg-secondary mt-auto text-decoration-none text-center d-block p-2">Cotações</a></div>
         <div class="col"><a href="visualizar-ftc.php" class="text-bg-secondary mt-auto text-decoration-none text-center d-block p-2">FTCs</a></div>
       </div>
     </div>
@@ -64,12 +64,12 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
           <div class="row">
             <div class="col-md-12">
               <div class="card-body">
-                <h3 class="card-title text-center display-4">Cadastro de FSC</h3>
+                <h3 class="card-title text-center display-4">Cadastro de Cotação</h3>
                 <form action="gerarFsc.php" enctype="multipart/form-data" method="post">
                   <div class="mt-1">
                     <div class="row mb-3">
                       <div class="col-md-4">
-                        <label id="numeroFsc" class="d-inline">Número FSC</label>
+                        <label id="numeroFsc" class="d-inline">Número da Cotação</label>
                         <input id="numeroFsc" name="numeroFsc" class="form-control" type="text" placeholder="Digite o número da FSC" required>
                       </div>
                       <div class="col-md-4">
@@ -119,7 +119,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                     
                     <div class="col text-center">
                       <a href="./visualizar-fsc.php" class="text-center btn btn-danger">Voltar</a>
-                      <input class="btn btn-laranja" type="submit" value="Cadastrar FSC">
+                      <input class="btn btn-laranja" type="submit" value="Cadastrar Cotação">
                     </div>                
                 </form>
               </div>
