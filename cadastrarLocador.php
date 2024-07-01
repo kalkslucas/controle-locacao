@@ -17,7 +17,7 @@ try {
   $complemento = filter_var($_POST['complemento']);
   $bairro = filter_var($_POST['bairro']);
   $cidade = filter_var($_POST['cidade']);
-  $estado = filter_var($_POST['uf']);
+  $estado = filter_var($_POST['estado']);
   $formaPagamento = filter_var($_POST['formaPagamento']);
   $banco = filter_var($_POST['banco']);
   $agencia = filter_var($_POST['agencia']);

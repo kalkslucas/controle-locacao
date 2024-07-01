@@ -44,7 +44,7 @@ try {
   $complemento = filter_var($_POST['complemento']);
   $bairro = filter_var($_POST['bairro']);
   $cidade = filter_var($_POST['cidade']);
-  $estado = filter_var($_POST['uf']);
+  $estado = filter_var($_POST['estado']);
   $inicioLocacao = !empty(filter_input(INPUT_POST, 'inicioLocacao')) ? filter_input(INPUT_POST, 'inicioLocacao') : NULL;
   $fimLocacao = !empty(filter_input(INPUT_POST, 'fimLocacao')) ? filter_input(INPUT_POST, 'fimLocacao') : NULL;
   $vistoriaEntrada = !empty(filter_input(INPUT_POST, 'vistoriaEntrada')) ? filter_input(INPUT_POST, 'vistoriaEntrada') : NULL;
