@@ -2,13 +2,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 body {
   background: url("../img/login-background-branco.jpg");
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  overflow: hidden;
 }
 
 .container-fluid {
@@ -32,7 +32,7 @@ body {
 }
 
 .ultra-img {
-  margin: -150px;
+  margin: -150px 0;
 }
 
 #img-container {
@@ -50,7 +50,6 @@ body {
   display: flex;
   justify-content: center;
 }
-
 
 @media (min-width: 200px) and (max-width: 992px) {
   body {
