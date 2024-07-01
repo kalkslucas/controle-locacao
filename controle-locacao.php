@@ -67,95 +67,99 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
 
   <main class="container-fluid">
     <div class="info-cards row py-3">
-      <div class="col d-flex justify-content-center">
-        <div class="card">
-          <div class="card-body d-flex flex-column justify-content-around align-items-center">
-            <h5 class="card-title">Quantidade de Locações Realizadas</h5>
-            <?php
-              $sql = "SELECT COUNT(*) AS QUANT_LOCACOES FROM locacao";
-              $consulta = $conectar->query($sql);
-              
-              if($linha = $consulta->rowCount() > 0) {
-                while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                  echo "<p class='display-3'>$linha[QUANT_LOCACOES]</p>
-                        <p class='card-text'>Locações</p>";
-                } 
-              } else {
-                echo "<p class='display-5'>0</p>";
-              }
-              
-            ?>
-            
-          </div>
-        </div>
-      </div>
-      <div class="col d-flex justify-content-center">
-        <div class="card">
-          <div class="card-body d-flex flex-column justify-content-around align-items-center">
-            <h5 class="card-title">Situações das Locações</h5>
-            <div class="table-responsive">
-            <?php
-              echo "<table class='table table-borderless w-75 m-2'>";
-              $sql = "SELECT situacao, count(situacao) as quantidade from locacao group by situacao";
-              $consultaSituacao = $conectar->query($sql);
-              if($linha = $consultaSituacao->rowCount() > 0) {
-                while($linha = $consultaSituacao->fetch(PDO::FETCH_ASSOC)){
-                  echo "<tr class='text-center'>
-                          <td class='h5'>$linha[quantidade]</td>
-                          <td>$linha[situacao]</td>
-                        </tr>";
+      <div class="col text-center">
+        <div class="card-group">
+          <div class="card">
+            <div class="card-body d-flex flex-column justify-content-around align-items-center">
+              <h5 class="card-title">Quantidade de Locações Realizadas</h5>
+              <?php
+                $sql = "SELECT COUNT(*) AS QUANT_LOCACOES FROM locacao";
+                $consulta = $conectar->query($sql);
+                
+                if($linha = $consulta->rowCount() > 0) {
+                  while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                    echo "<p class='display-3'>$linha[QUANT_LOCACOES]</p>
+                          <p class='card-text'>Locações</p>";
+                  } 
+                } else {
+                  echo "<p class='display-5'>0</p>";
                 }
-              } else {
-                echo "<tr class='text-center'>
-                        <td> Sem locações cadastradas </td>
-                      </tr>";  
-              }
-              echo "</table>";
-            ?>
+                
+              ?>
+              
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col d-flex justify-content-center">
-        <div class="card">
-          <div class="card-body d-flex flex-column justify-content-around align-items-center">
-            <h5 class="card-title">Próximas contas a vencer</h5>
-            <div class="table-responsive">
-            <?php
-              echo "<table class='table table-borderless'>
-                        <tr>
-                          <th>Tipo da Despesa</th>
-                          <th>Número da Locação</th>
-                          <th>Valor</th>
-                          <th>Data de vencimento</th>
-                        </tr>";
-              $sql = "SELECT tipo_despesa, l.idlocacao, valor_mes, vencimento FROM despesas d inner join locacao l on d.id_locacao = l.idlocacao WHERE VENCIMENTO BETWEEN CURRENT_DATE and DATE_ADD(CURRENT_DATE, INTERVAL 5 day) and situacao_conta = 0";
-              $consultaContaAVencer = $conectar->query($sql);
-              if($linha = $consultaContaAVencer->rowCount() > 0) {
-                while($linha = $consultaContaAVencer->fetch(PDO::FETCH_ASSOC)){
-                  $valorMes = number_format($linha['valor_mes'], 2, ',', '.');
-                  $vencimento = DateTime::createFromFormat('Y-m-d', $linha['vencimento'])->format('d/m/Y');
-                  echo "
-                        <tr>
-                          <td>$linha[tipo_despesa]</td>
-                          <td>$linha[idlocacao]</td>
-                          <td>R$ $valorMes</td>
-                          <td>$vencimento</td>
-                        </tr>";
-                }
-              } else {
-                echo "<tr class='text-center'>
-                  <td colspan='4'>Sem contas a vencer nos próximos 5 dias</td>
-                </tr>";
-              }
-              echo "</table>";
-            ?>
-            </div>
-          </div>
-        </div>
-      </div>
 
+
+          <div class="card">
+            <div class="card-body d-flex flex-column justify-content-around align-items-center">
+              <h5 class="card-title">Situações das Locações</h5>
+              <div class="table-responsive">
+              <?php
+                echo "<table class='table table-borderless w-75 m-2'>";
+                $sql = "SELECT situacao, count(situacao) as quantidade from locacao group by situacao";
+                $consultaSituacao = $conectar->query($sql);
+                if($linha = $consultaSituacao->rowCount() > 0) {
+                  while($linha = $consultaSituacao->fetch(PDO::FETCH_ASSOC)){
+                    echo "<tr class='text-center'>
+                            <td class='h5'>$linha[quantidade]</td>
+                            <td>$linha[situacao]</td>
+                          </tr>";
+                  }
+                } else {
+                  echo "<tr class='text-center'>
+                          <td> Sem locações cadastradas </td>
+                        </tr>";  
+                }
+                echo "</table>";
+              ?>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div class="info-cards row py-3">
+        <div class="col text-center">
+          <div class="card w-100">
+            <div class="card-body d-flex flex-column justify-content-around">
+              <h5 class="card-title">Próximas contas a vencer</h5>
+              <div class="table-responsive">
+              <?php
+                echo "<table class='table table-borderless'>
+                          <tr>
+                            <th>Tipo da Despesa</th>
+                            <th>Número da Locação</th>
+                            <th>Valor</th>
+                            <th>Data de vencimento</th>
+                          </tr>";
+                $sql = "SELECT tipo_despesa, l.idlocacao, valor_mes, vencimento FROM despesas d inner join locacao l on d.id_locacao = l.idlocacao WHERE VENCIMENTO BETWEEN CURRENT_DATE and DATE_ADD(CURRENT_DATE, INTERVAL 5 day) and situacao_conta = 0";
+                $consultaContaAVencer = $conectar->query($sql);
+                if($linha = $consultaContaAVencer->rowCount() > 0) {
+                  while($linha = $consultaContaAVencer->fetch(PDO::FETCH_ASSOC)){
+                    $valorMes = number_format($linha['valor_mes'], 2, ',', '.');
+                    $vencimento = DateTime::createFromFormat('Y-m-d', $linha['vencimento'])->format('d/m/Y');
+                    echo "
+                          <tr>
+                            <td>$linha[tipo_despesa]</td>
+                            <td>$linha[idlocacao]</td>
+                            <td>R$ $valorMes</td>
+                            <td>$vencimento</td>
+                          </tr>";
+                  }
+                } else {
+                  echo "<tr class='text-center'>
+                    <td colspan='4'>Sem contas a vencer nos próximos 5 dias</td>
+                  </tr>";
+                }
+                echo "</table>";
+              ?>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
   </main>
   
 
