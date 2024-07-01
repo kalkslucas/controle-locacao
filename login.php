@@ -15,9 +15,6 @@
       <img src="assets/img/logo-ease.svg" alt="ultra-img" class="ultra-img">
     </div>
     <div id="login-container">
-      <div id="img-container">
-        <img src="assets/img/logo.png" alt="logo-img" class="img-login">
-      </div>
       <div id="form-container">
         <form action="fazerLogin.php" method="POST">
           <label class="w-100 my-1" for="login">
