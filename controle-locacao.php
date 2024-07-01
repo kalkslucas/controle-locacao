@@ -117,7 +117,7 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
       </div>
     </div>
 
-    <div class="info-cards row py-3">
+      <div class="info-cards row py-3">
         <div class="col text-center">
           <div class="card w-100">
             <div class="card-body d-flex flex-column justify-content-around">
@@ -148,6 +148,49 @@ if(isset($_SESSION['idusuario']) && !empty($_SESSION['idusuario'])):
                 } else {
                   echo "<tr class='text-center'>
                     <td colspan='4'>Sem contas a vencer nos próximos 5 dias</td>
+                  </tr>";
+                }
+                echo "</table>";
+              ?>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-cards row py-3">
+        <div class="col text-center">
+          <div class="card w-100">
+            <div class="card-body d-flex flex-column justify-content-around">
+              <h5 class="card-title">Próximas locações a vencer</h5>
+              <div class="table-responsive">
+              <?php
+                echo "<table class='table table-borderless'>
+                          <tr>
+                            <th>Número da Locação</th>
+                            <th>Gestor Responsável</th>
+                            <th>Endereço</th>
+                            <th>Data de fechamento</th>
+                          </tr>";
+                $sql = "SELECT lc.idlocacao, lc.termino_locacao, g.nome as gestor, e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep FROM locacao lc 
+                inner join gestor g on lc.id_gestor = g.idgestor
+                inner join endereco e on lc.id_endereco = e.idendereco 
+                WHERE lc.termino_locacao BETWEEN CURRENT_DATE and DATE_ADD(CURRENT_DATE, INTERVAL 60 day)";
+                $consultaLocacaoAVencer = $conectar->query($sql);
+                if($linha = $consultaLocacaoAVencer->rowCount() > 0) {
+                  while($linha = $consultaLocacaoAVencer->fetch(PDO::FETCH_ASSOC)){
+                    $terminoLocacao = DateTime::createFromFormat('Y-m-d', $linha['termino_locacao'])->format('d/m/Y');
+                    echo "
+                          <tr>
+                            <td>$linha[idlocacao]</td>
+                            <td>$linha[gestor]</td>
+                            <td>$linha[rua], $linha[numero] $linha[complemento] - $linha[bairro], $linha[cidade] - $linha[estado] - $linha[cep]</td>
+                            <td>$terminoLocacao</td>
+                          </tr>";
+                  }
+                } else {
+                  echo "<tr class='text-center'>
+                    <td colspan='4'>Sem locações a vencer nos próximos 60 dias</td>
                   </tr>";
                 }
                 echo "</table>";
