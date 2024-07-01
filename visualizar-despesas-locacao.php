@@ -75,7 +75,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   </div>
 
   <main class="container-fluid">
-    <div class="row p-3 justify-content-center">
+    <div class="row p-3 mb-5 justify-content-center">
       <div class="col-12">
         <div class="p-2 table-responsive">
         <?php
@@ -266,7 +266,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
       </div>
     </div>
   </main>
-  <footer class="page p-3 fixed-bottom">
+  <footer class="page py-1 px-3 fixed-bottom">
     <div class="col text-end">
       <?php
         echo "<a href='./ver-locacao.php?idlocacao=$idLocacao' class='btn btn-danger'>Voltar para a locação</a>";

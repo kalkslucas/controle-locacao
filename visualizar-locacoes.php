@@ -72,7 +72,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   </div>
 
   <main class="container-fluid">
-    <div class="row p-3 justify-content-center">
+    <div class="row p-3 mb-5 justify-content-center">
       <?php
       include_once "conexao.php";
       try {
@@ -173,7 +173,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
     </div>
   </main>
 
-  <footer class="page p-3 fixed-bottom">
+  <footer class="page py-1 px-3 fixed-bottom">
     <div class="col text-end">
       <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
     </div>
