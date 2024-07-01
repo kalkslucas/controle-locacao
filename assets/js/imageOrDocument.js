@@ -9,6 +9,14 @@ document.addEventListener("DOMContentLoaded", function() {
               const pdfIcon = document.createElement("div");
               pdfIcon.className = "pdf-icon";
               img.replaceWith(pdfIcon);
+          } else if (fileName.endsWith(".xlsx") || fileName.endsWith(".xls")) {
+            const excelIcon = document.createElement("div");
+            excelIcon.className = "excel-icon";
+            img.replaceWith(excelIcon);
+          } else if (fileName.endsWith(".docx") || fileName.endsWith(".doc")) {
+            const wordIcon = document.createElement("div");
+            wordIcon.className = "word-icon";
+            img.replaceWith(wordIcon);
           } else {
               img.onerror = function() {
                   this.style.display = 'none';

@@ -35,6 +35,20 @@
   background-size: contain;
   margin: 0 auto;
 }
+.excel-icon {
+  width: 48px;
+  height: 48px;
+  background: url('../img/xls.png') no-repeat center center;
+  background-size: contain;
+  margin: 0 auto;
+}
+.word-icon {
+  width: 48px;
+  height: 48px;
+  background: url('../img/doc.png') no-repeat center center;
+  background-size: contain;
+  margin: 0 auto;
+}
 
 .linkAnexo {
   text-decoration: none;
