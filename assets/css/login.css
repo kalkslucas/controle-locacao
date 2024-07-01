@@ -28,16 +28,16 @@ body {
   margin: 25px;
   width: 25rem;
   background-color: #ee721c;
+  box-shadow: 1px 1px 20px grey;
 }
 
 .ultra-img {
-  width: 35vw;
+  margin: -150px;
 }
 
 #img-container {
   display: flex;
   justify-content: center;
-  
 }
 
 .img-login {
@@ -52,9 +52,8 @@ body {
 }
 
 
-@media (max-width: 576px) {
-  .ultra-img {
-    width: 25vw;
+@media (min-width: 200px) and (max-width: 992px) {
+  body {
+    background: none;
   }
-  
 }

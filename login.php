@@ -12,7 +12,7 @@
 <body>
   <main class="container-fluid">
     <div id="ultra-container">
-      <img src="assets/img/logo-ultra-preto.png" alt="ultra-img" class="ultra-img">
+      <img src="assets/img/logo-ease.svg" alt="ultra-img" class="ultra-img">
     </div>
     <div id="login-container">
       <div id="img-container">
