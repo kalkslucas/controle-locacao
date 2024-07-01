@@ -60,8 +60,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
     </div>
   </header>
 
-  <div class="hstack gap-1 px-2 mb-3">
-    <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
+  <div class="menu hstack gap-1 px-2 mb-3">
     <a href='./form-gerar-ftc.php' class='btn btn-warning'>Cadastrar FTC</a>
     <form action="" class="d-flex ms-auto">
       <input type="text" name="filtrar" id="filtrar" placeholder="Pesquisar" class="form-control me-2" aria-label="Pesquisar" value="<?php if(isset($_GET['filtrar'])) echo $_GET['filtrar']?>">
@@ -136,6 +135,11 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
       </div> 
     </div>
   </main>
+  <footer class="page p-3 fixed-bottom">
+    <div class="col text-end">
+      <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
+    </div>
+  </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 

@@ -64,9 +64,8 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
     </div>
   </header>
 
-  <div class="hstack gap-1 px-2 mb-3">
+  <div class="menu hstack gap-1 px-2 mb-3">
     <a href='./form-gerar-conta.php' class='btn btn-warning'>Cadastrar Despesa</a>
-    <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
     <form action="" class="d-flex ms-auto">
       <input type="hidden" name="idlocacao" value="<?=$idLocacao?>">
       <a href="./visualizar-despesas-locacao.php?idlocacao=<?=$idLocacao?>" class="btn btn-primary me-2"><i class="fa-solid fa-trash"></i></a>
@@ -263,12 +262,17 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 
     <div class="row justify-content-end">
       <div class="col-md-1 col-sm-12 mb-4">
-        <?php
-          echo "<a href='./ver-locacao.php?idlocacao=$idLocacao' class='btn btn-danger btn-modal w-100'>Voltar</a>";
-        ?>
+        
       </div>
     </div>
   </main>
+  <footer class="page p-3 fixed-bottom">
+    <div class="col text-end">
+      <?php
+        echo "<a href='./ver-locacao.php?idlocacao=$idLocacao' class='btn btn-danger'>Voltar para a locação</a>";
+      ?>
+    </div>
+  </footer>
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

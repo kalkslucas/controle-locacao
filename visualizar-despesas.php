@@ -19,7 +19,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
 </head>
 
 <body class="page">
-<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="./index.php"><img src="./assets/img/navbar-logo.png" alt=""></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
     </div>
   </nav>
 
-  <header class="fixed text-bg-secondary border-top border-bottom p-2 mb-3 d-flex flex-row justify-content-around">
+  <header class="text-bg-secondary border-top border-bottom p-2 mb-3 d-flex flex-row justify-content-around">
     <div class="container-fluid">
       <div class="row">
         <div class="col"><a href="visualizar-locacoes.php" class="text-bg-secondary mt-auto text-decoration-none text-center d-block p-2">Locações</a></div>
@@ -60,8 +60,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
     </div>
   </header>
 
-  <div class="hstack gap-1 px-2 mb-3">
-    <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
+  <div class="menu hstack gap-1 px-2 mb-3">
     <a href='./form-gerar-conta.php' class='btn btn-warning'>Cadastrar Despesa</a>
     <form action="" class="d-flex ms-auto">
       <a href="./visualizar-despesas.php" class="btn btn-primary me-2"><i class="fa-solid fa-trash"></i></a>
@@ -251,6 +250,12 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
       </div> 
     </div>
   </main>
+
+  <footer class="page p-3 fixed-bottom">
+    <div class="col text-end">
+      <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
+    </div>
+  </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 

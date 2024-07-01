@@ -12,6 +12,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <title>Controle de Locação - Locações</title>
 
   <link rel="stylesheet" href="assets/css/padrao-paginas.css">
+  <link rel="stylesheet" href="assets/css/menu.css">
   <link rel="stylesheet" href="assets/css/btn-custom.css">
   <link rel="stylesheet" href="assets/css/visualizar-locacao.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -61,8 +62,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
     </div>
   </header>
 
-  <div class="hstack gap-1 px-2 mb-3">
-    <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
+  <div class="menu page hstack gap-1 px-2 mb-3">
     <a href='./form-cadastrar-locacao.php' class='btn btn-warning'>Cadastrar Locação</a>
     <a href='./form-gerar-aditivo.php' class='btn btn-primary'>Gerar Aditivo</a>
     <form action="" class="d-flex ms-auto">
@@ -172,6 +172,12 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
       ?>
     </div>
   </main>
+
+  <footer class="page p-3 fixed-bottom">
+    <div class="col text-end">
+      <a href='./controle-locacao.php' class='btn btn-danger'>Voltar a página inicial</a>
+    </div>
+  </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
