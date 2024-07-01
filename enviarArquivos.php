@@ -16,7 +16,7 @@ function enviarArquivos($error, $size, $name, $tmp_name, $idLocacao, $idAlojado)
 
   $path = $pasta . $novoNomeDoArq . '.' . $extensao;
 
-  if ($extensao != 'jpg' && $extensao != 'png' && $extensao != 'pdf') {
+  if ($extensao != 'jpg' && $extensao != 'png' && $extensao != 'pdf' && $extensao != 'xlsx' && $extensao != 'xls' && $extensao != 'docx') {
     die('Tipo de arquivo não aceito');
   }
 

@@ -34,10 +34,10 @@ try {
   $conectar->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $conectar->beginTransaction();
   //locacao's variables
-  $gestor = filter_var($_POST['gestor']);
+  $gestor = filter_var($_POST['gestor'], FILTER_SANITIZE_NUMBER_INT);
   $locador = filter_var($_POST['locador'], FILTER_SANITIZE_NUMBER_INT);
   $situacao = filter_var($_POST['situacao']);
-  $centroCusto = filter_var($_POST['centroCusto']);
+  $centroCusto = filter_var($_POST['centroCusto'], FILTER_SANITIZE_NUMBER_INT);
   $cep = filter_var($_POST['cep']);
   $rua = filter_var($_POST['rua']);
   $numero = filter_var($_POST['numero']);
@@ -73,9 +73,8 @@ try {
 
   $conectar->beginTransaction();
 
-  $queryLocacao = "INSERT INTO locacao (situacao, id_centro_custo, inicio_locacao, termino_locacao, vistoria_entrada, vistoria_saida, observacoes, qtd_quartos, qtd_banheiros, qtd_vagas_garagem, id_gestor, id_locador, id_endereco) VALUES (:ftc, :situacao, :centroCusto, :inicio_locacao, :termino_locacao, :vistoriaEntrada, :vistoriaSaida, :observacoes, :qtd_quartos, :qtd_banheiros, :qtd_vagas_garagem, :gestor, :locador, :idEndereco)";
+  $queryLocacao = "INSERT INTO locacao (situacao, id_centro_custo, inicio_locacao, termino_locacao, vistoria_entrada, vistoria_saida, observacoes, qtd_quartos, qtd_banheiros, qtd_vagas_garagem, id_gestor, id_locador, id_endereco) VALUES (:situacao, :centroCusto, :inicio_locacao, :termino_locacao, :vistoriaEntrada, :vistoriaSaida, :observacoes, :qtd_quartos, :qtd_banheiros, :qtd_vagas_garagem, :gestor, :locador, :idEndereco)";
   $insertLocacao = $conectar->prepare($queryLocacao);
-  $insertLocacao->bindParam(':ftc', $ftc, PDO::PARAM_STR);
   $insertLocacao->bindParam(':situacao', $situacao, PDO::PARAM_STR);
   $insertLocacao->bindParam(':centroCusto', $centroCusto, PDO::PARAM_INT);
   $insertLocacao->bindParam(':inicio_locacao', $inicioLocacao, PDO::PARAM_STR);
