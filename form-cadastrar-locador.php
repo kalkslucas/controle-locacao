@@ -112,7 +112,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                         <input type="text" name="responsavel" id="responsavel" placeholder="Digite o nome do responsável" class="form-control">
                       </div>
                       <div class="col-md-2">
-                        <label id="telefone1" class="d-inline">Telefone Fixo</label>
+                        <label id="telefone1" class="d-inline">Telefone de Contato 1</label>
                           <input
                             id="telefone1"
                             name="telefone1"
@@ -123,14 +123,13 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           />
                       </div>
                       <div class="col-md-2">
-                        <label id="telefone2" class="d-inline">Telefone Celular</label>
+                        <label id="telefone2" class="d-inline">Telefone de Contato 2</label>
                           <input
                             id="telefone2"
                             name="telefone2"
                             class="form-control"
                             type="text"
                             placeholder="Ex: 31987654321"
-                            required
                           />
                       </div>
                     </div>
