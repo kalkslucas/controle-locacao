@@ -144,6 +144,9 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                             class="form-control"
                             type="text"
                             placeholder="Digite o CEP do Endereço"
+                            size="10" 
+                            maxlength="9" 
+                            onblur="pesquisacep(this.value);"
                             required
                           />
                       </div>
@@ -202,7 +205,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                       </div>
                       <div class="col-md-1">
                         <label id="estadoLocador" class="d-inline">Estado</label>
-                          <select class="form-select" id="uf" name="uf" required>
+                          <select class="form-select" id="estado" name="estado" required>
                             <option value="">--</option>
                             <option value="AC">AC</option>
                             <option value="AL">AL</option>

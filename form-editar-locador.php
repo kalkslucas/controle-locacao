@@ -199,7 +199,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                   <div class="row mb-3">
                     <div class="col-md-1">
                       <label id="cep" for="cep">CEP</label>
-                        <input id="cep" name="cep"  class="form-control" type="text" value="<?= $linha['cep'] ?>" aria-label="<?= $linha['cep'] ?>">
+                        <input id="cep" name="cep"  class="form-control" type="text" size="10" maxlength="9" onblur="pesquisacep(this.value);" value="<?= $linha['cep'] ?>" aria-label="<?= $linha['cep'] ?>">
                     </div>
                     <div class="col-md-3">
                       <label id="endereco" for="endereco">Endereço</label>

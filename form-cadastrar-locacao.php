@@ -16,6 +16,8 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <link rel="stylesheet" href="./assets/css/cadastrar-locacao.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
+  <script src="./assets/js/buscaCep.js"></script>
+
 </head>
 
 <body class="page">
@@ -183,6 +185,9 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           class="form-control" 
                           type="text" 
                           placeholder="Digite o CEP do Endereço"
+                          size="10" 
+                          maxlength="9"
+                          onblur="pesquisacep(this.value);"
                           required
                         />
                       </div>
@@ -241,7 +246,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                       </div>
                       <div class="col-md-1">
                         <label id="estadoLocacao" class="d-inline">Estado</label>
-                        <select class="form-select" id="uf" name="uf" required>
+                        <select class="form-select" id="estado" name="estado" required>
                           <option value="">--</option>
                           <option value="AC">AC</option>
                           <option value="AL">AL</option>

@@ -16,6 +16,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
   <link rel="stylesheet" href="assets/css/btn-custom.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <script src="https://kit.fontawesome.com/f8c979c0bf.js" crossorigin="anonymous"></script>
+  <script src="./assets/js/buscaCep.js"></script>
 </head>
 <?php
 include_once "conexao.php";
@@ -218,6 +219,10 @@ function formatDate($date) {
 
                   <div class="row mb-3">
                     <div class="col-md-3">
+                      <label for="cep">CEP</label>
+                      <input type="text" id="cep" name="cep" class="form-control" size="10" maxlength="9" onblur="pesquisacep(this.value);" value="<?= $linha['cep'] ?>" >
+                    </div>
+                    <div class="col-md-3">
                       <label for="rua">Rua</label>
                       <input type="text" id="rua" name="rua" class="form-control" value="<?= $linha['rua']?>" >
                     </div>
@@ -229,13 +234,13 @@ function formatDate($date) {
                       <label for="complemento">Complemento</label>
                       <input type="text" id="complemento" name="complemento" class="form-control" value="<?= $linha['complemento']?>" >
                     </div>
-                    <div class="col-md-3">
-                      <label for="bairro">Bairro</label>
-                      <input type="text" id="bairro" name="bairro" class="form-control" value="<?=$linha['bairro'] ?>" >
-                    </div>
                   </div>
 
                   <div class="row mb-3">
+                    <div class="col-md-4">
+                      <label for="bairro">Bairro</label>
+                      <input type="text" id="bairro" name="bairro" class="form-control" value="<?=$linha['bairro'] ?>" >
+                    </div>
                     <div class="col-md-4">
                       <label for="cidade">Cidade</label>
                       <input type="text" id="cidade" name="cidade" class="form-control" value="<?= $linha['cidade'] ?>" >
@@ -243,10 +248,6 @@ function formatDate($date) {
                     <div class="col-md-4">
                       <label for="estado">Estado</label>
                       <input type="text" id="estado" name="estado" class="form-control" value="<?= $linha['estado'] ?>" >
-                    </div>
-                    <div class="col-md-4">
-                      <label for="cep">CEP</label>
-                      <input type="text" id="cep" name="cep" class="form-control" value="<?= $linha['cep'] ?>" >
                     </div>
                   </div>
                   <div class="row mb-3">
