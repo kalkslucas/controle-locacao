@@ -32,7 +32,7 @@ $insert->execute();
 
 $conectar->commit();
 
-header('Location: visualizar-despesas.php');
+header("Location: ver-locacao.php?idlocacao=$vincularLocacao");
 
 } catch (PDOException $e) {
   echo "Error: ". $e->getMessage();

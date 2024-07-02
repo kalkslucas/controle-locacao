@@ -109,7 +109,7 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                 $valor_mes = number_format($linha['valor_mes'], 2, ",", ".");
                 echo "  <tr class='text-center'>
                           <td>$linha[tipo_despesa]</td>
-                          <td>$linha[id_locacao]</td>
+                          <td>$idLocacao</td>
                           <td>$linha[titular]</td>
                           <td>$linha[parcela]</td>
                           <td>R$ $valor_mes</td>
@@ -207,9 +207,9 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           <td>$linha[parcela]</td>
                           <td>R$ $valor_mes</td>
                           <td>$linha[vencimento]</td>
-                          <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-primary p-2'><i class='fa-solid fa-eye fa-xl'></i></a></td>
-                          <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja p-2'><i class='fa-solid fa-pencil fa-xl'></i></a></td>
-                          <td><a href='./form-pagar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-success p-2'><i class='fa-solid fa-money-bill-transfer fa-xl'></i></a></td>
+                          <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]&idlocacao=$idLocacao' class='btn btn-primary p-2'><i class='fa-solid fa-eye fa-xl'></i></a></td>
+                          <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]&idlocacao=$idLocacao' class='btn btn-laranja p-2'><i class='fa-solid fa-pencil fa-xl'></i></a></td>
+                          <td><a href='./form-pagar-despesa.php?iddespesa=$linha[iddespesa]&idlocacao=$idLocacao' class='btn btn-success p-2'><i class='fa-solid fa-money-bill-transfer fa-xl'></i></a></td>
                         </tr>
                 ";
               }
@@ -236,9 +236,9 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                           <td>$linha[parcela]</td>
                           <td>R$ $valor_mes</td>
                           <td>$linha[vencimento]</td>
-                          <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-primary p-2'><i class='fa-solid fa-eye fa-xl'></i></a></td>
-                          <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-laranja p-2'><i class='fa-solid fa-pencil fa-xl'></i></a></td>
-                          <td><a href='./form-pagar-despesa.php?iddespesa=$linha[iddespesa]' class='btn btn-success p-2'><i class='fa-solid fa-money-bill-transfer fa-xl'></i></a></td>
+                          <td><a href='./ver-despesa.php?iddespesa=$linha[iddespesa]&idlocacao=$idLocacao' class='btn btn-primary p-2'><i class='fa-solid fa-eye fa-xl'></i></a></td>
+                          <td><a href='./form-editar-despesa.php?iddespesa=$linha[iddespesa]&idlocacao=$idLocacao' class='btn btn-laranja p-2'><i class='fa-solid fa-pencil fa-xl'></i></a></td>
+                          <td><a href='./form-pagar-despesa.php?iddespesa=$linha[iddespesa]&idlocacao=$idLocacao' class='btn btn-success p-2'><i class='fa-solid fa-money-bill-transfer fa-xl'></i></a></td>
                         </tr>
                 ";
               }

@@ -1,4 +1,5 @@
 <?php 
+$idLocacao = filter_var($_GET["idlocacao"], FILTER_SANITIZE_NUMBER_INT);
 require 'verificaUsuario.php';
 if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )): 
 ?>
@@ -118,7 +119,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
                   </div>
                   
                   <div class="col text-center">
-                    <a href="./visualizar-despesas.php" class="btn btn-danger">Voltar</a>
+                    <a href="./visualizar-despesas-locacao.php?idlocacao=<?=$idLocacao ?>"  class="btn btn-danger">Voltar</a>
                     <input class="btn btn-success" type="submit" value="Confirmar Pagamento">
                   </div>
                 </form>

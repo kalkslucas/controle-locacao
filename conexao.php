@@ -6,7 +6,7 @@ global $conectar;
 
 $dsn = 'mysql:host=localhost;dbname=controle_locacao;charset=utf8mb4';
 $username = "root";
-$password = "root";
+$password = "";
 $options = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4'];
 
 

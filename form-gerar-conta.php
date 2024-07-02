@@ -1,4 +1,5 @@
-<?php 
+<?php
+$idLocacao = filter_var($_GET["idlocacao"], FILTER_SANITIZE_NUMBER_INT);
 require 'verificaUsuario.php';
 if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )): 
 ?>
@@ -116,29 +117,66 @@ if(isset($_SESSION['idusuario']) && !empty( $_SESSION['idusuario'] )):
                       <div class="col-md-12">
                         <label id="vincularLocacao" class="d-inline">Vincular a Locação</label>
                         <select class="form-select" name="vincularLocacao" id="vincularLocacao" required>
-                          <option value="">---</option>
                           <?php
-                            include_once 'conexao.php';
-                            try {
-                              $query = "SELECT idlocacao, rua, numero, bairro, cidade, estado, cep, nome FROM locacao l INNER JOIN endereco e ON l.id_endereco = e.idendereco INNER JOIN gestor g ON l.id_gestor = g.idgestor order by idlocacao asc";
+                          include_once 'conexao.php';
+                          try {
+                            $queryLocacaoAtual = "SELECT lc.idlocacao, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.cep, g.nome as gestor 
+                                                  from alojado a 
+                                                  inner join locacao lc
+                                                  on a.id_locacao = lc.idlocacao
+                                                  inner join endereco e
+                                                  on lc.id_endereco = e.idendereco
+                                                  inner join gestor g
+                                                  on a.id_gestor = g.idgestor
+                                                  where lc.idlocacao = :idlocacao
+                                                  order by lc.idlocacao asc";
+                            $consultaLocacaoAtual = $conectar->prepare($queryLocacaoAtual);
+                            $consultaLocacaoAtual->bindParam(":idlocacao", $idLocacao, PDO::PARAM_INT);
+                            $consultaLocacaoAtual->execute();
+                            $linhaLocacaoAtual = $consultaLocacaoAtual->fetch(PDO::FETCH_ASSOC);
 
-                              $consulta = $conectar->query($query);
-                              while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                echo "<option value='$linha[idlocacao]'>$linha[idlocacao] | $linha[rua], $linha[numero], $linha[bairro], $linha[cidade] - $linha[estado] | $linha[nome]";
+                            echo "<option value=''>Nenhuma</option>";
+
+                            if($linhaLocacaoAtual){
+                              echo "<option value='$linhaLocacaoAtual[idlocacao]' selected>$linhaLocacaoAtual[idlocacao] | $linhaLocacaoAtual[rua], $linhaLocacaoAtual[numero], $linhaLocacaoAtual[bairro], $linhaLocacaoAtual[cidade] - $linhaLocacaoAtual[estado] | $linhaLocacaoAtual[gestor]";
+                              $idLocacaoAtual = $linhaLocacaoAtual["idlocacao"];
+                            } else {
+                              $idLocacaoAtual = null;
+                            } 
+                              $queryLista = "SELECT lc.idlocacao, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.cep, g.nome as gestor 
+                                                FROM locacao lc 
+                                                INNER JOIN endereco e ON lc.id_endereco = e.idendereco 
+                                                INNER JOIN gestor g ON lc.id_gestor = g.idgestor
+                                                ";
+                              if($idLocacaoAtual){
+                                $queryLista .= "WHERE lc.idlocacao != :idLocacaoAtual
+                                                ORDER BY lc.idlocacao asc";
+                              } else {
+                                $queryLista .= "ORDER BY lc.idlocacao asc";
                               }
-                            } catch (PDOException $e) {
-                              echo 'Error: ' . $e->getMessage();
-                              // Log the error
-                              error_log('Error: ' . $e->getMessage(), 0);
-                            }
-                          ?>
-                        </select>
+                              $consulta = $conectar->prepare($queryLista);
+
+                              if($idLocacaoAtual){
+                                $consulta->bindParam(":idLocacaoAtual",$idLocacaoAtual, PDO::PARAM_INT);
+                              }
+                              
+                              $consulta->execute();
+
+                              while($linhaLocacao = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                echo "<option value='$linhaLocacao[idlocacao]'>$linhaLocacao[idlocacao] | $linhaLocacao[rua], $linhaLocacao[numero], $linhaLocacao[bairro], $linhaLocacao[cidade] - $linhaLocacao[estado] | $linhaLocacao[gestor]";
+                              }                         
+                          } catch (PDOException $e) {
+                            echo 'Error: ' . $e->getMessage();
+                          }
+
+                          echo "</select>";
+                        ?>
                       </div>
                     </div>
                   </div>
 
                   <div class="col text-center">
-                    <a href="./visualizar-despesas.php" class="text-center btn btn-danger">Voltar</a>
+                    <a href="./ver-locacao.php?idlocacao=<?=$idLocacao?>" class="text-center btn btn-danger">Voltar</a>
                     <input class="btn btn-laranja" type="submit" value="Cadastrar Conta">
                   </div>
                   
